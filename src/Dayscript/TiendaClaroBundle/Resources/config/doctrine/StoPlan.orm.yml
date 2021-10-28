@@ -70,25 +70,5 @@ Dayscript\TiendaClaroBundle\Entity\StoPlan:
         customPlan:
             targetEntity: CustomPlanMovil
             mappedBy: plan
-        customPlanFijo:
-            targetEntity: CustomPlanFijo
-            mappedBy: plan
-    manyToOne:
-        idTipo:
-            targetEntity: TipoStoPlan
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_tipo:
-                    referencedColumnName: id
-            orphanRemoval: false
-    oneToMany:
-        planDetalles:
-            targetEntity: StoPlanDetalle
-            mappedBy: plan
-        planSolicitudes:
-            targetEntity: RegPortabilidad
-            mappedBy: stoPlan
 
     lifecycleCallbacks: {  }

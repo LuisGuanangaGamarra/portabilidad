@@ -79,15 +79,7 @@ class StoPlan
      */
     private $customPlan;
 
-    /**
-     * @var \Dayscript\TiendaClaroBundle\Entity\CustomPlanFijo
-     */
-    private $customPlanFijo;
-
-    /**
-     * @var ArrayCollection
-     */
-    private $planSolicitudes;
+    
 
     /**
      * StoPlan constructor.
@@ -95,8 +87,7 @@ class StoPlan
      */
     public function __construct()
     {
-        $this->planSolicitudes = new ArrayCollection();
-        $this->planDetalles = new ArrayCollection();
+       
     }
 
     /**
@@ -115,39 +106,9 @@ class StoPlan
         $this->customPlan = $customPlan;
     }
 
-    /**
-     * @return CustomPlanFijo
-     */
-    public function getCustomPlanFijo()
-    {
-        return $this->customPlanFijo;
-    }
+   
 
-    /**
-     * @param CustomPlanFijo $customPlanFijo
-     */
-    public function setCustomPlanFijo($customPlanFijo)
-    {
-        $this->customPlanFijo = $customPlanFijo;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPlanDetalles()
-    {
-        return $this->planDetalles;
-    }
-
-    /**
-     * @param ArrayCollection $planDetalles
-     */
-    public function setPlanDetalles($planDetalles)
-    {
-        $this->planDetalles = $planDetalles;
-    }
-
-    
+   
     /**
      * Get id
      *
@@ -388,76 +349,5 @@ class StoPlan
         return $this->deletedAt;
     }
 
-    /**
-     * Set idTipo
-     *
-     * @param \Dayscript\TiendaClaroBundle\Entity\TipoStoPlan $idTipo
-     * @return StoPlan
-     */
-    public function setIdTipo(\Dayscript\TiendaClaroBundle\Entity\TipoStoPlan $idTipo = null)
-    {
-        $this->idTipo = $idTipo;
-
-        return $this;
-    }
-
-    /**
-     * Get idTipo
-     *
-     * @return \Dayscript\TiendaClaroBundle\Entity\TipoStoPlan 
-     */
-    public function getIdTipo()
-    {
-        return $this->idTipo;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPlanSolicitudes()
-    {
-        return $this->planSolicitudes;
-    }
-
-    /**
-     * @param ArrayCollection $planSolicitudes
-     */
-    public function setPlanSolicitudes($planSolicitudes)
-    {
-        $this->planSolicitudes = $planSolicitudes;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getDetalllesDefault($transaccion)
-    {
-        return $this->getPlanDetalles()->filter(function ($detalle) use ($transaccion) {
-            return  $detalle->getIdTransaccion() == $transaccion or $detalle->getIdTransaccion() == null;
-        });
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getDetalllesDefaultByTransaccion($transaccion)
-    {
-        return $this->getPlanDetalles()->filter(function ($detalle) use ($transaccion) {
-            return  (($detalle->getIdTransaccion() == $transaccion or $detalle->getIdTransaccion() == null) and in_array($detalle->getIdTipo()->getId(),[12,13,15,16]) and $detalle->getDeletedAt() == null );
-        });
-    }
-    public function getDetailByTypeAndTransaccion($type ,$transaccion = null)
-    {
-        return $this->getPlanDetalles()->filter(function ($detalle) use ($transaccion,$type) {
-            return  $detalle->getIdTransaccion() == $transaccion and $detalle->getIdTipo()->getId() == $type and $detalle->getDeletedAt() == null ;
-        })->first();
-    }
-
-    public function getDetailsByTypeAndTransaccion($type ,$transaccion = null)
-    {
-        return $this->getPlanDetalles()->filter(function ($detalle) use ($transaccion,$type) {
-            return  $detalle->getIdTransaccion() == $transaccion and $detalle->getIdTipo()->getId() == $type and $detalle->getDeletedAt() == null;
-        });
-    }
 
 }
