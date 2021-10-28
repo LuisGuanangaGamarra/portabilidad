@@ -1,0 +1,104 @@
+Dayscript\TiendaClaroBundle\Entity\StoPlanDetalle:
+    type: entity
+    table: sto__pl_detalles
+    indexes:
+        IDX_EC0ECE8FFB0D0145:
+            columns:
+                - id_tipo
+        IDX_EC0ECE8F5EA4D540:
+            columns:
+                - id_detalle
+        IDX_EC0ECE8F567A477F:
+            columns:
+                - id_plan
+        IDX_EC0ECE8FA7EBA700:
+            columns:
+                - id_transaccion
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        cantidad:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            default: '0'
+        contenido:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        vigencia:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        idTransaccion:
+            type: integer
+            nullable: true
+            unsigned: false
+            column: id_transaccion
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    manyToOne:
+        idTipo:
+            targetEntity: TipoPlanDetalle
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_tipo:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idDetalle:
+            targetEntity: GenPlanDetalle
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_detalle:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idPlan:
+            targetEntity: StoPlan
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_plan:
+                    referencedColumnName: id
+            orphanRemoval: false
+        plan:
+            targetEntity: StoPlan
+            cascade: {  }
+            inversedBy: planDetalles
+            joinColumns:
+                id_plan:
+                    referencedColumnName: id
+            orphanRemoval: false
+        transaccion:
+            targetEntity: TipoTransaccion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_transaccion:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

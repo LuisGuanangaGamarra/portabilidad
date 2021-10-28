@@ -1,0 +1,449 @@
+{% extends 'DayscriptTiendaClaroBundle::layout_landingpage.html.twig' %}
+{% block body %}
+    <div id="alerta-notification" class="tnd-white tnd-text-center-xs tnd-bg-orange" style="padding: 5px">
+        <p style="margin:0">¡Con <img src="{{asset('images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;"> nunca te quedas sin servicio!</p>
+        <p style="margin:0">Recibirás tu chip previo al cambio.</p>
+    </div>
+
+    <div id="wrapper-equipo-index" class="container container-max main">
+        <div id="content-encabezado" class="col-xs-12" style="margin-bottom: 1em">
+            <div class="row">
+                <button class="btn back back-menu" data-backtohome>
+                    <i class="glyphicon glyphicon-menu-left"></i><span>Regresar</span>
+                </button>
+                <h2 class="title-menu-catalog">¡Llena tu solicitud y cámbiate a claro!</h2>
+            </div>
+        </div>
+        <div id="content-contenido" class="col-xs-12">
+            <form action="{{ path('TiendaClaro_portabilidad_redesign_typ') }}" tnd-validate-form id="create-portabilidad-form" name="create-portabilidad-form" class="form-new row no-margin" method="POST" autocomplete="off" enctype="multipart/form-data">
+                <div id="form-step-1" class="row no-margin">
+                    <div class="col-xs-12 col-md-6 container tnd-pt-20-md">
+                        <div class="font-bold tnd-red">
+                            1. Línea actual
+                        </div>
+                        <div class="flex-xs flex-wrap-xs flex-cont-1-xs flex-center data-person">
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Número telefónico</label>
+                                    <div class="tnd-content-input">
+                                        <input data-only-numbers data-cellphone-validation name="celular" type="text" required=""
+                                               class="tnd-input-text theme-2" maxlength="10" placeholder="Celular">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label for="text">Operadora actual</label>
+                        <div class="flex-xs flex-wrap-xs flex-cont-2-xs flex-cont-3-sm radiocontainer tnd-text-center-xs">
+                            {% for operadora in operadoras %}
+                                <div class="element-radio">
+                                    <input type="radio" value="{{ operadora.codigo|base64_encode }}" name="operadora-actual" id="{{ operadora.codigo|base64_encode }}">
+                                    <label for="{{ operadora.codigo|base64_encode }}">
+                                        <div class="customCheck">
+                                            {{ operadora.NombreComercial }}
+                                        </div>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <label for="text">Tipo de servicio</label>
+                        <div class="flex-xs flex-wrap-xs flex-cont-2-xs radiocontainer tnd-text-center-xs">
+                            <div class="element-radio">
+                                <input type="radio" value="prepago" name="tipo-servicio" id="prepago">
+                                <label for="prepago">
+                                    <div class="customCheck">
+                                        Prepago
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="element-radio">
+                                <input type="radio" value="postpago" name="tipo-servicio" id="postpago">
+                                <label for="postpago">
+                                    <div class="customCheck">
+                                        Postpago
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6" style="text-align: center; padding: 1.5em">
+                        {#<div>
+                            <img class="banner-new" src="{{ asset('/uploads/imgs/banners/banner_202003_portabilidad_6s_1440x500.png') }}?v=1.1" alt="">
+                        </div>#}
+                        <video  style="width: 100%;" controls poster="{{ asset('/uploads/imgs/banners/banner_2020__portabilidad_seccion_sm.jpg') }}">
+                            <source src="{{ asset('/videotutoriales/portabilidad-firma_digital.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                    <div class="col-xs-12 col-md-6 container">
+                        <div class="font-bold tnd-red">
+                            2. Datos personales
+                        </div>
+                        <div class="flex-xs flex-wrap-xs flex-cont-1-xs flex-cont-2-lg flex-center">
+                            <div class="tnd-mt-20-md">
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Nombre</label>
+                                    <div class="tnd-content-input">
+                                        <input id="nombre-input" data-only-letters="" name="nombre" type="text" required=""
+                                               class="tnd-input-text theme-2" placeholder="Ingresa tu nombre">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tnd-mt-20-md">
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Apellidos</label>
+                                    <div class="tnd-content-input">
+                                        <input data-only-letters="" name="apellido" type="text" required=""
+                                               class="tnd-input-text theme-2" placeholder="Ingresa tus apellidos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tnd-mt-20-md">
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">*Cédula</label>
+                                    <div class="tnd-content-input">
+                                        <input required="" data-only-numbers="" data-custom-validate=""
+                                               data-identification-number="" name="numdoc" type="text" maxlength="10"
+                                               class="tnd-input-text theme-2" placeholder="Ej. 0991122334">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tnd-mt-20-md">
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">*Correo electrónico</label>
+                                    <div class="tnd-content-input">
+                                        <input name="email" type="email" required="" class="tnd-input-text theme-2"
+                                               placeholder="Ej. usuario@gmail.com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <input name="providerCb" type="hidden" value="{{ provide }}">
+
+
+                <div class="col-xs-12 col-md-6 container">
+
+                        <div class="sign-section tnd-mt-20-xs tnd-mt-0-md">
+                            <div class="font-bold tnd-red">
+                                3. Completar la documentación
+                                <br class="tnd-hidden-md">
+                                <span class="tnd-turquoise">
+                                    (Recuerda que debes subir una foto (PNG,JPG o GIF), de  hasta 3MB)
+                                </span>
+                            </div>
+                            <label for="text" class="tnd-pt-20-xs">Cargar foto de cédula frontal</label>
+                            <div class="customInputFileContainer tnd-pt-10-xs">
+                                <div class="element-input-file">
+                                    <input id="foto-anverso" type="file" name="foto-anverso" accept="image/*">
+                                    <label for="foto-anverso">Seleccionar desde galería</label>
+                                    <div class="tnd-text-center-xs">No has seleccionado ningún archivo</div>
+                                </div>
+                            </div>
+                            <label for="text" class="tnd-pt-20-xs">Cargar foto de cédula reverso</label>
+                            <div class="customInputFileContainer tnd-pt-10-xs">
+                                <div class="element-input-file">
+                                    <input id="foto-reverso" type="file" name="foto-reverso" accept="image/*">
+                                    <label for="foto-reverso">Seleccionar desde galería</label>
+                                    <div class="tnd-text-center-xs">No has seleccionado ningún archivo</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="font-bold tnd-red tnd-mt-20-xs">
+                            4. Firma como en tu cédula para validar tu solicitud de portabilidad
+                        </div>
+                        <div class="tnd-pt-10-xs">
+                            Desliza tu dedo para crear la forma de tu firma, después confirma que esté correcta
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+
+                        <div class="tnd-width-md-8 tnd-mx-auto-xs">
+
+                            <div>
+                                <div id="signature-pad-redesign" class="tnd-p-10-xs tnd-pos-rel tnd-mt-20-xs">
+                                    <div class="sign-here">
+                                        <div class="lines"></div>
+                                        <label>Tu firma aquí</label>
+                                    </div>
+                                    <div class="buttons-pad">
+                                        <a href="#?" class=" trash" title="Eliminar firma" data-action="signature-clear"><i class="glyphicon glyphicon-trash"></i></a>
+                                        <a href="#?" class=" save" title="Grabar firma" data-action="signature-save"><i class="glyphicon glyphicon-ok"></i></a>
+                                    </div>
+                                    <input name="portabilidad-firma" type="hidden">
+                                    <canvas class="tnd-width-xs-10 tnd-br-25-xs"></canvas>
+                                    <img id="signature-result" class="img-responsive" src="" alt="">
+                                </div>
+                            </div>
+
+                            <div class="continue-section">
+
+                                <div class="">
+
+                                    <div class="tnd-m-10-xs tnd-ml-0-xs tnd-mb-30-xs">
+                                        <label class="tnd-black checkcontainer tnd-content-input no-success-elements no-error-icon">He leído y
+                                            estoy de acuerdo con los Términos y Condiciones del servicio
+                                            <input class="no-success-elements" required="" type="checkbox" name="terminosycondiciones"
+                                                   id="terminosycondiciones" value="" unchecked="">
+                                            <span class="customCheck"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="tnd-m-10-xs tnd-ml-0-xs tnd-mb-30-xs">
+                                        <label class="checkcontainer tnd-black tnd-content-input no-success-elements no-error-icon">
+                                            Acepto que mi número telefónico sea usado utilizado para términos comerciales
+                                            <input type="checkbox" required="" name="suscripcion" id="suscripcion">
+                                            <span class="customCheck"></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="tnd-m-20-xs">
+                                    <button id="change-now" type="button" class="tnd-btn red tnd-br-50-xs tnd-mx-auto-xs">
+                                        ¡Continuar!
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+            </form>
+            {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-end.html.twig' with { is_landing: true } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <style>
+        #content-general{
+            margin-top: 0;
+        }
+
+        a.select-servicio {
+            color: #9F9F9F;
+            font-size: 1.2em;
+            border-radius: 6px;
+        }
+        a.select-servicio .img-responsive {
+            border-radius: 6px;
+            border: solid 1px #eee;
+        }
+        a.select-servicio p {
+            padding-left: 5px;
+        }
+        a.select-servicio.selected, a.select-servicio:hover {
+            color: #0095a0;
+        }
+        a.select-servicio.selected img, a.select-servicio .img-responsive:hover {
+            border: solid 1px #0095a0;
+        }
+
+        label.checkcontainer span:not(.customCheck) {
+            color: #ADADAD;
+        }
+        label.checkcontainer input:checked ~ span:not(.customCheck), a.show-all-planes, a.show-min-planes {
+            color: #0095a0;
+        }
+        label.checkcontainer .customCheck {
+            border-radius: 3px;
+        }
+        @media (min-width: 767px) {
+            ul#content-steps {
+                padding: 0 20%;
+            }
+            .nav-catalog > li {
+                width: 15%;
+            }
+        }
+
+        #form-step-5 p {
+            margin: 0 !important;
+        }
+        #form-step-5 a:not(.btn) {
+            color: #0098B0 !important;
+        }
+        #form-step-5 a i.glyphicon {
+            margin-right: 1em
+        }
+        #form-step-5 .checkcontainer,#form-step-5 .checkcontainer a {
+            font-size: 1em !important;
+        }
+        #form-step-5 .super-panel {
+            border-radius: 6px;
+            background-color: white;
+            box-shadow: 6px 12px 12px 0 #dedede;
+            padding: 1.5em;
+            margin: 1em 0 0 0 !important;
+        }
+        #form-step-5 .btn {
+            float: right;
+            margin: 0;
+        }
+        #form-step-5 .btn.btn-continue {
+            margin-left: 0.5em !important;
+        }
+        #form-step-5 .btn.btn-flat {
+            margin-right: 0.5em !important;
+            color:#212121;
+            padding: 0.5em 1.5em;
+        }
+        @media (max-width: 767px) {
+            .nav-tabs li a {
+                font-size: 0.95em;
+            }
+            p.no-margin {
+                margin: 0 !important;
+            }
+            #form-step-5 .btn {
+                width: 46% !important;
+            }
+            #form-step-5 .btn.btn-continue {
+                margin-left: 4% !important;
+            }
+            #form-step-5 .btn.btn-flat {
+                margin-right: 4% !important;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 800px) {
+            .catalog-planes .header-item-catalog:not(.con-etiquetas) {
+                height: 123px;
+            }
+        }
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            .content-catalog > div {
+                flex-basis: 31%;
+                margin: 1%;
+            }
+        }
+        @media (min-width: 1400px) {
+            .content-catalog > div {
+                flex-basis: 23%;
+                margin: 1%;
+            }
+            .catalog-planes .header-item-catalog:not(.con-etiquetas) {
+                height: 123px;
+            }
+            .col-xl-3 {
+                width: 25% !important;
+            }
+        }
+
+        .customCheck{
+            position: relative;
+            height: unset;
+            width: unset;
+        }
+
+        #signature-pad-redesign .buttons-pad {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+        }
+
+        #signature-pad-redesign canvas {
+            height: 20em;
+            background-color: #fff;
+        }
+
+        #signature-pad-redesign .buttons-pad a {
+            padding: 10px;
+            border-radius: 50px;
+            opacity: .7;
+        }
+
+        #signature-pad-redesign .buttons-pad a.trash {
+            border: 1px solid #888;
+            color: #888;
+            margin-right: 10px;
+        }
+
+        #signature-pad-redesign .buttons-pad a.save {
+            color: #fff;
+            margin-left: 10px;
+            background-color: #EF3829;
+        }
+
+        #signature-pad-redesign .sign-here {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+        }
+
+        #signature-pad-redesign .sign-here .lines {
+            border: 1px dashed;
+            width: 50%;
+            margin: auto;
+            margin-bottom: 12px;
+            color: #888;
+        }
+
+        [tnd-validate-form] label {
+            font-weight: 500;
+        }
+
+        #signature-pad-redesign .buttons-pad a.save.active{
+            color: #44AF69;
+            border: 1px solid;
+            background-color: #fff;
+        }
+
+        #signature-pad-redesign.active .sign-here{
+            display: none;
+        }
+
+        #signature-pad-redesign.active .buttons-pad a {
+            opacity: 1;
+        }
+
+        a.btn-flat:not(.disabled):hover, a.btn-flat.active{
+            color: inherit !important;
+        }
+
+    </style>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/signature_pad.min.js') }}"></script>
+    <script src="{{ asset('library/fancybox/jquery.fancybox.min.js') }}"></script>
+    {% include 'DayscriptTiendaClaroBundle:Portabilidad/Landing:script-createLandingV2.html.twig' %}
+{% endblock %}
+
+{% block metadata %}
+    <!-- Metadata -->
+    <meta name="author" content="Claro Ecuador">
+    <meta name="copyright" content="Claro Ecuador">
+    <meta name="title" content="{{ metadata['landing']['title'] }}">
+    <meta name="abstract" content="{{ metadata['landing']['abstract'] }}">
+    <meta name="description" content="{{ metadata['landing']['description'] }}">
+    <meta name="keywords" content="{{ metadata['landing']['keywords'] }}">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@claroecua">
+    <meta name="twitter:creator" content="@claroecua">
+    <meta name="description" content="{{ metadata['landing']['abstract'] }}">
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ metadata['landing']['ogUrl'] }}">
+    <meta property="og:title" content="{{ metadata['landing']['ogTitle'] }}">
+    <meta property="og:site_name" content="{{ metadata['landing']['ogSiteName'] }}">
+    <meta property="og:description" content="{{ metadata['landing']['ogDescription'] }}">
+    <meta property="og:image" content="{{ asset('/uploads/imgs/banners/banner_2020__portabilidad_seccion_sm.jpg') }}">
+{% endblock %}
+
+{% block title %}
+    Cámbiate a Claro con tu mismo número
+{% endblock %}

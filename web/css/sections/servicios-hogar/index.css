@@ -1,0 +1,517 @@
+/*AGOSTO */
+.tnd-pt-25-xs{
+    padding-top: 25px;
+}
+.tnd-px-14-xs {
+    padding: 14px 0;
+}
+section.catalogoHome {
+    padding: 10px 0 40px 0;
+}
+.tnd-catalog{
+    padding-top: 36px;
+}
+.line-height-2{
+    line-height: 2;
+}
+.text-align-center{
+    text-align: center
+}
+.height-245px{
+    height: 245px;
+}
+.height-160px {
+    height: 165px;
+}
+.text-align-icon{
+    text-align: right;
+}
+.tnd-pyr-10-xs {
+    padding-right: 10px;
+}
+.iconUPShow{
+    position: absolute;
+    bottom: 0;
+    top: -19px;
+    right: 0px;
+    left: 128px;
+}
+.iconDownShow{
+    position: absolute;
+    bottom: 0;
+    /*top: -28px;*/
+    right: 0px;
+    left: 130px;
+}
+#hogar-catalogo .accordeon-element-header:after{
+    content: none!important;
+    font-family: "FontAwesome";
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+}
+.catalogoFilterWrapper .accordeon-element-header:after{
+    color: #ffffff;
+    left: 241px;
+    top: 25px;
+    font-size: 25px;
+}
+.show_more_planes{
+    color: #FA8005;
+    font-size: 20px;
+}
+.tnd-fw400{
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.img-tipo{
+    position: relative;
+    bottom: calc(170px - 140px);
+    z-index: 1;
+}
+.div-iconTipo{
+    position: absolute;
+    /*z-index: 1007;*/
+    z-index: 0;
+    right: 655px;
+    top: 84%;
+    width: 9%
+}
+.div-caracteristica{
+    position: relative;
+    /*z-index: 998;*/
+    z-index: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    bottom: 60px;
+    /*height: 150px;*/
+    height: 95px;
+    box-shadow: 2px 3px 8px 4px rgb(0 0 0/8%);
+}
+.bg-gray{
+    background: #f4f5fb;
+}
+.div-exclusivo{
+    background: linear-gradient(180deg, #EF3829 0%, #BD0707 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 15px;
+    height: 170px;
+}
+.exclusivo{
+    background: #BD0707;
+    color: #ffffff;
+    width: 65%;
+    padding: 4px;
+    border-radius: 15px;
+    text-align: center;
+}
+.text-exclusivo{
+    font-size: 11px;
+    margin: 10%;
+    font-weight: 500;
+}
+.namePlan-naranja{
+    font-size: 26px;
+    font-weight: 500;
+    color: #FCAB10;
+    font-family: 'Roboto';
+    text-shadow: 2px 2px 2px #0000005c;
+}
+.namePlan{
+    /*padding: 0 20px;*/
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 1;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 8% 0;
+}
+.filter-servicio{
+    cursor: pointer;
+}
+.tipo-servicio{
+    padding: 15px;
+    margin: 2%;
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+.tipo-servicio:hover {
+    background-color: #2980b94d;
+    padding: 15px;
+    margin: 2%;
+    border-radius: 10px;
+}
+.seleccionado {
+    padding: 15px;
+    margin: 2%;
+    border-radius: 10px;
+    background-color: #0B6676;
+    color: white;
+}
+.seleccionado:hover{
+    background-color: #0B6676;
+    color: white;
+}
+[role="main"] {
+    background: #F4F5FB;
+}
+.btn-hogar  {
+    max-width: 100%!important;
+    margin-bottom: 10%!important;
+    padding: 20px!important;
+    border-radius: 10px!important;
+}
+.text-incluye{
+    font-size: 12px;
+    font-weight: 600;
+    color: #808080cc;
+    text-align: left;
+}
+.tnd-px-15-xs {
+    padding: 15px 0;
+}
+/* */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+/* */
+
+.tnd-py-40-xs{
+    padding: 0px 38px;
+}
+.textVigencia{
+    font-size: 10px;text-align: left;padding-left: 50px;
+}
+.textPrecioFinal{
+    font-size: 12px;
+    line-height: 1;
+    color: #808080cc;
+    width: 34%;
+    margin-left: 14%;
+    /*            padding-right: 45px;
+                padding-bottom: 20px;*/
+}
+.text-tarifa{
+    font-size: 18px;
+    margin-top: 8px;
+    font-weight: 600;
+    text-align: left;
+}
+
+/*        .slick-track{
+            transform: translate3d(-605px, 0px, 0px)!important;
+        }
+        .slick-list {
+            padding: 0!important;
+        }
+        .slick-slide {
+            width: 280px!important;
+        }*/
+.catalogoOptions {
+    margin-bottom: 0px!important;
+}
+/*    section.headerSection {
+        padding: 50px 0 20px 0;
+    }*/
+.catalogoOptions .tnd-tabs li a {
+    font-size: 15px;
+}
+.text-mes-imp{
+    /*width: 33%;*/
+    font-size: 0.8rem;
+    line-height: 1;
+    color: #808080cc;
+}
+.pdPlan25{
+    padding: 0px 10px 0px 10px;
+    width: 100%;
+}
+.contenGB {
+    text-align: left;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    color: #222222;
+}
+.cantGB {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: rgba(34, 34, 34, 0.8);
+    text-align: center;
+}
+.nombrePlan{
+    text-align: left;
+    margin-left: 23%;
+    font-size: 22px;
+    line-height: 20px;
+}
+.tnd-br-5-xs {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.tnd-br-t-10-xs{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px;
+}
+.tnd-br-b-10-xs{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+}
+.textBeneficio{
+    color: #ffff;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+}
+.btn-datos{
+    background: #eee;
+    border-radius: 0px 16px 16px 0px;
+    padding: 8px 15px 8px 15px;
+}
+.plan-portabilidad-wrapper{
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #EEEEEE;
+    border-radius: 10px;
+}
+.plan-portabilidad-wrapper:hover {
+    -webkit-box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.15);
+}
+.nueva-linea{
+    position: absolute;
+    margin-top: 2.5%;
+    right: 5%;
+}
+.padding-on-0-active{
+    padding-top: 0px;
+    transition: 1.5s;
+}
+.slick-slide{
+    margin: 10px;
+    outline: unset;
+}
+
+.tnd-visible-sm{
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .margin-left-50px{
+        margin-left: 50px;
+    }
+    .tipo-servicio{
+        margin: 0%;
+    }
+    .textPrecioFinal {
+        font-size: 14px;
+        width: 50%;
+        margin-left: 12%;
+    }
+    .tnd-fw400 {
+        font-weight: 400;
+        font-size: 32px;
+    }
+    .txtDescripB{
+        font-size: 15px;
+    }
+    .tnd-font-featured.textTitulo {
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .tnd-mt-20-xs {
+         margin-top: 15px;
+    }
+    .text-incluye {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .text-exclusivo {
+        font-size: 14px;
+        margin: 5%;
+    }
+    .exclusivo {
+        width: 65%;
+        padding: 8px;
+        margin-top: 3%;
+    }
+    .div-exclusivo {
+        height: 185px;
+    }
+    .tnd-catalog {
+        padding-top: 0px;
+    }
+    .catalogoFilterWrapper {
+        margin-bottom: 0px;
+    }
+    .tnd-p-0-xs {
+        padding: 0!important;
+    }
+    .text-align-icon{
+        text-align: right;
+    }
+    .div-caracteristica {
+        position: relative;
+        bottom: 72px;
+        height: 88px;
+    }
+    .img-tipo {
+        position: relative;
+        bottom: calc(170px - 128px);
+        z-index: 1;
+    }
+    .div-caracteristica-box-s{
+        box-shadow: 0px 3px 0px 1px rgb(249 151 51)!important;
+    }
+    .border-up {
+        border-bottom: 2.5px solid #f78b1d;
+        border-radius: 21px 55px 151px 150px;
+        padding: 15px;
+    }
+    .tnd-pr-40-xs{
+        padding-right: 40px;
+    }
+    .tnd-font-jumbo{
+        font-size: 4rem;
+    }
+    .ofertaPlan {
+        position: absolute;
+        margin: 1.2% 0% 0% -0.7%;
+    }
+    div.portabilidad-planes {
+        text-align: center;
+        padding: 0px 20px 0px 20px;
+    }
+    .tipo-plan-portabilidad {
+        font-size: 12px;
+    }
+}
+@media (min-width: 768px) {
+    .height-125{
+        /*height: 125px;*/
+        /*height: auto;*/
+        height: 150px;
+        padding-top: 2px;
+    }
+    .height-220{
+        /*height: 125px;*/
+        /*height: auto;*/
+        height: 220px;
+        padding-top: 2px;
+    }
+    .tnd-pr-0-md{
+        padding-right: 0px!important;
+    }
+    .tnd-font-jumbo{
+        font-size: 4rem;
+    }
+    .ofertaPlan {
+        position: absolute;
+        margin: 1.2% 0% 0% -0.7%;
+    }
+
+    .tnd-hidden-sm {
+        display: none !important;
+    }
+
+    .tnd-visible-sm {
+        display: block !important;
+    }
+}
+@media (min-width: 992px){
+    .tnd-font-jumbo{
+        font-size: 5rem;
+    }
+    .ofertaPlan {
+        position: absolute;
+        margin: 3% 0% 0% -1.5%;
+    }
+    .padding-on-0-active{
+        padding-top: 0;
+    }
+}
+@media (max-width: 992px){
+    .txt-back-port{
+        font-size: 18px;
+    }
+}
+
+.contenido-planes{
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+}
+
+.contenido-planes.active{
+    position: relative;
+    visibility: visible;
+    opacity: 1;
+}
+

@@ -1,0 +1,122 @@
+<div class="tnd-ml-20-xs tnd-mt-40-xs">
+    <div>
+        <div class="font-strong">
+            <div class="">
+                {% for detail in plan.getDetailsByTypeAndTransaccion(22,2) %}
+                    <img style="margin-left: -5%;" class="tnd-img-resp tnd-py-20-md tnd-py-20-xs{% if loop.first %}tnd-visible-sm{% else %}tnd-hidden-sm{% endif %}" src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="font-strong ">
+            <div style="margin: 0% 0% 6% 4%;">
+                <img class="tnd-mr-5-xs" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.beneficios) }}" alt="icon" style="width: 99%;">
+            </div>
+        </div>
+        <div style="" class="incluyeTyp col-xs-12 tnd-mb-10-xs">
+            <p class="contenGB col-xs-7"><strong>Total de gigas:</strong></p>
+            <div class="contenGB col-xs-7"><span>Incluidos</span></div>
+            <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.Incluidos }}</strong></div>
+            <div class="contenGB col-xs-7">{% if plan.cuotaSinImp < 50 %}<span>Adicional por 12 meses</span>{% else %}<span>Adicional por 18 meses</span>{% endif %}</div>
+            <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.Adicional }}</strong></div>
+            <div class="contenGB col-xs-7"><span>Para redes sociales</span></div>
+            <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.RRSS }}</strong></div>
+            <div class="contenGB col-xs-7"><span>Portabilidad Digital</span></div>
+            <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.Promo }}</strong></div>
+        </div>
+        <div style="font-style: italic;" class="tnd-mb-10-xs">
+            *Beneficios por 6 meses
+        </div>
+    </div>
+</div>
+<div>
+    <div class="tnd-pt-20-xs {% if accordeonInclude is defined and accordeonInclude %} container-accordeon-element {% endif %}">
+        <div class="font-bold flex-md {% if accordeonInclude is defined and accordeonInclude %} accordeon-element-header side-arrow {% else %} between-lines-md {% endif %}">
+            <i>Beneficios por 6 meses</i>
+        </div>
+        <div class="tnd-bg-white imgBeneficio tnd-pt-10-md tnd-pb-20-small">
+            <img class="tnd-img-resp" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.idImgDetalle) }}" alt="">
+        </div>
+    </div>
+</div>
+{% if accordeonInclude is not defined %}
+ {#   {% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 15 or (plan.cuotaSinImp) == 25%}#}
+        <div class="cont-img" style="">
+            <div class="tnd-mt-0-md tnd-mt-20-xs font-bold flex-md {% if accordeonInclude is defined and accordeonInclude %} accordeon-element-header side-arrow {% else %} between-lines-md {% endif %}">
+                <i>Beneficios normales</i>
+            </div>
+            <div class="tnd-bg-white tnd-pt-10-xs tnd-pb-20-small">
+                {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+                    <img class=" tnd-py-20-md beneficioNormal tnd-va-bottom{# {% if loop.first %} tnd-visible-small{% else %}tnd-hidden-small{% endif %}#}"
+                         src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+                {% endfor %}
+            </div>
+        </div>
+{#    {% endif %}#}
+{% endif %}
+{% block stylesheets -%}
+    <style>
+        @media (max-width: 767px) {
+            .imgBeneficio {
+                margin-top: 15px;
+            }
+            .beneficioNormal{
+                height: auto;
+                /* margin-right: 1%; */
+                /* margin-left: -6%;*/
+            }
+            .incluyeTyp{
+                background: white; padding-left: 15px;
+            }
+        }
+        @media (min-width: 992px){
+            .imgBeneficio {
+                margin-top: 10px; margin-right: 1%; border-radius: 10px;
+            }
+            .beneficioNormal{
+                width: 75%;
+                height: auto;
+                /* border: 2px solid #e2e2e2;
+                margin-right: 1%; */
+                /* margin-left: -6%;*/
+            }
+            .incluyeTyp{
+                background: white; padding-left: 30px; padding-top: 20px;
+            }
+        }
+        .contenGB{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 18px;
+            color: #222222;
+        }
+        .cantGB{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            text-transform: uppercase;
+            color: rgba(34, 34, 34, 0.8);
+        }
+        .nombrePlan{
+            text-align: left;
+            font-size: 22px;
+            line-height: 20px;
+        }
+        .between-lines-md:after, .between-lines-md:before {
+            content: "";
+            height: 2px!important;
+            width: 30%;
+            /*background-color: #222222!important;*/
+            margin: auto;
+        }
+        .promo-plan{
+            /*background: #F5F5F5;*/
+            height: auto;
+            width: 85%;
+        }
+</style>
+{% endblock %}

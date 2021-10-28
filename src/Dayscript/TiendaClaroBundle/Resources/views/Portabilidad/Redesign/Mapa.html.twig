@@ -1,0 +1,177 @@
+{% extends 'DayscriptTiendaClaroBundle::layoutNew.html.twig' %}
+{% block title %}
+    Cámbiate a Claro | Tienda Virtual
+{% endblock %}
+
+{% block titulo %}
+{% endblock %}
+{#{% block alerta %}
+    <div id="alerta-notification" class="tnd-white tnd-text-center-xs tnd-bg-orange" style="padding: 5px">
+        <p style="margin:0; display: none" class="sorteoS20">¡Participa en el sorteo de un SAMSUNG S20+ !</p>
+        <p class="normal" style="margin:0">¡Con <img src="{{asset('images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;"> estás seguro!</p>
+        <p class="normal" style="margin:0">Puedes cambiarte aquí, de forma digital, con un solo clic, sin salir de tu casa.</p>
+    </div>
+{% endblock %}#}
+{#{% block alerta %}
+    <div id="alerta-notification" class="tnd-white tnd-text-center-xs tnd-bg-orange" style="padding: 5px">
+        <p style="margin:0">¡Con <img src="{{asset('images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;"> estás seguro!</p>
+        <p style="margin:0">Cámbiate a Claro desde la comodidad de tu hogar en un solo clic.</p>
+    </div>
+{% endblock %}#}
+
+
+{% block metadata %}
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@claroecua">
+    <meta name="twitter:creator" content="@claroecua">
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://catalogo.claro.com.ec/portabilidad/cambiate-a-claro">
+    <meta property="og:title" content="Tienda | Cámbiate a Claro con tu mismo número y recibe hasta 24 GB gratis">
+    <meta property="og:site_name" content="Tienda | Cámbiate a Claro con tu mismo número y recibe hasta 24 GB gratis">
+    <meta property="og:description" content="Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.">
+    <meta property="og:image" content="https://catalogo.claro.com.ec/uploads/imgs/banners/banner_gigared_1440x540.jpg">
+{% endblock %}
+
+{% block socialtags %}
+    <!-- Metadata -->
+    <meta name="author" content="Claro Ecuador">
+    <meta name="copyright" content="Claro Ecuador">
+    <meta name="title" content="Tienda | Cámbiate a Claro con tu mismo número y recibe 12 GB gratis">
+    <meta name="abstract" content="Cámbiate a Claro con tu mismo número y recibe 12 GB gratis">
+    <meta name="description"
+          content="Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.">
+    <meta name="keywords"
+          content="cámbiate a claro, portabilidad, beneficios, cámbiate con mismo número, mismo número, gratis, conserva tu número, elige plan portabilidad, portabilidad postpago, escoge tu plan, telefonía prepago, pide tu chip">
+{% endblock %}
+
+{% block body %}
+
+
+
+<div class= "container" style="/*background: #f5f5f5;  padding: 15px; margin-top: 5%;*/">
+{#        {% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:FormSIM.html.twig" %}
+        {{ block('FormSimMapa') }}#}
+    <h1 class="tnd-pb-20-xs center-middle tnd-h1">Datos para la entrega del Claro CHIP</h1>
+
+    <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs"><label for="text">Mapa con ubicación exacta</label></div>
+    <div id="mapa"  class="tnd-width-xs-10"></div>
+    <h3>Dirección para la recepción del chip:</h3>
+    <div class="tnd-pb-10-xs">
+        <p><strong>Provincia: </strong> <span>{{ provincia }}</span></p>
+        <p><strong>Ciudad: </strong> <span>{{ ciudad }}</span></p>
+        <p><strong>Dirección exacta: </strong> <span>{{ direccion }}</span></p>
+        <p><strong>Referencia GPS (latitud, longitud): </strong> <span>{{ coordenadas }}</span></p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets -%}
+
+    {{ parent() }}
+    <link href="{{ asset('library/leaflet/leaflet.css') }}?v={{ tienda_version }}" rel="stylesheet" type="text/css">
+  {#  {{ block('FormSimCSS') }}#}
+    <style>
+/*        #mimapa{
+            display: none;
+        }*/
+        .newMapa {
+            padding: 80px;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+.mapa iframe{width:100%;}
+#mapa {height: 300px;}
+#geomap{
+    width: 100%;
+    height: 400px;
+}
+
+.leaflet-container.leaflet-fade-anim{
+    z-index: 2!important;
+}
+.leaflet-pane .leaflet-map-pane{
+    z-index: 2;
+}
+.leaflet-control{
+    z-index: 2;
+}
+.leaflet-top .leaflet-left{
+    z-index: 2;
+}
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('library/leaflet/leaflet.js') }}"></script>
+    <script src="{{ asset('library/leaflet/html2canvas.min.js') }}"></script>
+    <script src="{{ asset('library/leaflet/canvas2image.js') }}"></script>
+
+    {#
+    {{ block('FormSimJs') }}#}
+    <script>
+
+       // console.log(coordenadas)
+        var initMapa = function(){
+            //console.log({{ coordenadas }});
+
+            var position = [{{ coordenadas }}];
+            /*            var coordenadas = [position['lat']+','+position['lng']];
+            var position = coordenadas;*/
+
+            var mymap = L.map('mapa', {
+                zoomDelta: 0.25,
+                zoomSnap: 0,
+                doubleClickZoom: false,
+                center: [ position[0], position[1] ]
+
+            }).setView([ position[0], position[1] ], 15);
+
+            mymap.locate({setView: true, maxZoom:12});
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 25,
+                attribution: 'Datos del mapa de &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, ' + '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imágenes © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v11'
+            }).addTo(mymap);
+
+            var markerIcon = L.icon({
+                iconUrl: 'https://catalogo.claro.com.ec/images/portabilidad/map-marker-icon.png',
+                //shadowUrl: 'https://catalogo.claro.com.ec/images/portabilidad/map-marker-icon.png',
+
+                iconSize:     [50, 35], // size of the icon
+                //shadowSize:   [50, 64], // size of the shadow
+                // iconAnchor:   [-259, 125], // point of the icon which will correspond to marker's location
+                // shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+            var marker = L.marker([position[0], position[1]], {
+                icon: markerIcon,
+                draggable: false,
+                //autoPan: true,
+                autoPanSpeed: 1
+            }).addTo(mymap);
+
+            /*        var coordenadas;
+                    marker.on("drag", function(e) {
+                        position = marker.getLatLng();
+                        //mymap.panTo(new L.LatLng(position.lat, position.lng));
+                        //console.log(position);
+                        coordenadas = position['lat']+','+position['lng'];
+                       // console.log(coordenadas);
+                        $('input[name="lat-long"]').val(coordenadas);
+                    });*/
+
+        };
+
+
+        window.onload = function() {
+            initMapa();
+        };
+    </script>
+{% endblock %}

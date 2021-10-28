@@ -1,0 +1,56 @@
+<div id="form-step-2" class="row no-margin" style="display: none">
+    <!--div id="escoger-tipo-destino" class="row no-margin" style="/*display: none*/">
+        <div class="col-xs-12">
+            <h5>Escoge un servicio</h5>
+            <p>Elige el servicio más acorde para ti.</p>
+            <div class="col-xs-12 col-md-4">
+                <div class="col-xs-6" style="padding-right: 1em">
+                    <a class="select-servicio selected" href="#?" data-target="postpago">
+                        <img class="img-responsive col-xs-12" src="{{ asset('/images/portabilidad/portabilidad-a-postpago.png') }}" alt="">
+                        <p class="col-xs-12 /*col-md-6*/">¡Quiero ser Postpago!</p>
+                    </a>
+                </div>
+                <div class="col-xs-6" style="padding-left: 1em">
+                    <a class="select-servicio" href="#?" data-target="prepago">
+                        <img class="img-responsive col-xs-12" src="{{ asset('/images/portabilidad/portabilidad-a-prepago.png') }}" alt="">
+                        <p class="col-xs-12 /*col-md-6*/">Quiero seguir en Prepago</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div-->
+    <div id="escoger-plan" class="row no-margin" style="display: none">
+        <div class="col-xs-12">
+            <div id="prepago-title" style="display: none">
+                <h5>¡REVISA LA OFERTA EXCLUSIVA QUE TENEMOS PARA TI!</h5>
+                <p>Selecciona el plan que más te guste y cámbiate con nosotros.</p>
+            </div>
+            <div id="postpago-title" style="display: none">
+                <h5>Escoge un plan</h5>
+                <p>Elige un plan con redes sociales, datos o llamadas ilimitadas. Personaliza o mira los planes destacados para ti.</p>
+            </div>
+            <div class="row no-margin catalog-planes">
+                <p class="hidden-xs hidden-sm" style="left: 50%; position: absolute; margin: 1em 0">
+                    <a class="show-all-planes" href="#?" data-target="#form-step-2"> Ver más planes</a>
+                    <a class="show-min-planes" href="#?" data-target="#form-step-2" style="display: none"> Ver planes recomendados</a>
+                </p>
+                <ul class="nav-catalog nav-tabs no-margin hidden">
+                </ul>
+                <div class="tab-content hidden">
+                </div>
+                <p class="no-margin hidden-md hidden-lg" style="text-align: center">
+                    <a class="show-all-planes" href="#?" data-target="#form-step-2"> Ver más planes</a>
+                    <a class="show-min-planes" href="#?" data-target="#form-step-2" style="display: none"> Ver planes recomendados</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="ser-prepago-choice" class="row no-margin" style="display: none">
+        <div class="form-group col-xs-12">
+            <!--label>O puedes ser un prepago In:</label-->
+            <a class="btn-flat select-servicio" href="#?" data-target="prepago"><img src="{{ asset('/images/portabilidad/prepago.svg') }}" alt="" style="height: auto; width: 20px; margin-right: 10px; float: left"><span style="line-height: 30px">Quiero seguir en prepago</span></a>
+        </div>
+
+    </div>
+    <a class="btn btn-continue disabled" href="#!" data-source="2" data-toggle="3">Continuar</a>
+</div>

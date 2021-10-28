@@ -1,0 +1,178 @@
+{% extends 'DayscriptTiendaClaroBundle::layout.html.twig' %}
+{% block DataLayer %}
+{#    <script>
+        dataLayer = [{
+            'businessUnit'      : 'Planes',
+            'businessCategory'  : 'Portabilidad',
+            'pageCategory'      : 'Planes_Portabilidad'
+        }];
+    </script>#}
+{% endblock %}
+{% block body %}
+    <div id="wrapper-equipo-index" class="container jc-container container-max main">
+        <div id="content-encabezado" class="col-xs-12" style="margin-bottom: 2em">
+            <div class="row">
+                <button class="btn back back-menu" data-backtohome>
+                    <i class="glyphicon glyphicon-menu-left"></i><span>Regresar</span>
+                </button>
+                <button class="btn back back-menu" data-backtoggle="0" title="Retroceder al paso anterior" style="display: none">
+                    <i class="glyphicon glyphicon-menu-left"></i><span>Regresar</span>
+                </button>
+                <h2 class="title-menu-catalog">¡CÁMBIATE A CLARO!</h2>
+            </div>
+            {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-steps-banner.html.twig' %}
+        </div>
+        <div id="content-contenido" class="col-xs-12">
+            <form id="create-portabilidad-form" class="form-new row no-margin" method="POST" autocomplete="off" enctype="multipart/form-data">
+                {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-step1.html.twig' %}
+                {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-step2.html.twig' %}
+                {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-step3.html.twig' %}
+                {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-step4.html.twig' %}
+                {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-step5.html.twig' %}
+                <button type="submit" class="btn btn-default hidden" style="float: right">Continuar</button>
+            </form>
+            {% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:create-end.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('js/signature_pad.min.js') }}"></script>
+<style>
+    a.select-servicio {
+        color: #9F9F9F;
+        font-size: 1.2em;
+        border-radius: 6px;
+    }
+    a.select-servicio .img-responsive {
+        border-radius: 6px;
+        border: solid 1px #eee;
+    }
+    a.select-servicio p {
+        padding-left: 5px;
+    }
+    a.select-servicio.selected, a.select-servicio:hover {
+        color: #0095a0;
+    }
+    a.select-servicio.selected img, a.select-servicio .img-responsive:hover {
+        border: solid 1px #0095a0;
+    }
+
+    label.checkcontainer span:not(.customCheck) {
+        color: #ADADAD;
+    }
+    label.checkcontainer input:checked ~ span:not(.customCheck), a.show-all-planes, a.show-min-planes {
+        color: #0095a0;
+    }
+    label.checkcontainer .customCheck {
+        border-radius: 3px;
+    }
+    @media (min-width: 767px) {
+        ul#content-steps {
+            padding: 0 20%;
+        }
+        .nav-catalog > li {
+            width: 15%;
+        }
+    }
+
+    #form-step-5 p {
+        margin: 0 !important;
+    }
+    #form-step-5 a:not(.btn) {
+        color: #0098B0 !important;
+    }
+    #form-step-5 a i.glyphicon {
+        margin-right: 1em
+    }
+    #form-step-5 .checkcontainer,#form-step-5 .checkcontainer a {
+        font-size: 1em !important;
+    }
+    #form-step-5 .super-panel {
+        border-radius: 6px;
+        background-color: white;
+        box-shadow: 6px 12px 12px 0 #dedede;
+        padding: 1.5em;
+        margin: 1em 0 0 0 !important;
+    }
+    #form-step-5 .btn {
+        float: right;
+        margin: 0;
+    }
+    #form-step-5 .btn.btn-continue {
+        margin-left: 0.5em !important;
+    }
+    #form-step-5 .btn.btn-flat {
+        margin-right: 0.5em !important;
+        color:#212121;
+        padding: 0.5em 1.5em;
+    }
+    @media (max-width: 767px) {
+        .nav-tabs li a {
+            font-size: 0.95em;
+        }
+        p.no-margin {
+            margin: 0 !important;
+        }
+        #form-step-5 .btn {
+            width: 46% !important;
+        }
+        #form-step-5 .btn.btn-continue {
+            margin-left: 4% !important;
+        }
+        #form-step-5 .btn.btn-flat {
+            margin-right: 4% !important;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 800px) {
+        .catalog-planes .header-item-catalog:not(.con-etiquetas) {
+            height: 123px;
+        }
+    }
+    @media (min-width: 1200px) and (max-width: 1399px) {
+        .content-catalog > div {
+            flex-basis: 31%;
+            margin: 1%;
+        }
+    }
+    @media (min-width: 1400px) {
+        .content-catalog > div {
+            flex-basis: 23%;
+            margin: 1%;
+        }
+        .catalog-planes .header-item-catalog:not(.con-etiquetas) {
+            height: 123px;
+        }
+        .col-xl-3 {
+            width: 25% !important;
+        }
+    }
+</style>
+{% include 'DayscriptTiendaClaroBundle:Portabilidad/Include:script-create.html.twig' %}
+{% endblock %}
+
+{% block metadata %}
+    <!-- Metadata -->
+    <meta name="author" content="Claro Ecuador">
+    <meta name="copyright" content="Claro Ecuador">
+    <meta name="title" content="Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis">
+    <meta name="abstract" content="Cámbiate a Claro con tu mismo número y recibe gigas gratis">
+    <meta name="description" content="Cámbiate a Claro con tu mismo número | Tienda Virtual | Claro">
+    <meta name="keywords" content="cámbiate a claro, portabilidad, beneficios, cámbiate con mismo número, mismo número, gratis, conserva tu número, elige plan portabilidad, portabilidad postpago, escoge tu plan, telefonía prepago, pide tu chip">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@claroecua">
+    <meta name="twitter:creator" content="@claroecua">
+    <meta name="description" content="Cámbiate a Claro con tu mismo número | Tienda Virtual | Claro">
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://catalogo.claro.com.ec/portabilidad/cambiate-a-claro">
+    <meta property="og:title" content="Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis">
+    <meta property="og:site_name" content="Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis">
+    <meta property="og:description" content="Cámbiate a Claro con tu mismo número | Tienda Virtual | Claro">
+    <meta property="og:image" content="{{ asset(banners['rutaSm']) }}">
+{% endblock %}
+
+{% block title %}
+    Cámbiate a Claro con tu mismo número
+{% endblock %}

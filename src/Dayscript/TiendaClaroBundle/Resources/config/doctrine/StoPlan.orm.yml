@@ -1,0 +1,94 @@
+Dayscript\TiendaClaroBundle\Entity\StoPlan:
+    type: entity
+    table: sto__planes
+    repositoryClass: Dayscript\TiendaClaroBundle\Entity\StoPlanRepository
+    indexes:
+        IDX_6E11C818FB0D0145:
+            columns:
+                - id_tipo
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        slug:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        descripcion:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        cuotaSinImp:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            default: '0'
+            column: cuota_sin_imp
+        cuotaConImp:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            default: '0'
+            column: cuota_con_imp
+        showCatalogo:
+            type: boolean
+            nullable: false
+            default: false
+            column: show_catalogo
+        tyc:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    oneToOne:
+        customPlan:
+            targetEntity: CustomPlanMovil
+            mappedBy: plan
+        customPlanFijo:
+            targetEntity: CustomPlanFijo
+            mappedBy: plan
+    manyToOne:
+        idTipo:
+            targetEntity: TipoStoPlan
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_tipo:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        planDetalles:
+            targetEntity: StoPlanDetalle
+            mappedBy: plan
+        planSolicitudes:
+            targetEntity: RegPortabilidad
+            mappedBy: stoPlan
+
+    lifecycleCallbacks: {  }

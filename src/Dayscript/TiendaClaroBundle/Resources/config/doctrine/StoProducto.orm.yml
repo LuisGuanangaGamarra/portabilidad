@@ -1,0 +1,132 @@
+Dayscript\TiendaClaroBundle\Entity\StoProducto:
+    type: entity
+    table: sto__productos
+    repositoryClass: Dayscript\TiendaClaroBundle\Entity\StoProductoRepository
+    indexes:
+        IDX_541A7A5DFB0D0145:
+            columns:
+                - id_tipo
+        IDX_541A7A5DE98F4023:
+            columns:
+                - id_marca
+        IDX_541A7A5DAF66E997:
+            columns:
+                - id_gama
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        slug:
+            type: string
+            nullable: false
+            length: 300
+            fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        nombreComercial:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            column: nombre_comercial
+        modelo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        presentar:
+            type: boolean
+            nullable: false
+            default: true
+        checkMetodo:
+            type: boolean
+            nullable: false
+            default: true
+            column: check_metodo
+        sendCallback:
+            type: boolean
+            nullable: false
+            default: true
+            column: send_callback
+        tyc:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    manyToOne:
+        idTipo:
+            targetEntity: TipoProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_tipo:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idMarca:
+            targetEntity: TipoMarca
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_marca:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idGama:
+            targetEntity: TipoGama
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_gama:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        financiamientos:
+            targetEntity: StoFinanciamiento
+            mappedBy: producto
+        skus:
+            targetEntity: StoProductoSku
+            mappedBy: producto
+        productoEspecificaciones:
+            targetEntity: StoProductoEspecificacion
+            mappedBy: producto
+        productoSolicitudes:
+            targetEntity: StoProducto
+            mappedBy: producto
+        anexos:
+            targetEntity: StoPrAnexo
+            mappedBy: producto
+    manyToMany:
+        especificaciones:
+            targetEntity: GenEspecificacion
+            inversedBy: productos
+            joinTable:
+                name: sto__pr_especificaciones
+                joinColumns:
+                    id_producto:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    id_especificacion:
+                        referencedColumnName: id
+    lifecycleCallbacks: {  }

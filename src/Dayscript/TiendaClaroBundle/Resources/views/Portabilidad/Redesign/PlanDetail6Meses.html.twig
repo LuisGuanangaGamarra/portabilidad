@@ -1,0 +1,195 @@
+<div class="">
+    <div>
+        {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 %}
+        <div class="tnd-pt-20-xs title-plan-info">
+            {{ plan.nombre }}
+        </div>
+        {% endif %}
+        {% if plan.customPlan.imgDetalle.imgGigas.desglose is defined %} <p><img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs tnd-pt-20-xs " src="{{ asset(plan.customPlan.imgDetalle.imgGigas.desglose) }}" alt=""></p>{% endif %}
+        <div class="font-strong ">
+            <div style="margin: 0% 0% 6% 4%;">
+                {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 %}
+                <img class="tnd-mr-5-xs" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.beneficios) }}" alt="icon" style="width: 99%;">
+                {% else %}
+                    <img class="center-block" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.beneficios) }}" alt="icon" style="width: 50%;">
+                {% endif %}
+
+            </div>
+        </div>
+        <div style="background: #F5F5F5; text-align: -webkit-center;">
+            <img class="tnd-img-resp" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.idImgDetalle) }}" alt="">
+        </div>
+    </div>
+    {#<div style="background: white; padding-left: 30px; padding-top: 20px;" class="col-xs-12 tnd-mb-10-xs">
+        <p class="contenGB col-xs-7"><strong>Total de gigas:</strong></p>
+        <div class="contenGB col-xs-7"><span>Incluidos</span></div>
+        <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.Incluidos }}</strong></div>
+        <div class="contenGB col-xs-7">{% if plan.cuotaSinImp < 50 %}<span>Adicional por 12 meses</span>{% else %}<span>Adicional por 18 meses</span>{% endif %}</div>
+        <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.Adicional }}</strong></div>
+        <div class="contenGB col-xs-7"><span>Para redes sociales</span></div>
+        <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.RRSS }}</strong></div>
+        <div class="contenGB col-xs-7"><span>Portabilidad Digital</span></div>
+        <div class="cantGB col-xs-5"><strong>{{ plan.customPlan.promocion.gigas.Promo }}</strong></div>
+    </div>#}
+    {% if plan.cuotaSinImp > 0 %}
+    <div class="tnd-visible-xs tnd-visible-md">
+        <div class="tnd-text-center-xs">
+            {% if plan.slug == 'paquete-mas-gigas' %}
+            <p><span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h3 "> ${{ plan.cuotaSinImp|number_format(2,',','.') }}</span> / Tarifa final</p>
+            <p><span style="font-size: 1.05rem;font-weight: 400;" class=""> $10/mes</span> <span style="color: #888888;"> Precio normal</span></p>
+            {% elseif plan.slug == 'claro-chip' %}
+                <p><span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h3 "> GRATIS PARA CLIENTE FINAL</span></p>
+            {% else %}
+            <p><span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h3 "> ${{ plan.cuotaSinImp }}</span> + imp. / Tarifa básica</p>
+            <p><span style="font-size: 1.05rem;font-weight: 400;" class=""> ${{ plan.cuotaConImp|replace({".":","}) }}</span> <span style="color: #888888;"> Precio Final</span></p>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <div class="tnd-visible-xs tnd-visible-md">
+        <span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h2">GRATIS</span>
+        <p>para cliente final</p>
+    </div>
+    {% endif %}
+</div>
+<div>
+ <div class="{% if accordeonInclude is defined and accordeonInclude %} container-accordeon-element {% endif %}">
+ </div>
+</div>
+{#Acordeon con beneficios normales del plan#}
+{#{% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 15 or (plan.cuotaSinImp) == 25%}
+<div class="plDetail6">
+    <button class="font-bold side-arrow accordion" style="padding: 20px 0;">
+        <span style="margin-bottom: 20px;">Ver los beneficios normales del plan</span></button>
+    <div style="background: white;" class="bodyAccordion">
+        {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+            <img class="tnd-img-resp tnd-p-20-xs#}{# {% if loop.first %}tnd-visible-sm{% else %}tnd-hidden-sm{% endif %}#}{#" src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+        {% endfor %}
+    </div>
+</div>
+{% endif %}#}
+
+{#{% if accordeonInclude is not defined %}
+    <div class="cont-img">
+        <div class="tnd-pt-10-xs tnd-pb-20-small">
+            {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+                <img class=" tnd-py-20-md promo-plan tnd-va-bottom {% if loop.first %} tnd-visible-small tnd-img-resp-md {% else %}tnd-hidden-small tnd-img-resp{% endif %}"
+                     src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}#}
+{% block javascripts %}
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var bodyAccordion = this.nextElementSibling;
+            if (bodyAccordion.style.display === "block") {
+                bodyAccordion.style.display = "none";
+            } else {
+                bodyAccordion.style.display = "block";
+            }
+        });
+    }
+</script>
+{% endblock %}
+{% block stylesheets -%}
+    <style>
+        .accordion {
+            border-radius: 0 0 10px 10px;
+            background: #0096A8;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: center;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .accordion.active {
+            background: #E7E7E7;
+            color: #000000;
+            border-radius: 0px;
+        }
+
+        .bodyAccordion {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+        }
+        .accordion:after {
+            content: "";
+            font-family: "FontAwesome";
+            color: #f5f5f5;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .accordion.active:after {
+            content: "";
+            font-family: "FontAwesome";
+            color: #000000;
+        }
+        .nombrePlan{
+            text-align: left;
+            margin-left: 30%;
+            font-size: 22px;
+            line-height: 20px;
+        }
+        @media (max-width: 767px) {
+            .ofertaPlan {
+                position: absolute;
+                margin: 6% 0% 0% -4.7%;
+            }
+            .tnd-img-beneficio{
+                width: 100%;
+                height: auto;
+            }
+            .textBeneficio{
+                margin-right: 23%!important;
+            }
+        }
+        @media (min-width: 768px) {
+            .ofertaPlan {
+                position: absolute;
+                margin: -2% 0% 0% 5.3%;
+            }
+        }
+        @media (min-width: 992px){
+            .ofertaPlan {
+                position: absolute;
+                margin: -1% 0% 0% 1.5%;
+            }
+            .tnd-img-beneficio{
+                width: 65%;
+                height: auto;
+            }
+        }
+        .contenGB{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 18px;
+            color: #222222;
+        }
+        .cantGB{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            text-transform: uppercase;
+            color: rgba(34, 34, 34, 0.8);
+        }
+    </style>
+{% endblock %}

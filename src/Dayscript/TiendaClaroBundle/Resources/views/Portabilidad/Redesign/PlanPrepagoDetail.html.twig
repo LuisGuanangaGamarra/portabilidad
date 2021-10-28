@@ -1,0 +1,247 @@
+{% block cardIndex %}
+    <div class="portabilidad-plan-box tnd-m-prepago-lg">
+        <div class="plan-portabilidad-wrapper">
+            <div class="tnd-bg-white tnd-width-xs-10 tnd-br-t-10-xs">
+                <div class="{#tnd-bg-dark-turquoise#} tnd-p-10-xs tnd-text-center-xs" style="border-radius: 10px 10px 0 0;">
+                    <div class="textBeneficio">RECIBE <strong style="text-decoration-line: underline;"> 15 GIGAS</strong>
+                        GRATIS POR {% if plan.customPlan.promocion.vigencia is defined %}{{ plan.customPlan.promocion.vigencia }}{% endif %}
+                    </div>
+                </div>
+                <div class="tnd-pt-10-xs tnd-text-center-xs">
+                    <div class="planPrepago nombrePlan">
+                        <div style="font-weight: 700;">{{ plan.descripcion }}</div>
+                        <div style="font-weight: 300;font-size: 16px;">INCLUYE</div>
+                    </div>
+                    <div class="">
+                        {% if plan.customPlan.incluye.totalGigas.imgGB is defined %}
+                        <div class=""><img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs" src="{{ asset(plan.customPlan.incluye.totalGigas.imgGB) }}" alt=""></div>
+                        {% endif %}
+                        {% if plan.customPlan.promocion.vigenciaPrepago is defined %}<span class="tnd-mb-20-xs tnd-py-20-md tnd-py-20-xs textVigencia">* {{ plan.customPlan.promocion.vigenciaPrepago }}</span>{% endif %}
+                        {% if plan.slug == 'paquete-mas-gigas' %}
+                        <div class="flex-center tnd-py-40-xs">
+                            <div class="text-tarifa">PRECIO FINAL </div>
+                            <div class="flex-center">
+                                <div style="font-size: 40px;" class="tnd-red font-strong"> ${{ plan.cuotaSinImp|number_format(2,',','.') }}</div>
+                                <div class="text-mes-imp">/mes</div>
+                            </div>
+                        </div>
+                        <span class="tnd-py-40-xs textPrecioGris">Precio normal $10/mes</span>
+                        {% else %}
+                        <div class="flex-center tnd-py-40-xs">
+                            <div class="text-tarifa">PRECIO FINAL </div>
+                            <div class="flex-center">
+                                <div style="font-size: 40px;" class="tnd-red font-strong">GRATIS</div>
+                            </div>
+                        </div>
+                        <span class="tnd-py-40-xs textPrecioGris">PARA CLIENTE FINAL</span>
+                        {% endif %}
+                    </div>
+                    <div class="tnd-py-5xs tnd-mt-20-xs" {#style="background: linear-gradient(0deg, #F5F5F5 40%, #FFFF 0%);"#}><img class="center-block" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.beneficios) }}" alt="icon" style="width: 50%;"></div>
+                    <div class="container-accordeon-element accordeon-hidden-md">
+                        <div class="accordeon-element-body">
+                            <div style="background: #F5F5F5;">
+                                {% if plan.customPlan.imgDetalle.imgDetalle.idImgDetalle is defined %}
+                                    <img class="tnd-img-resp" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.idImgDetalle) }}" alt="">
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if plan.slug == 'paquete-mas-gigas' %}
+                            <p class="tnd-mb-20-md tnd-mb-0-xs tnd-py-20-md tnd-py-20-xs font-size-10px">*PROMOCIÓN VÁLIDA SOLO PARA GUAYAQUIL Y QUITO</p>
+                        {% endif %}
+                        <div style="color: #0B6676" class="accordeon-element-header side-arrow tnd-hidden-md-i">
+                            <a id="show_more_planes" style="color: #0B6676; text-decoration-line: underline;">Ver detalles de plan</a>
+                        </div>
+                    </div>
+                    <div class="tnd-br-b-10-xs tnd-bg-white tnd-text-center-xs {% if plan.slug == 'paquete-mas-gigas' %}tnd-p-20-0-xs{% else %}tnd-p-20-24-xs{% endif %}">
+                        <a data-event="Portabilidad_Prepago" class="no-underline" href="{{ path('TiendaClaro_portabilidad_solicitud_create', {'slugPlan':plan.slug}) }}" data-plan="{{ plan.nombre }}" data-price="{{ plan.cuotaSinImp }}">
+                            <button class="tnd-btn red bordered tnd-mx-auto-xs tnd-mt-10-xs tnd-br-5-xs">¡Lo quiero!</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block cardPrepago %}
+    <div class="">
+        <div>
+            <div class="tnd-pt-20-xs title-plan-info">
+                {{ plan.nombre }}
+            </div>
+            <p><img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs tnd-pt-20-xs " src="{{ asset(plan.customPlan.imgDetalle.imgGigas.desglose) }}" alt=""></p>
+            <div class="font-strong ">
+                <div style="margin: 0% 0% 6% 4%;">
+                    <img class="tnd-mr-5-xs" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.beneficios) }}" alt="icon" style="width: 99%;">
+                </div>
+            </div>
+            <div style="background: #F5F5F5; text-align: -webkit-center;">
+                <img class="tnd-img-resp" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.idImgDetalle) }}" alt="">
+            </div>
+        </div>
+        <div class="tnd-visible-xs tnd-visible-md">
+            <div class="tnd-text-center-xs">
+                <p><span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h3 "> ${{ plan.cuotaSinImp }}</span> + imp. / Precio final</p>
+                <p><span style="font-size: 1.05rem;font-weight: 400;" class="">$10 </span> <span style="color: #888888;">Precio normal</span></p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="tnd-pt-20-xs {% if accordeonInclude is defined and accordeonInclude %} container-accordeon-element {% endif %}">
+        </div>
+    </div>
+    {#Acordeon con beneficios normales del plan#}
+    {#{% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 15 or (plan.cuotaSinImp) == 25%}
+<div class="plDetail6">
+    <button class="font-bold side-arrow accordion" style="padding: 20px 0;">
+        <span style="margin-bottom: 20px;">Ver los beneficios normales del plan</span></button>
+    <div style="background: white;" class="bodyAccordion">
+        {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+            <img class="tnd-img-resp tnd-p-20-xs#}{# {% if loop.first %}tnd-visible-sm{% else %}tnd-hidden-sm{% endif %}#}{#" src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+        {% endfor %}
+    </div>
+</div>
+{% endif %}#}
+
+    {% if accordeonInclude is not defined %}
+    <div class="cont-img">
+        <div class="tnd-pt-10-xs tnd-pb-20-small">
+            {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+                <img class=" tnd-py-20-md promo-plan tnd-va-bottom {% if loop.first %} tnd-visible-small tnd-img-resp-md {% else %}tnd-hidden-small tnd-img-resp{% endif %}"
+                     src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block prepagoJS %}
+<script>
+    $(document).ready(function(){
+        $("#show_more_planes").click(function () {
+            $(this).text(function(i, text){
+                return text === "Ver detalles de plan" ? "Ver menos" : "Ver detalles de plan";
+            })
+        });
+    });
+</script>
+{% endblock %}
+
+{% block prepagoCSS -%}
+    <style>
+        .tnd-m-prepago-lg .textVigencia {
+            font-size: 11px;
+            text-align: left;
+            padding-left: 50px;
+            font-weight: 500;
+        }
+        .tnd-py-5xs{
+            padding: 5% 0;
+        }
+        .tnd-p-20-24-xs{
+            padding: 24px 20px 20px 20px;
+        }
+        .tnd-p-20-0-xs{
+            padding: 0px 20px 20px 20px;
+        }
+        .tnd-mt-15{
+            margin-top: 15px;
+        }
+        .font-size-10px{
+            font-size: 10px
+        }
+        .textPrecioGris{
+            font-size: 12px;
+            line-height: 1;
+            color: #808080cc;
+            float: right;
+            /*position: absolute;*/
+        }
+        .accordion {
+            border-radius: 0 0 10px 10px;
+            background: #0096A8;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: center;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .accordion.active {
+            background: #E7E7E7;
+            color: #000000;
+            border-radius: 0px;
+        }
+
+        .bodyAccordion {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+        }
+        .accordion:after {
+            content: "";
+            font-family: "FontAwesome";
+            color: #f5f5f5;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .accordion.active:after {
+            content: "";
+            font-family: "FontAwesome";
+            color: #000000;
+        }
+        .nombrePlan{
+            text-align: left;
+            margin-left: 30%;
+            font-size: 22px;
+            line-height: 20px;
+        }
+        @media (max-width: 767px) {
+            .tnd-img-beneficio{
+                width: 100%;
+                height: auto;
+            }
+            .textBeneficio{
+                margin-right: 23%!important;
+            }
+        }
+        @media (min-width: 768px) {
+            .tnd-m-prepago-lg .plan-portabilidad-wrapper {
+                min-height: 647px!important;
+            }
+            .tnd-px-25-xs {
+                padding: 25px 0;
+            }
+        }
+        @media (min-width: 992px){
+            .tnd-img-beneficio{
+                width: 65%;
+                height: auto;
+            }
+        }
+        .contenGB{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 18px;
+            color: #222222;
+        }
+        .cantGB{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            text-transform: uppercase;
+            color: rgba(34, 34, 34, 0.8);
+        }
+    </style>
+{% endblock %}

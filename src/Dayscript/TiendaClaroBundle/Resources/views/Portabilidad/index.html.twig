@@ -1,0 +1,30 @@
+{% extends 'DayscriptTiendaClaroBundle::layout.html.twig' %}
+{% block body %}
+<div class="   content-contenidofondocompra"> 
+
+    <div id="cabecera-tienda" style="margin-top: 10px;" class="row">
+		<img src=""/>
+        {#<img src="{{asset('/images/home/logonegro.png')}}"/>#}
+		
+    </div>
+    <div id="pasos" class="row">
+        <div  class="col-xs-4" style="border-right: 1px solid #E7E7E7;">
+           <p id="pas" class="text-center text-red"><span id="textoPaso" style="color:#e31d1a;">¡Dos pasos m&aacute;s y ser&aacute; tuyo!</span></p>
+        </div>
+        <div  class="col-xs-4" style="border-right: 1px solid #E7E7E7;">
+            <p id="pas1" class="text-center text-red"><span class="numpas">1</span> Datos Personales</p>
+        </div>
+        <div  class="col-xs-4">
+            <p id="pas2" class="text-center"><span class="numpas">2</span> Datos Laborales</p>
+        </div>
+    </div>
+    <div id="equipo-login" class="row">
+        <div class="col-xs-4">
+            {{ include( 'DayscriptTiendaClaroBundle:Compra:detalleCompra.html.twig', {'equipos': equipos,'masplanes':0} ) }}
+        </div>
+        <div id="content-formulariopaso1" class="col-xs-8">
+               {{ include( 'DayscriptTiendaClaroBundle:Portabilidad:Form_paso1.html.twig', {'equipos': equipos},{'provincias':provincias},{'opcionconsulta':opcionconsulta},{'carrito_postpago':carrito_postpago},{'nombreEncuesta':nombreEncuesta},{'ciudades':ciudades},{'apellidoPaternoEncuesta':apellidoPaternoEncuesta},{'apellidoMaternoEncuesta':apellidoMaternoEncuesta} ) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

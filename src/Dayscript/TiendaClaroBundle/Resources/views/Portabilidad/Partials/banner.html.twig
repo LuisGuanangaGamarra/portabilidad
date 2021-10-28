@@ -1,0 +1,12 @@
+{% if step is defined %}
+    {% if web == true %}
+    <div class="hidden-xs hidden-sm">
+        <img class="banner-new" src="{{ asset('web/images/portabilidad/step-'~step~'-lg.jpg') }}?v=1.1" alt="">
+    </div>
+    {% endif %}
+    {% if responsive == true %}
+    <div class="hidden-md hidden-lg" style="/*margin-left: -30px; margin-right: -30px*/">
+        <img class="banner-new" src="{{ asset('web/images/portabilidad/step-'~step~'-sm.jpg') }}?v=1.1" alt="">
+    </div>
+    {% endif %}
+{% endif %}

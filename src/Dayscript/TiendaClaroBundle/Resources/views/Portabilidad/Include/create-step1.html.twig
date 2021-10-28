@@ -1,0 +1,59 @@
+<div id="form-step-1" class="row no-margin" style="/*display: none*/">
+    <div class="col-xs-12 col-md-5">
+        {% include "DayscriptTiendaClaroBundle:Portabilidad/Partials:banner.html.twig" with {step: 1, web: false, responsive: true} %}
+        <p>Para solicitar tu portabilidad deberás ingresar la siguiente información:</p>
+        <h5>1. Datos de línea actual</h5>
+        <div class="row no-margin">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label class="required" for="portabilidad-numero">Número de celular:</label>
+                <input id="portabilidad-numero" name="portabilidad-numero" type="text" class="form-control" placeholder="Ej: 0999123456" data-type="cellphone" data-validate="numeric" maxlength="10" required>
+                <p class="form-control-msj truncate" data-target="portabilidad-numero" data-error="Debes ingresar tu número de celular a portar"></p>
+            </div>
+            <div class="form-group col-xs-12 col-sm-6">
+                <label class="required" for="portabilidad-operadora">Operadora actual:</label>
+                <select id="portabilidad-operadora" name="portabilidad-operadora" class="form-control" data-type="select">
+                    <option value="" disabled selected>Escoge una operadora</option>
+                    {% for operadora in operadoras %}
+                        <option value="{{ operadora.codigo|base64_encode }}">{{ operadora.NombreComercial}}</option>
+                    {% endfor %}
+                </select>
+                <p class="form-control-msj truncate" data-target="portabilidad-operadora" data-error="Debes escoger tu operadora actual"></p>
+            </div>
+            <!--div class="col-xs-12 text-center">
+                <a class="btn btn-continue show-subform" href="#!" data-target="#subform-step-1-1" style="float: none">Continuar</a>
+            </div-->
+        </div>
+        <div id="subform-step-1-1">
+            <h5>2. Datos del servicio actual</h5>
+            <div class="form-group col-xs-12">
+                <label class="required" for="portabilidad-servicio-actual">Actualmente mi línea es:</label>
+                <input name="portabilidad-servicio-actual" type="hidden">
+                <input name="portabilidad-servicio-nuevo" type="hidden">
+                <p id="portabilidad-servicio-actual" class="no-margin">
+                    <a class="btn-flat" href="#?" data-target="prepago">Prepago</a>
+                    <a class="btn-flat" href="#?" data-target="postpago">Postpago</a>
+                </p>
+            </div>
+            <!--div class="form-group col-xs-12" style="display: none">
+                <label class="required" for="portabilidad-tarifa">Mi tarifa mensual es:</label>
+                <input name="portabilidad-tarifa" type="hidden">
+                <p id="portabilidad-tarifa" class="no-margin">
+                    <a class="btn-flat" href="#?" data-min="15" data-max="20" data-count="0">$15 - $20</a>
+                    <a class="btn-flat" href="#?" data-min="20" data-max="25" data-count="0">$20 - $25</a>
+                    <a class="btn-flat" href="#?" data-min="25" data-max="30" data-count="0">$25 - $30</a>
+                    <a class="btn-flat" href="#?" data-min="30" data-max="35" data-count="0">$30 - $35</a>
+                    <a class="btn-flat" href="#?" data-min="35" data-max="50" data-count="0">$35 - $50</a>
+                    <a class="btn-flat" href="#?" data-min="50" data-max="80" data-count="0">$50 - $80</a>
+                    <a class="btn-flat" href="#?" data-min="80" data-max="100" data-count="0">$80 - $100</a>
+                    {# Nunca se sabe cuánto costarán los planes #}
+                    <a class="btn-flat" href="#?" data-min="100" data-max="150" data-count="0">$100 - $150</a>
+                    <a class="btn-flat" href="#?" data-min="150" data-max="250" data-count="0">$150 - $250</a>
+                </p>
+            </div-->
+            <a class="btn btn-continue" href="#!" data-source="1" data-toggle="2">Continuar</a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-7" style="text-align: center; padding: 1.5em">
+        {% include "DayscriptTiendaClaroBundle:Portabilidad/Partials:banner.html.twig" with {step: 1, web: true, responsive: false} %}
+    </div>
+</div>

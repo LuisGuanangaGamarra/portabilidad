@@ -1,0 +1,391 @@
+{% extends 'DayscriptTiendaClaroBundle::layoutNew.html.twig' %}
+
+{% block title %}
+	Cámbiate a Claro con tu mismo número
+{% endblock %}
+
+{% block titulo %}{% endblock %}
+
+{% block alerta %}
+	<div id="alerta-notification" class="tnd-white tnd-text-center-xs tnd-bg-orange" style="padding: 5px">
+		<p style="margin:0">¡Con
+			<img src="{{asset('web/images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;">
+			estás seguro!</p>
+		<p style="margin:0">Cámbiate a Claro desde la comodidad de tu hogar en un solo clic.</p>
+	</div>
+{% endblock %}
+
+{% block metadata %}
+	<!-- Metadata -->
+	<meta name="author" content="Claro Ecuador">
+	<meta name="copyright" content="Claro Ecuador">
+	<meta name="title" content="{{ metadata['postpago']['title'] }}">
+	<meta name="abstract" content="{{ metadata['postpago']['abstract'] }}">
+	<meta name="description" content="{{ metadata['postpago']['description'] }}">
+	<meta
+	name="keywords" content="{{ metadata['postpago']['keywords'] }}">
+	<!-- Twitter Card data -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@claroecua">
+	<meta name="twitter:creator" content="@claroecua">
+	<meta
+	name="description" content="{{ metadata['postpago']['abstract'] }}">
+	<!-- Open Graph data -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ metadata['postpago']['ogUrl'] }}">
+	<meta property="og:title" content="{{ metadata['postpago']['ogTitle'] }}">
+	<meta property="og:site_name" content="{{ metadata['postpago']['ogSiteName'] }}">
+	<meta property="og:description" content="{{ metadata['postpago']['ogDescription'] }}">
+	<meta property="og:image" content="{{ asset(banners['rutaSm']) }}">
+{% endblock %}
+
+{% block body %}
+
+	<span style="display: none" class="to-hide-portabilidad activePrepago">
+		{% if bannersPrepago['rutaSm']|length > 0 %}
+			<img class="tnd-mt-20-xs tnd-hidden-sm tnd-img-resp" src="{{ asset(bannersPrepago['rutaSm']) }}">
+		{% endif %}
+		{% if bannersPrepago['rutaLg']|length > 0 %}
+			<img class="tnd-visible-sm tnd-img-resp" src="{{ asset(bannersPrepago['rutaLg']) }}">
+		{% endif %}
+	</span>
+	<div class="to-hide-portabilidad flex-md flex-center-md tnd-pt-20-md">
+		<div class="tnd-text-center-md portabilidad-planes">
+			<h1 class="activePostpago tnd-h1 tnd-p-20-xs tnd-pt-0-xs">{{ infoPostpago['titulo'] }}</h1>
+			<h1 style="display: none" class="activePrepago tnd-h1 tnd-p-20-xs tnd-pt-0-xs">{{ infoPrepago['titulo'] }}</h1>
+			{% if hideBtnTipo is not defined %}
+				<div class="btn-group tnd-pt-0-xs">
+					{#<a type="button" class="btn btn-default btn-postpago btn-tab-portabilidad active" data-target="plan-conexion" data-event="Planes_Portabilidad">
+						<div class="planes-anticipados center-middle">
+							<img style="" class="icon-btn conexion-off tnd-mr-5-xs" src="{{ asset('/images/portabilidad/factura_gr.svg') }}" alt="icon">
+							<img style="display:none;" class="icon-btn portabilidad-ocul-on-conexion ttnd-mr-5-xs" src="{{ asset('/images/portabilidad/factura_bl.svg') }}" alt="icon">
+							<div class="elegir-plan-conexion text-justify center-middle">
+								<div class="tipo-plan-portabilidad">POSTPAGO</div>
+							</div>
+						</div>
+					</a>#}
+					<a type="button" class="btn btn-default btn-prepago btn-tab-portabilidad active" data-target="plan-datos" data-event="Portabilidad_Prepago">
+						<div class="planes-datos center-middle">
+							<img style="" class="icon-btn datos-off tnd-mr-5-xs" src="{{ asset('web/images/portabilidad/card_gr.svg') }}" alt="icon">
+							<img style="display:none;" class="icon-btn portabilidad-ocul-on-datos tnd-mr-5-xs" src="{{ asset('web/images/portabilidad/card_bl.svg') }}" alt="icon">
+							<div class="elegir-plan-dato text-justify">
+								<div class="tipo-plan-portabilidad">PREPAGO</div>
+								{#<div>Gigas, Redes , Chat y más</div>#}
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			<h2 class="tnd-h2 tnd-p-20-xs tnd-pt-20-xs titulo">{{ infoPostpago['subtitulo1'] }}</h2>
+			<span style="font-size: 24px;" class="port-digital subtitulo">{{ infoPostpago['subtitulo2'] }}</span>
+		</div>
+	</div>
+
+	<div
+		class="to-hide-portabilidad">
+		<!--div class="amx-container tnd-p-20-xs tnd-pt-0-xs"-->
+		<div class="contenido-planes plan-postpago active plan-conexion amx-container-md tnd-pt-0-md {# flex-center-xs flex-cont-1-xs flex-wrap-xs flex-xs#} slick-center">
+			{% for plan in planes %}
+				<div>
+					<div class="portabilidad-plan-box tnd-my-10-lg tnd-m-30-lg">
+						<div class="plan-portabilidad-wrapper">
+							<div class="tnd-bg-white tnd-width-xs-10 tnd-br-t-10-xs">
+								{% if plan.customPlan.promocion.sticker.icono is defined %}
+									<div class="ofertaPlan">
+										<img class="width-etiqueta tnd-mr-5-xs" src="{{ asset(plan.customPlan.promocion.sticker.icono) }}" alt="icon">
+									</div>
+								{% endif %}
+								{% if plan.customPlan.promocion.gigas.promo is defined and plan.customPlan.promocion.vigencia is defined%}
+									<div class="tnd-bg-dark-turquoise tnd-p-10-xs tnd-text-center-xs" style="border-radius: 10px 10px 0 0;">
+										<div class="textBeneficio">RECIBE
+											<strong style="text-decoration-line: underline;">{{ plan.customPlan.promocion.gigas.promo }}</strong>
+											GRATIS POR
+											{{ plan.customPlan.promocion.vigencia }}</div>
+										{#                                        {% for detail in plan.getDetailsByTypeAndTransaccion(26,2) %}
+										                                        {{ plan.getDetailByTypeAndTransaccion(26,2).cantidad }}
+										                                        {% endfor %}#}
+									</div>
+								{% else %}
+									<div class="tnd-p-10-xs tnd-text-center-xs" style="padding: 27px; border-radius: 10px 10px 0 0;"></div>
+								{% endif %}
+								<div class="tnd-pt-10-xs tnd-text-center-xs">
+									<div class="nombrePlan">
+										<div style="font-weight: 300;">PLAN</div>
+										<div style="font-weight: 700;">{{ plan.descripcion }}</div>
+									</div>
+									<div class="">
+										<span class="">
+											<img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs" src="{{ asset(plan.customPlan.incluye.totalGigas.imgGB) }}" alt="">
+										</span>
+										{#<p class="tnd-mb-20-xs tnd-py-20-md tnd-py-20-xs textVigencia">*PROMOCIÓN VÁLIDA POR{% if plan.cuotaSinImp < 50 %}12 MESES{% else %}18 MESES{% endif %}</p>#}
+										<div class="flex-center tnd-py-40-xs">
+											<div class="text-tarifa">PRECIO FINAL</div>
+											<div class="flex-center">
+												<div style="font-size: 30px;" class="tnd-ml-20-xs tnd-red">
+													<span class="font-strong">${{ plan.cuotaConImp|number_format(2,',','.') }}</span>
+													<span class="text-mes-imp">/mes</span>
+												</div>
+												{#<div class="text-mes-imp">/mes + imp.</div>#}
+											</div>
+										</div>
+										<span class="textPrecioFinal tnd-pb-10-xs tnd-pr-20-xs tnd-pt-10-xs">Tarifa básica: ${{ plan.cuotaSinImp }}/mes + imp.</span>
+										<p class="tnd-mt-20-xs"><img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs" src="{{ asset(plan.customPlan.imgDetalle.imgGigas.desglose) }}" alt=""></p>
+										<div style="margin: 0% 0% 6% 4%;"><img class="tnd-mr-5-xs" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.beneficios) }}" alt="icon" style="width: 99%;"></div>
+									</div>
+									<div class="container-accordeon-element accordeon-hidden-md">
+										<div class="accordeon-element-body">
+
+											<div style="background: #F5F5F5;{# {% if plan.cuotaSinImp == 10%}padding: 18px 0px 18px 0px {% elseif plan.cuotaSinImp == 25%}padding-top: 3px;{% endif %}#}">
+												<img class="tnd-img-resp" src="{{ asset(plan.customPlan.imgDetalle.imgDetalle.idImgDetalle) }}" alt="">
+											</div>
+										</div>
+										<div class="padding-on-0-active"></div>
+										<div style="color: #0B6676" class="accordeon-element-header side-arrow tnd-hidden-md-i">
+											<a id="show_more_planes" style="color: #0B6676; text-decoration-line: underline;">Ver detalles</a>
+										</div>
+
+									</div>
+									<div style="padding: 0px 20px 20px 20px;" class="tnd-br-b-10-xs tnd-bg-white tnd-text-center-xs">
+										<div class="flex-md flex-center-md flex-row-reverse-md">
+											<div class=""></div>
+										</div>
+										<a data-event="Planes_Portabilidad" class="no-underline" href="{{ path('TiendaClaro_portabilidad_solicitud_create', {'slugPlan':plan.slug}) }}" data-plan="PLAN {{ plan.nombre }}" data-price="{{ plan.cuotaSinImp }}">
+											<button class="tnd-btn red bordered tnd-mx-auto-xs tnd-mt-10-xs tnd-br-5-xs">¡Lo quiero!</button>
+										</a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{#Plan Prepago#}
+		{% if planPrepago is not empty %}
+			<div class="contenido-planes plan-prepago amx-container-md tnd-pt-0-md flex-center-xs flex-cont-3-md flex-cont-1-xs flex-wrap-xs flex-xs tnd-catalog2 {#slick-center#} ">
+				{% for plan in planPrepago %}
+					<div>
+						{% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanPrepagoDetail.html.twig" %}
+						{{ block('cardIndex') }}
+						{#{% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanPrepagoDetail.html.twig"%}#}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<div class=" amx-container-md tnd-pt-0-md flex-center-xs flex-cont-1-xs flex-wrap-xs flex-xs slick-center">
+			<p class="txt-promo text-right">
+				<span style="font-size: 10px;">Beneficio aplica a partir de la activación del plan, aplica para los planes con modalidad pago anticipado en cambios de operadora.
+					{#• Promoción aplica por 6 meses de acuerdo a la tarifa básica del plan contratado.#}
+				</span>
+			</p>
+		</div>
+		{#         <div class="amx-container-md tnd-pt-0-md flex-center-xs flex-cont-1-xs flex-wrap-xs flex-xs slick-center">
+		             <p class="text-right">
+		                 <a href="{{ path('TiendaClaro_portabilidad_prepago_create_slash') }}">Quiero cambiarme a Prepago</a>
+		             </p>
+		         </div>#}
+	</div>
+
+{% endblock %}
+
+{% block timer -%}
+	{#{% if "now"|date("l") == 'Monday' or "now"|date("l") == 'Tuesday' or "now"|date("l") == 'Wednesday'or "now"|date("l") == 'Thursday' %}#}
+	{#{% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:Help.html.twig" %}
+	{{ block('designHelp') }}#}
+	{#{% endif %}#}
+{% endblock %}
+
+{% block stylesheets -%}
+
+	{{ parent() }}
+	<link href="{{ asset('web/css/sections/portabilidad/index.css') }}?v=202005061810" rel="stylesheet" type="text/css">
+	{{ block('prepagoCSS') }}
+{% endblock %}
+
+{% block javascripts %}
+	{#<script src="{{ asset('web/js/sections/portabilidad/index.js') }}?v="></script>#}
+	{{ parent() }}
+
+	<script>
+		$(document).ready(function () {
+$("#show_more_planes").click(function () {
+$(this).text(function (i, text) {
+return text === "Ver detalles" ? "Ver menos" : "Ver detalles";
+})
+});
+});
+
+$('[role="main"]').css('margin-top', $('header').height());
+
+if ($('.accordeon-element-body').ready(".quitar")) {
+$(".REDESSOCIALES").remove();
+$(".BONOPORTABILIDADDIGITAL").remove();
+$(".CLAROVIDEO").remove();
+$(".LosplanesconexionadatosnoincluyenICE").remove();
+};
+
+$('.slick-center').slick({
+centerMode: true,
+slidesToShow: 1,
+centerPadding: '40px',
+arrows: true,
+mobileFirst: true,
+responsive: [
+{
+breakpoint: 767,
+settings: {
+centerMode: true,
+centerPadding: '80px',
+slidesToShow: 2
+}
+}, {
+breakpoint: 991,
+settings: {
+infinite: true,
+slidesToShow: 3
+}
+}
+]
+});
+if (window.screen.width < 768) {
+$('.contenido-planes.plan-prepago').removeClass('flex-center-xs flex-cont-1-xs flex-wrap-xs flex-xs');
+$('.tnd-catalog2').slick({
+centerMode: true,
+slidesToShow: 1,
+centerPadding: '40px',
+arrows: true,
+mobileFirst: true,
+responsive: [
+{
+breakpoint: 767,
+settings: {
+centerMode: true,
+centerPadding: '80px',
+slidesToShow: 2
+}
+}, {
+breakpoint: 991,
+settings: {
+infinite: true,
+slidesToShow: 3
+}
+}
+]
+});
+} else {
+$('.contenido-planes.plan-prepago').removeClass('slick-center');
+$('.contenido-planes.plan-prepago').addClass('flex-center-xs flex-cont-1-xs flex-wrap-xs flex-xs');
+}
+
+// Seguimiento page_view:
+$('.btn-tab-portabilidad').click(function (e) {
+e.preventDefault();
+gtag('event', 'Página Vista', {'event_category': $(this).attr('data-event')});
+});
+
+$('.portabilidad-plan-box a.no-underline').click(function (e) {
+e.preventDefault();
+// Seguimiento item_selected
+try {
+gtag('event', 'Elección', {
+'event_category': $(this).attr('data-event'),
+'event_label': $(this).attr('data-plan'),
+'value': $(this).attr('data-price')
+});
+} catch (e) {}
+window.location.href = $(this).attr('href');
+});
+
+/*$(document).ready(function(){
+           $('.plan-datos').show();
+           $(".btn-conexion").click();
+       });
+       function myFunction(){
+           $('.plan-conexion').show();
+           $('.plan-datos').hide();
+       }
+
+     $('.btn-datos').on('click', function(e) {
+               $('.plan-conexion').hide();
+               $('.plan-datos').show();
+
+               e.preventDefault();
+           });*/
+
+/* $('.btn-tab-portabilidad').click(function (e) {
+
+            $('.btn-tab-portabilidad').removeClass('active');
+            $(e.currentTarget).addClass('active');
+
+            $('.contenido-planes').removeClass('active');
+            $('.'+$(e.currentTarget).data('target')).addClass('active');
+        })*/
+
+let tipoPlan = window.location.hash.substring(1);
+
+if (tipoPlan === 'prepago') { // Seguimiento page_view:
+try {
+gtag('event', 'Página Vista', {'event_category': 'Portabilidad_Prepago'});
+} catch (e) {}
+$('.btn-tab-portabilidad').removeClass('active');
+$('.btn-prepago').addClass('active');
+$('.contenido-planes').removeClass('active');
+$('.plan-prepago').addClass('active');
+$('div.portabilidad-planes .titulo').html("{{ infoPrepago['subtitulo1'] }}").show();
+$('span.port-digital').html("{{ infoPrepago['subtitulo2'] }}").show();
+$('.txt-promo').hide();
+$('.activePostpago').hide();
+$('.activePrepago').show();
+$('#sQueueNameCb').val('Callback_Tienda_PorDigital_1');
+$('#sQueueNameJITCB').val('CLIC2CALL_TIENDA4_2019');
+$('#stringDataCb').val('Ayuda Portabilidad: Prepago');
+} else { // Seguimiento page_view:
+try {
+gtag('event', 'Página Vista', {'event_category': 'Planes_Portabilidad'});
+} catch (e) {}
+}
+
+$('.btn-prepago').click(function (e) {
+$('.btn-tab-portabilidad').removeClass('active');
+$('.btn-prepago').addClass('active');
+$('.contenido-planes').removeClass('active');
+$('.plan-prepago').addClass('active');
+
+$('div.portabilidad-planes .titulo').html("{{ infoPrepago['subtitulo1'] }}").show();
+$('span.port-digital').html("{{ infoPrepago['subtitulo2'] }}").show();
+
+$('.txt-promo').hide();
+$('.activePostpago').hide();
+$('.activePrepago').show();
+$('#sQueueNameCb').val('Callback_Tienda_PorDigital_1');
+$('#sQueueNameJITCB').val('CLIC2CALL_TIENDA4_2019');
+$('#stringDataCb').val('Ayuda Portabilidad: Prepago');
+$('.servicioValue').text('Prepago');
+$('.planDeseado').hide();
+$('.servicioPrepago').show();
+
+});
+
+$('.btn-postpago').click(function (e) {
+$('.btn-tab-portabilidad').removeClass('active');
+$('.btn-postpago').addClass('active');
+$('.contenido-planes').removeClass('active');
+$('.plan-postpago').addClass('active');
+
+$('div.portabilidad-planes .titulo').html("{{ infoPostpago['subtitulo1'] }}").show();
+$('span.port-digital').html("{{ infoPostpago['subtitulo2'] }}").show();
+$('.txt-promo').show();
+$('.activePostpago').show();
+$('.activePrepago').hide();
+$('#sQueueNameCb').val('Callback_Tienda_PorDigital');
+$('#sQueueNameJITCB').val('CLIC2CALL_TIENDA2_2019');
+$('#stringDataCb').val('Ayuda Portabilidad: Postpago');
+$('.servicioValue').text('Seleccione un plan');
+$('.servicioPrepago').hide();
+$('.planDeseado').show();
+});
+	</script>
+	{{ block('helpJs') }}
+	{{ block('prepagoJs') }}
+{% endblock %}

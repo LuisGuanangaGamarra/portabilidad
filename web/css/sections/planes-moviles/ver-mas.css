@@ -1,0 +1,199 @@
+h1 {
+    line-height: 0;
+    font-size: 23px!important;
+    font-weight: 300!important;
+}
+h2, .h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 0px!important;
+}
+h4, .h4 {
+    font-size: 18px;
+    font-weight: 700!important;
+}
+h3, .h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.tnd-py-5-xs {
+    padding: 0 5px;
+}
+.iconDetalles{
+    width: 140%; height: auto;
+}
+.tarifa-final-md{
+    font-size: 28px;/*  text-align: right; margin-left: 16%*/;
+}
+
+.tarifa-final-xs{
+    text-align: right; /*margin-left: 5%*/;
+}
+
+.color222{
+    color: #222!important;
+}
+
+.tnd-pl-05em {
+    padding-left: 0.5em;
+}
+.contenido-planes{
+    background-image: url(https://www.catalogo.claro.com.ec/images/vermas/BG_lineaNueva.svg);
+    background-size: 55% 50%;
+    background-repeat: no-repeat;
+    background-position: 50% 5%;
+}
+.tnd-pt-50-xs{
+    padding-top: 50px;
+}
+.tnd-img-resp{
+    width: auto;
+    height: 100%;
+    float: left;
+}
+[role="main"] {
+    background-color: #dddddd40;
+}
+ul.tnd-tabs li.active a {
+    background: #dddddd00!important;
+}
+.detalleProductoTabs .detalleProductoTabsMenu {
+    background-color: #dddddd00!important;
+    border-bottom: 1px solid #0000004a!important;
+}
+ul.tnd-tabs li.active a:after {
+    background-color: #1F97AE!important;
+}
+#fichaProducto{
+    background: #EEEEEE!important;
+}
+.detalleProductoTabs #caracteristicasProducto {
+    min-height: 0px;
+    background: #EEEEEE!important;
+    /* background: url(../images/loading/claro_red.gif) no-repeat center center #fbfbfb; */
+    /* background-size: 40px 40px; */
+}
+.tnd-pl-10-xs{
+    padding-left: 10px;
+}
+.txtDescrip{
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 24px;
+}
+.txtDescripB{
+    font-size: 16px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+@media (min-width: 480px){
+    .tnd-btn, .link-btn {
+        max-width: 477px!important;
+    }
+}
+.txtPA{
+    font-size: 1rem;
+    color: #8080809e;
+    font-weight: 400;
+}
+.tnd-btn {
+    padding: 18px 20px!important;
+}
+.plan-portabilidad-wrapper {
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #EEEEEE;
+    border-radius: 10px;
+    background-color: #ffffffd6;
+}
+.text-tarifa{
+    font-size: 1rem;
+    font-weight: 500;
+}
+.text-mes-imp {
+    margin-left: 2%;
+    width: 15%;
+    font-size: 0.8rem;
+    line-height: 1;
+    color: #808080cc;
+}
+.tnd-br-5-xs {
+    -moz-box-sizing: border-box!important;
+    -webkit-box-sizing: border-box!important;
+    box-sizing: border-box!important;
+    -webkit-border-radius: 5px!important;
+    -moz-border-radius: 5px!important;
+    border-radius: 10px!important;
+}
+.tnd-br-t-10-xs{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px;
+}
+@media (min-width: 992px){
+    .tnd-pt-0-md {
+        padding-top: 0!important;
+    }
+    .img-desglose-md {
+        display: block;
+        width: 100%\9;
+        max-width: 100%!important;
+        /*height: 95px!important;*/
+    }
+    .img-responsive-md{
+        display: block;
+        width: 100%\9;
+        max-width: 230% !important;
+        height: 140px!important;
+    }
+
+
+}
+@media (max-width: 480px){
+    .contenido-planes {
+        background-image: url(https://www.catalogo.claro.com.ec/images/vermas/BG_lineaNueva.svg);
+        background-size: 100% 40%;
+        background-repeat: no-repeat;
+        background-position: 50% 0%;
+    }
+    .tnd-img-resp {
+        width: auto;
+        height: auto;
+        float: none;
+    }
+    .iconDetalles {
+        width: auto;
+        height: auto;
+    }
+    /*Btn-validar-cédula*/
+    .btnValidatePlan {
+        max-width: 240px;
+    }
+}
+
+/*Btn-validar-cédula*/
+.btnValidatePlan {
+    max-width: 100%;
+}
+
+@media (min-width: 480px){
+    /*Btn-validar-cédula*/
+    .btnValidatePlan {
+        max-width: 240px;
+    }
+}
+
+.tnd-content-input.tnd-success-input:before {
+    top: 10px;
+    right: 10px;
+    content: "\f05d";
+    font-family: "FontAwesome";
+    position: absolute;
+    color: #44AF69;
+    font-size: 1.125rem;
+}
+.tnd-success {
+    border: 1px solid #44AF69 !important;
+}

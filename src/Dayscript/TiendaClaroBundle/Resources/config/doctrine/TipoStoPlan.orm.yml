@@ -1,0 +1,69 @@
+Dayscript\TiendaClaroBundle\Entity\TipoStoPlan:
+    type: entity
+    table: tipo__planes
+    indexes:
+        IDX_1CBD3925ABB54A09:
+            columns:
+                - id_negocio
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        slug:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+        displayname:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+        listname:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+        descripcion:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+        tyc:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    manyToOne:
+        idNegocio:
+            targetEntity: TipoNegocio
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_negocio:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,695 @@
+<script>
+    $( document ).ready(function() {
+        const HAY_PREPAGO = false;
+        const PASO__01_DATOS = '1', PASO__02_ESCOGER = '2', PASO__03_CHIP = '3', PASO__04_SOLICITUD = '4', PASO__05_CONFIRMACION = '5', PASO__06_TYPAGE = '6';
+        var forminhash = 'new';
+        var step_actual = PASO__01_DATOS;
+        var step_next = PASO__02_ESCOGER;
+        var price_min = 15, price_max = 20, plan_price = 0;
+        var is_prepago_before = false, is_prepago_after = false;
+        var plan_name = '';
+        var planes_to_show = [];
+        {% autoescape %}
+        var planes_prepago = {{ planesPrepago|json_encode()|raw }};
+        var planes_postpago = {{ planesPostpago|json_encode()|raw }};
+        {% endautoescape %}
+        $(planes_postpago).each(function (i, plan) {
+            $('#portabilidad-tarifa .btn-flat').each(function () {
+                var p_count = Number.parseFloat($(this).attr('data-count'));
+                if(Number.parseFloat(plan.VALOR_SIN_IMP)  >= Number.parseFloat($(this).attr('data-min')) && Number.parseFloat(plan.VALOR_SIN_IMP) <=  Number.parseFloat($(this).attr('data-max')))
+                    $(this).attr('data-count', ++p_count);
+            });
+        });
+
+        $('ul#content-steps a').click(function (e) {
+            e.preventDefault();
+        });
+
+        /*************************************************************************************
+         * Validaciones del continue button
+         */
+        $('.btn-continue:not(".show-subform")').click(function (e) {
+            var mi_boton = $(this);
+            e.preventDefault();
+            //$(this).addClass('disabled');
+            step_actual = $(this).attr('data-source');
+            step_next = $(this).attr('data-toggle');
+            if($(this).attr('data-toggle') !== 'end') {
+                var id_form_step__actual = '#form-step-' + step_actual;
+                var id_form_step__next = '#form-step-' + step_next;
+                var error = false;
+                var el_con_error = null;
+                //Reviso que los inputs no cumplan con el tipo de dato esperado
+                $(id_form_step__actual + ' input:not([type=submit], [type=hidden]), ' + id_form_step__actual + ' select').each(function(){
+                    error = error || validarInput(this, id_form_step__actual);
+                    el_con_error = error && el_con_error === null ? $(this) : el_con_error; //Para regresar al primer elemento que posea error
+                });
+                if((step_actual == PASO__04_SOLICITUD && $('input[name="portabilidad-servicio-nuevo"]').val() === 'postpago') && ($('i.glyphicon.glyphicon.glyphicon-remove.round-err').length > 0 || $('input[name="portabilidad-firma"]').val().length === 0)) {
+                    error = true;
+                    modalAlert('Debe subir correctamente todas las imágenes anexas antes de avanzar.', '¡Atención!')
+                }
+                if(error) {
+                    $('html, body').animate({scrollTop: el_con_error.offset().top - 75}, 'slow');
+                } else {
+                    var form = document.getElementById('create-portabilidad-form');
+                    var aData = new FormData(form);
+                    aData.append('form_step', step_actual);
+                    aData.append('form_code', forminhash);
+                    if(step_actual == PASO__01_DATOS) {
+                        aData.append('portabilidad-tarifa-minima', price_min);
+                        aData.append('portabilidad-tarifa-maxima', price_max);
+                    } else if(step_actual == PASO__05_CONFIRMACION) {
+                        aData.append('portabilidad-is-confirmado', true);
+                    }
+                    try {
+                        $.ajax({
+                            url: "{{ path('TiendaClaro_portabilidad_store') }}",
+                            type: 'POST',
+                            data: aData,
+                            enctype: 'multipart/form-data',
+                            cache: false,
+                            processData: false,  // tell jQuery not to process the data
+                            contentType: false,   // tell jQuery not to set contentType
+                            //mimeType:"multipart/form-data",
+                            beforeSend: function () {
+                                mi_boton.addClass('disabled');
+                                $('button[data-backtoggle]').addClass('disabled');
+                                modalLoad();
+                            },
+                            success: function (data) {
+                                //console.info(data);
+                                if(forminhash === 'new' && data.code !== null && data.code !== undefined)
+                                    forminhash = data.code;
+                                if(step_actual == PASO__01_DATOS) {
+                                    //$('#portabilidad-servicio-actual .btn-flat').addClass('disabled');
+                                    //$('#portabilidad-tarifa .btn-flat').addClass('disabled');
+
+                                    appendPlanes(planes_to_show, id_form_step__next, price_min, price_max);
+                                } else if(step_actual == PASO__04_SOLICITUD) {
+                                    var solicitud = data.solicitud;
+                                    $('#__result_nombres').html(solicitud.cliente.nombres);
+                                    $('#__result_cedula').html(solicitud.cliente.identificacion);
+                                    $('#__result_email').html(solicitud.cliente.email);
+                                    $('#__result_numero').html(solicitud.numero.numero);
+                                    $('#__result_operadora').html(solicitud.numero.operador_donante);
+                                    $('#__result_modalidad').html(solicitud.numero.modalidad);
+                                    $('#__result_dir_direccion').html(solicitud.entrega.direccion);
+                                    $('#__result_dir_referencia').html('(' + solicitud.entrega.referencia + ')');
+                                    $('#__result_dir_ciudad').html(solicitud.entrega.ciudad);
+                                    $('#__result_dir_provincia').html(solicitud.entrega.provincia);
+                                    for (var i = 0; i < data.solicitud.anexos.length; i++) {
+                                        $('a[id^=__result_an_][data-target="' + data.solicitud.anexos[i].tipo + '"]').attr('href', data.solicitud.anexos[i].url);
+                                    }
+                                    if(!HAY_PREPAGO) {
+                                        $('#resume__chip').hide();
+                                    }
+                                }
+                                gaSendEvent(step_actual, true);
+                                $('button[data-backtohome]').hide();
+                                $('button[data-backtoggle]').attr('data-backtoggle', step_actual).show();
+                                $('html, body').animate({scrollTop:0}, 'slow');
+                                if(!HAY_PREPAGO && step_next === PASO__03_CHIP) {
+                                    step_next++;
+                                    id_form_step__next = '#form-step-' + step_next;
+                                }
+                                $('ul#content-steps li').removeClass('active');
+                                $('ul#content-steps li:nth-child(' + (step_next >= PASO__03_CHIP ? step_next-1 : step_next) +')').addClass('active');
+                                $(id_form_step__actual).hide({top: 1000});
+                                $(id_form_step__next).show();
+                                pushSameHeight('.body-item-catalog');
+                                pushSameHeight('.header-item-catalog');
+                                sameHeight();
+                                if(step_next == PASO__04_SOLICITUD) {
+                                    resizeCanvas()
+                                } step_actual = step_next;
+                                if(step_next == PASO__06_TYPAGE) {
+                                    $('#create-portabilidad-form, button[data-backtoggle], #content-steps').remove();
+                                    $('button[data-backtohome]').show();
+                                    $('#content-final').show();
+                                }
+                            },
+                            error: function(err) {
+                                //console.error(err);
+                                modalAlert('Los datos ingresados son incorrectos.', 'ERROR');
+                            },
+                            complete: function(data) {
+                                modalLoaded();
+                                mi_boton.removeClass('disabled');
+                                $('button[data-backtoggle]').removeClass('disabled');
+                            },
+                        });
+                    }
+                    catch(err) {
+                        modalLoaded();
+                        modalAlert('Se ha presentado un pequeño inconveniente.. Por favor, inténtalo de nuevo','ERROR');
+                        $('button[data-backtohome]').click();
+                    }
+                }
+            }
+        });
+
+        /*************************************************************************************
+         * Botón cancelar (en el paso 5)
+         */
+        $('.btn[data-cancel="all"]').click(function (e) {
+            e.preventDefault();
+            if(step_actual == PASO__05_CONFIRMACION && forminhash !== 'new') {
+                var dData = new FormData();
+                $.ajax({
+                    url: "{{ path('TiendaClaro_portabilidad_delete_slash') }}" + forminhash + '/' + step_actual,
+                    type: 'DELETE',
+                    data: { 'form_code': forminhash, 'form_step': step_actual },
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                }).done(function() {
+                    step_actual = PASO__01_DATOS;
+                    $('button[data-backtohome]').click();
+                });
+            }
+        });
+
+        /*************************************************************************************
+         * Validación de inputs según el tipeo del usuario
+         */
+        $('input[type="text"], input[type="email"]').keyup(function (e) {
+            var error = false;
+            switch ($(this).attr('data-validate')) {
+                case "alpha": //Just letters
+                    var patternText = new RegExp(/^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*$/);//new RegExp(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/);
+                    error = !patternText.test($(this).val());
+                    break;
+                case "numeric": //Just numbers
+                    var patternText = new RegExp(/^[0-9]*$/);
+                    error = !patternText.test($(this).val());
+                    break;
+                case "alphanumeric": // Letters and numbers
+                    var patternText = new RegExp(/^[a-zA-Z0-ñÑáéíóúÁÉÍÓÚüÜ]*$/);
+                    error = !patternText.test($(this).val());
+                    break;
+                case "email": // Just Email
+                    var patternText = new RegExp(/[$&+,:;=¿?#|'<>^*()%¡!¬{}\[\]\\/`´]/);
+                    error = patternText.test($(this).val());
+                    break;
+                case "all": // Letters, numbers and printable
+                default: //Etc.
+                    break;
+            }
+            if(error) {
+                $(this).parent().addClass('has-error');
+            } else
+                $(this).parent().removeClass('has-error');
+        });
+        /*************************************************************************************
+         * Reset msj and state on change
+         */
+        $('select').change(function (e) {
+            $(this).parent().removeClass('has-error has-sucess');
+            $('p.form-control-msj[data-target="' + $(this).attr('id') + '"]').empty();
+        });
+
+        /*************************************************************************************
+         * Botón regresar (el que no redirige a Home)
+         */
+        $('button[data-backtoggle]').click(function (e) {
+            step_next = step_actual;
+            $('#form-step-' + step_actual).hide({top: 1000});
+            step_actual = $(this).attr('data-backtoggle');
+            $(this).attr('data-backtoggle', step_actual === PASO__04_SOLICITUD ? step_actual-2 : step_actual-1);
+            if(step_actual === PASO__03_CHIP) {
+                step_actual--;
+                $('#form-step-' + (step_actual-1)).show();
+            } else
+                $('#form-step-' + step_actual).show();
+            if(step_actual === PASO__01_DATOS) {
+                $('button[data-backtoggle]').hide();
+                $('button[data-backtohome]').show();
+            }
+            $('ul#content-steps li').removeClass('active');
+            if(step_actual >= PASO__03_CHIP) {
+                $('ul#content-steps li:nth-child(' + (step_actual-1) +')').addClass('active');
+            } else
+                $('ul#content-steps li:nth-child(' + step_actual +')').addClass('active');
+            gaSendEvent(step_actual, false);
+            e.stopPropagation();
+        });
+
+        /*************************************************************************************
+         * Validación para que no se pueda agregar "Enter"s que luego puedan enviar el formulario
+         */
+        $('.form-new input[type!=submit]').keypress(function (e) {
+            var key = e.which || e.keyCode;
+            if (key == 13) {    return false;   }
+            $(this).parent().removeClass('has-error has-success');
+            $('/*#form-step-1*/ .form-control-msj[data-target="' + $(this).attr('id')+ '"]').empty();
+        });
+
+        /*************************************************************************************
+         * Funcionalidad del step-by-step
+         */
+        $('a[data-step]').click(function (e) {
+            e.preventDefault();
+            //console.log('Regresar a: ' + $(this).attr('data-step'));
+        });
+
+        /*************************************************************************************
+         * Funcionalidad del paso 1 (Formulario de datos personales y del número)
+         */
+        $('#portabilidad-servicio-actual .btn-flat').not('.active').click(function (e) {
+            e.preventDefault();
+            $('#portabilidad-servicio-actual .btn-flat').removeClass('active');
+            $(this).addClass('active');
+            $('input[name="portabilidad-servicio-actual"]').val($(this).attr('data-target'));
+            if($(this).attr('data-target') !== 'prepago') {
+                $('input[name="portabilidad-servicio-nuevo"]').val('postpago');
+                $('#portabilidad-tarifa').parent().show({'bottom': 1000});
+                $('#escoger-tipo-destino').hide();
+                $('#escoger-plan').show();
+                $('#postpago-title').show();
+                $('#prepago-title').hide();
+                $('#ser-prepago-choice').hide();
+                planes_to_show = planes_postpago;
+                price_max = 30;
+            } else {
+                $('#portabilidad-servicio-actual input[name="portabilidad-tarifa"]').val(null);
+                $('#portabilidad-tarifa .btn-flat').removeClass('active');
+                $('#form-step-1 .btn-continue').removeClass('disabled');
+                $('#portabilidad-tarifa').parent().hide({'bottom': 1000});
+                $('#postpago-title').hide();
+                $('#prepago-title').show();
+                $('#ser-prepago-choice').show();
+                is_prepago_before = true;
+                if(HAY_PREPAGO) {
+                    $('#escoger-tipo-destino').show();
+                    $('#escoger-plan').hide();
+                }
+                price_min = 1;
+                price_max = 20;
+                planes_to_show = planes_prepago.length > 0 ? planes_prepago.concat(planes_postpago) : planes_postpago;
+            }
+            if(!HAY_PREPAGO) {
+                //$('#escoger-tipo-destino').hide();
+                $('#escoger-plan').show();
+            }
+        });
+        $('#portabilidad-tarifa .btn-flat').not('.active').click(function (e) {
+            e.preventDefault();
+            $('#portabilidad-tarifa .btn-flat').removeClass('active');
+            price_min = Number.parseFloat($(this).attr('data-min'));
+            price_max = Number.parseFloat($(this).attr('data-max'));
+            $('input[name="portabilidad-tarifa"]').val(price_min + '_' + price_max);
+            $('#form-step-1 .btn-continue').removeClass('disabled');
+            $(this).addClass('active');
+        }).filter(function () {
+            return Number.parseFloat($(this).attr('data-count')) <= 1;
+        }).remove();
+        //Solo aplica para el paso 1, por lo que no hay que hacerlo general
+        $('.btn-continue.show-subform').click(function (e) {
+            var mi_boton = $(this);
+            e.preventDefault();
+            var error = validarInput('#portabilidad-numero', '') || validarInput('#portabilidad-operadora', '');
+            if(!error) {
+                try {
+                    var form = document.getElementById('create-portabilidad-form');
+                    var aData = new FormData(form);
+                    aData.append('form_step', 0);
+                    aData.append('form_code', forminhash);
+                    $.ajax({
+                        url: "{{ path('TiendaClaro_portabilidad_store') }}",
+                        type: 'POST',
+                        data: aData,
+                        enctype: 'multipart/form-data',
+                        cache: false,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,   // tell jQuery not to set contentType
+                        //mimeType:"multipart/form-data",
+                        beforeSend: function () {
+                            mi_boton.addClass('disabled');
+                            $('button[data-backtoggle]').addClass('disabled');
+                            modalLoad();
+                        },
+                        success: function (data) {
+                            //console.info(data);
+                            if(forminhash === 'new' && data.code !== null && data.code !== undefined)
+                                forminhash = data.code;
+                            $(mi_boton.attr('data-target')).show({top: 1000});
+                            mi_boton.remove();
+                            gaSendEvent(0, true);
+                        },
+                        error: function(err) {
+                            //console.error(err);
+                            modalAlert('Los datos ingresados son incorrectos.', 'ERROR');
+                        },
+                        complete: function(data) {
+                            modalLoaded();
+                            mi_boton.removeClass('disabled');
+                            $('button[data-backtoggle]').removeClass('disabled');
+                        },
+                    });
+                }
+                catch(err) {
+                    modalLoaded();
+                    modalAlert('Se ha presentado un pequeño inconveniente.. Por favor, inténtalo de nuevo','ERROR');
+                    $('button[data-backtohome]').click();
+                }
+            }
+        });
+
+        /*************************************************************************************
+         * Funcionalidad del paso 2 (Selección del plan)
+         */
+        /*$('a.select-servicio').click(function (e) {
+            e.preventDefault();
+            $('a.select-servicio').removeClass('selected');
+            $(this).addClass('selected');
+            var servicio = $(this).attr('data-target');
+            $('input[name="portabilidad-servicio-nuevo"]').val(servicio);
+            if(servicio === 'prepago') {
+                $('#escoger-plan').hide({top: 1000});
+                $('.catalog-planes .container-tooltip.hoverShadow').removeClass('active');
+                $('.catalog-planes .container-tooltip.hoverShadow input[name="portabilidad-plan"]').prop('checked', false);
+                $('#form-step-2 .btn-continue').removeClass('disabled'); // Hasta que se realice el desarrollo de Prepago con los métodos respectivos
+            } else {
+                $('#escoger-plan').show({top: 1000});
+                $('html, body').animate({
+                    scrollTop: $('#escoger-plan').offset().top - 50
+                }, 1000);
+                $('#form-step-2 .btn-continue').addClass('disabled'); // Hasta que se realice el desarrollo de Prepago con los métodos respectivos
+            }
+        });*/
+        $('a.select-servicio').click(function (e) {
+            e.preventDefault();
+            $('a.select-servicio').removeClass('active');
+            $(this).addClass('active');
+            var servicio = $(this).attr('data-target');
+            $('input[name="portabilidad-servicio-nuevo"]').val(servicio);
+            if(servicio === 'prepago') {
+                $('.show-on-prepago').show();
+                $('.show-on-postpago').hide();
+                $('.catalog-planes .container-tooltip.hoverShadow').removeClass('active');
+                $('.catalog-planes .container-tooltip.hoverShadow input[name="portabilidad-plan"]').prop('checked', false);
+                $('#form-step-2 .btn-continue').removeClass('disabled'); // Hasta que se realice el desarrollo de Prepago con los métodos respectivos
+                $('a.btn-continue[data-toggle="' + PASO__05_CONFIRMACION + '"]').removeClass('disabled');
+                $('#input-foto-anverso , #input-foto-reverso').removeAttr('data-type');
+                is_prepago_after = true;
+            }
+        });
+        $('a.show-all-planes').click(function (e) {
+            e.preventDefault();
+            $($(this).attr('data-target') + ' .tab-content .content-catalog .container-tooltip, ' + $(this).attr('data-target') + ' .nav-catalog li a').show({left: 500});
+            $('a.show-all-planes').hide();
+            $('a.show-min-planes').show();
+            resizeMaxHeight(sameHeightObject);
+            $('html, body').animate({
+                scrollTop: $('#escoger-plan').offset().top - 50
+            }, 1000);
+        });
+        $('a.show-min-planes').click(function (e) { //Esto me hizo doler el pecho xD
+            e.preventDefault();
+            $($(this).attr('data-target') + ' .tab-content .content-catalog .container-tooltip, ' + $(this).attr('data-target') + ' .nav-catalog li a').show({left: 500});
+            $('.container-tooltip').hide().filter(function() {
+                return Number.parseFloat($(this).attr("data-price")) >= Number.parseFloat(price_min)-1 && Number.parseFloat($(this).attr("data-price")) <= Number.parseFloat(price_max)+1;
+            }).show();
+            var first_nav = true;
+            $('#form-step-2 .nav-catalog a').hide().each(function (i, el) {
+                var count = 0;
+                $('.container-tooltip[data-type="' + $(this).attr('href').replace('#', '') + '"]').each(function () {
+                    if($(this).css('display') !== 'none') {
+                        count++;
+                    }
+                });
+                if(count)
+                    $(this).show();
+                if(first_nav && count) {
+                    first_nav = false;
+                    $(this).click();
+                }
+            });
+            $('a.show-min-planes').hide();
+            $('a.show-all-planes').show();
+            resizeMaxHeight(sameHeightObject);
+            $('html, body').animate({
+                scrollTop: $('#escoger-plan').offset().top - 50
+            }, 1000);
+        });
+        $('.catalog-planes').on('click', '.container-tooltip', function (){
+            $('.catalog-planes .container-tooltip.hoverShadow').removeClass('active');
+            $('.catalog-planes .container-tooltip.hoverShadow input[name="portabilidad-plan"]').prop('checked', false);
+            $(this).addClass('active');
+            $('.catalog-planes .container-tooltip.hoverShadow input[name="portabilidad-plan"][value="' + $(this).attr('data-target') + '"]').prop('checked', true);
+            $('#form-step-2 .btn-continue').removeClass('disabled');
+            $('a.select-servicio').removeClass('active');
+            $('input[name="portabilidad-servicio-nuevo"]').val('postpago');
+            $('.show-on-postpago').show();
+            $('.show-on-prepago').hide();
+            if($('input[name="portabilidad-firma"]').val() == '')
+                $('a.btn-continue[data-toggle="' + PASO__05_CONFIRMACION + '"]').addClass('disabled');
+            $('#input-foto-anverso , #input-foto-reverso').attr('data-type', 'text_full');
+            plan_name = $(this).find('.item-title-catalog').html();
+            plan_price = $(this).attr('data-price');
+        });
+
+
+        /*************************************************************************************
+         * Funcionalidad del paso 4 (Selección de imágenes)
+         */
+        $('.input-file button.btn-choose').click(function(e){
+            $(this).parent().parent().find('input[type="file"]').click();
+        });
+        $('input[type="file"]').change(function(e){
+            var el_parent = $(this).parent().parent();
+            var el_p_msj = $(this).parent().parent().find('p.form-control-msj');
+            var el_notification = $(this).parent().parent().parent().find('div.col-xs-2');
+            function notificarChange(isError, msgError) {
+                if(isError) {
+                    el_parent.addClass('has-error').removeClass('has-success');
+                    el_p_msj.html(msgError);
+                    el_notification.html('<i class="glyphicon glyphicon glyphicon-remove round-err" title="Foto inválida" style="margin-top: -5px"></i>');
+                } else {
+                    el_parent.removeClass('has-error').addClass('has-success');
+                    el_notification.html('<i class="glyphicon glyphicon-ok round-ok"></i>');
+                }
+            }
+
+            var file = event.target.files[0];
+            $(this).parent().parent().find('p.form-control-msj').empty();
+            $(this).parent().find('input[type="text"]').val(file.name);
+            if (file.size >= 4 * 1024 * 1024) {
+                notificarChange(true, 'El peso del archivo excede lo máximo permitido (4MB).');
+            } else {
+                if (window.FileReader && window.Blob) { //Solo lo valido si lo permite el navegador
+                    var fileReader = new FileReader();
+                    fileReader.onloadend = function(e) {
+                        var arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+                        var header = "";
+                        for (var i = 0; i < arr.length; i++) {
+                            header += arr[i].toString(16);
+                        }
+                        var mimeType = "unknown";
+                        switch (header) {
+                            case "89504e47":
+                                mimeType = "image/png";
+                                break;
+                            case "47494638":
+                                mimeType = "image/gif";
+                                break;
+                            case "ffd8ffe0":
+                            case "ffd8ffe1":
+                            case "ffd8ffe2":
+                                mimeType = "image/jpeg";
+                                break;
+                            default:
+                                mimeType = "unknown";
+                                break;
+                        }
+                        notificarChange(mimeType === "unknown", 'El archivo debe ser una imagen tipo: PNG, JPG o GIF.');
+                    };
+                    fileReader.readAsArrayBuffer(file);
+                }
+            }
+
+        });
+
+        /*************************************************************************************
+         * Funcionalidad del paso 4 (Firma)
+         */
+        var signature_wrapper = document.getElementById("signature-pad");
+        var canvas = signature_wrapper.querySelector("canvas");
+        var signaturePad = new SignaturePad(canvas, {
+            // It's Necessary to use an opaque color when saving image as JPEG;
+            // this option can be omitted if only saving as PNG or SVG
+            backgroundColor: 'rgb(255, 255, 255)',
+            penColor: "rgb(0, 0, 0)"
+        });
+
+        // Adjust canvas coordinate space taking into account pixel ratio,
+        // to make it look crisp on mobile devices.
+        // This also causes canvas to be cleared.
+        function resizeCanvas() {
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+
+            // This part causes the canvas to be cleared
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+
+            // This library does not listen for canvas changes, so after the canvas is automatically
+            // cleared by the browser, SignaturePad#isEmpty might still return false, even though the
+            // canvas looks empty, because the internal data of this library wasn't cleared. To make sure
+            // that the state of this library is consistent with visual state of the canvas, you
+            // have to clear it manually.
+            signaturePad.clear();
+        }
+
+        // On mobile devices it might make more sense to listen to orientation change,
+        // rather than window resize events.
+        window.onresize = resizeCanvas;
+        resizeCanvas();
+
+        $('a[data-action=signature-clear]').click(function (e) {
+            e.preventDefault();
+            var el_signature_img = $('#signature-result');
+            if(el_signature_img.attr('src') !== '') {
+                el_signature_img.attr('src', '');
+                canvas.style.display = '';
+                $('a[data-action=signature-save]').show();
+                $('#signature-pad div').css('background', '');
+            }
+            $('a.btn-continue[data-toggle="' + PASO__05_CONFIRMACION + '"]').addClass('disabled');
+            $(this).removeClass('active');
+            signaturePad.clear();
+        });
+
+        $('a[data-action=signature-save]').click(function (e) {
+            e.preventDefault();
+            if (signaturePad.isEmpty()) {
+                modalAlert("Primero realiza una firma antes de confirmarla.");
+            } else {
+                var dataURL = signaturePad.toDataURL();
+                $('#signature-result').attr('src', dataURL);
+                $('#signature-pad div').css('background', '#D5D5D5');
+                $('input[name="portabilidad-firma"]').val(dataURL);
+                canvas.style.display = 'none';
+                $(this).hide();
+                $('a[data-action=signature-clear]').addClass('active');
+                $('a.btn-continue[data-toggle="' + PASO__05_CONFIRMACION + '"]').removeClass('disabled');
+            }
+        });
+
+        /*************************************************************************************
+         * Funcionalidad del paso 5 (Confirmación)
+         */
+        $('input[type="checkbox"]#terminosycondiciones').change(function() {
+            if(this.checked) {
+                $('a.btn-continue[data-source="' + PASO__05_CONFIRMACION + '"]').removeClass('disabled');
+            } else {
+                $('a.btn-continue[data-source="' + PASO__05_CONFIRMACION + '"]').addClass('disabled');
+            }
+        });
+
+        /*************************************************************************************
+         * Prevenir back button del navegador
+         */
+        (function (global) {
+            if(typeof (global) === "undefined") {
+                throw new Error("window is undefined");
+            }
+            global.onbeforeunload = function (e) {
+                if(step_actual > PASO__01_DATOS && step_actual < PASO__06_TYPAGE && forminhash !== "new") {
+                    return "Detener";
+                }
+            };
+        })(window);
+        /*************************************************************************************
+         * Reinventando la rueda con el loader.. Lo siento, no había otra forma :(
+         */
+        var loader2 = document.createElement('div');
+        loader2.className = 'loader';
+        loader2.innerHTML = string([
+            '<div class="content">',
+            '<img src="'+ rootImg +'images/body/etiquetas/loading.gif">',
+            '<p>Procesando... Espera unos segundos, por favor.</p>',
+            '</div>'
+        ]);
+        document.body.appendChild(loader2);
+        function modalLoad() { loader2.style.display = 'flex'; }
+        function modalLoaded() { loader2.style.display = 'none'; }
+
+        //Seguimiento page_view:
+        gtag('event', 'Página Vista', {
+            'event_category': 'Planes_Portabilidad'
+        });
+
+        /**
+         * Envía eventos a Google Analytics
+         * @param paso
+         * @param isForward
+         * @returns {void}
+         */
+        function gaSendEvent(paso, isForward) {
+            var ga_action = '', ga_label = 'Servicio actual: ' + (is_prepago_before ? 'Prepago' : 'Postpago') + ' | Servicio deseado: ' + (is_prepago_after ? 'Prepago' : 'Postpago') + (plan_name.length ? ' Plan: ' + plan_name : '');
+            if(paso == 0) {
+                ga_action = "Línea (I)";
+                ga_label = '';
+            } else if(paso == PASO__01_DATOS) {
+                ga_action = "Línea (II)";
+                ga_label = 'Servicio actual: ' + (is_prepago_before ? 'Prepago' : 'Postpago');
+            } else if(paso == PASO__02_ESCOGER) {
+                ga_action = "Plan";
+            } else if(paso == PASO__03_CHIP) {
+                ga_action = "Chip";
+            } else if(paso == PASO__04_SOLICITUD) {
+                ga_action = "Tus datos";
+            } else if(paso == PASO__05_CONFIRMACION) {
+                ga_action = "Confirmar datos";
+            } else if(paso == PASO__06_TYPAGE) {
+                ga_action = "TYP";
+            }
+            if(isForward) {
+                gtag('event', isForward ? ga_action: 'Retroceder', {
+                    'event_category': 'Planes_Portabilidad',
+                    'event_label': ga_label,
+                    'value': plan_price
+                });
+            }
+        }
+    });
+
+    /**
+     * Retorna true si hay error
+     * @param scope
+     * @param id_form_step__actual
+     * @returns {boolean}
+     */
+    function validarInput(scope, id_form_step__actual) {
+        var input = $(scope);
+        var error = false;
+        var el_msj = $(id_form_step__actual + ' .form-control-msj[data-target="' + input.attr('id') + '"]');
+        //console.log(input.attr('id') + ": <" + input.val() + ">");
+        //Verifico que los campos no estén vacíos
+        if(typeof input.attr('data-type') !== typeof undefined && input.attr('data-type') !== false) { //Solo si existe el atributo del tipo
+            if(input.val() === null || input.val().trim() == '') {
+                input.parent().addClass('has-error').removeClass('has-success');
+                el_msj.html(el_msj.attr('data-error'));
+                error = true;
+            } else {
+                //Revisar tipo de dato
+                if(validateByType(input.attr('data-type'), input.val())) {
+                    input.parent().addClass('has-success').removeClass('has-error');
+                    el_msj.empty();
+                } else {
+                    input.parent().addClass('has-error').removeClass('has-success');
+                    el_msj.html('La información ingresada es inválida');
+                    error = true;
+                }
+            }
+        }
+        return error;
+    }
+
+
+
+</script>

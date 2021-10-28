@@ -1,0 +1,78 @@
+<div class="card-equipo tnd-pt-20-md">
+    <div class="tnd-h4 title-style tnd-pt-20-xs tnd-text-left-xs">TU EQUIPO NUEVO</div>
+    <div class="title-style tnd-pt-20-xs tnd-text-left-xs"> {{ equipo.idMarca.nombre }} </div>
+    <div class="font-bold tnd-h2 tnd-pt-0-md tnd-text-left-xs"> {{ equipo.nombreComercial }} </div>
+    <div class="center-middle tnd-pt-20-xs">
+        {% for skus in equipo.getSkus[0].getImgs %}
+            {% if loop.first %}
+                <img style="max-height: 150px" class="tnd-hidden-md" src="{{  asset(skus.rutaFull) }}" alt="samsumg">
+                <img class="tnd-visible-md" src="{{ asset(skus.rutaFull) }}" alt="">
+            {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+{#<hr class="tnd-width-xs-3 tnd-hidden-md">#}
+<div class="{% if accordeonInclude is defined and accordeonInclude %} container-accordeon-element {% endif %}">
+{#    <div class="tnd-red font-bold flex-md gray {% if accordeonInclude is defined and accordeonInclude %} accordeon-element-header side-arrow {% else %} between-lines-md {% endif %}">
+        <i>Características</i>
+    </div>#}
+    <div class="{% if accordeonInclude is defined and accordeonInclude %} accordeon-element-body {% else %} tnd-pt-10-xs {% endif %}">
+        {% for caracteristica in equipo.caracteristicasPrincipales %}
+            {% if loop.index <=4 %}
+                <div class="flex-xs flex-justify-center-xs tnd-px-12-xs tnd-pb-0-xs">
+                    <img style="height: 20px" class="tnd-mr-5-xs"
+                         src="{{ asset(caracteristica.rutaImg) }}" alt="{{ caracteristica.titulo }}">
+                    <div class="data tnd-h4 tnd-text-left-xs tnd-width-xs-5 tnd-width-md-8" style="font-weight: 500">
+                    {% if caracteristica.titulo == 'Interna' %}<span>Memoria</span>{% endif %} {{ caracteristica.titulo }}
+                    </div>
+                </div>
+                <div class="flex-xs flex-justify-center-xs tnd-px-12-xs tnd-pt-0-xs">
+                    <div class="font-style data tnd-text-left-xs tnd-width-xs-5 tnd-width-md-8">
+                        {{ caracteristica.descripcion }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="padding-on-0-active"></div>
+    <div class="tnd-pb-20-xs tnd-pt-2em-xs font-bold flex-justify-center-xs font-vermas" >
+        <a href="{{ path('TiendaClaro_postpago_vermas', { 'equipo_slug': equipo.slug }) }}" target="_blank">Ver más detalle del equipo</a>
+    </div>
+</div>
+{#
+<div class="tnd-pt-20-md {% if accordeonInclude is defined and accordeonInclude %} container-accordeon-element {% endif %}">
+    <div class="tnd-red font-bold flex-md gray {% if accordeonInclude is defined and accordeonInclude %} accordeon-element-header side-arrow {% else %} between-lines-md {% endif %}">
+        <i>Promoción</i>
+    </div>
+    <div class="{% if accordeonInclude is defined and accordeonInclude %} accordeon-element-body {% else %} tnd-pt-10-xs {% endif %}">
+        {% for etiqueta in equipo.etiquetas %}
+            {% if etiqueta.tipo != 'ACCESORIO' and etiqueta.transaccion == "portabilidad" %}
+                <div class="tnd-pt-10-xs tnd-text-left-md tnd-pl-25-md">  {{ etiqueta.titulo }} </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="padding-on-0-active"></div>
+</div>#}
+
+{% block stylesheets -%}
+<style>
+    .tnd-p-card{
+        padding: 40px 55px 0px 55px;
+    }
+    .title-style{
+        color: #333333;
+        font-weight: 500;
+    }
+    .font-style{
+        color: #666666c9;
+        font-weight: 500;
+        margin-right: 5%;
+    }
+    .font-vermas{
+        text-decoration: underline;
+        text-align: left;
+        padding-left: 30px;
+    }
+</style>
+{% endblock %}

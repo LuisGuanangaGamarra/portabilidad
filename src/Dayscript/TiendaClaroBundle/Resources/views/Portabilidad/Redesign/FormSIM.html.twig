@@ -1,0 +1,759 @@
+{% block FormSim %}
+    <div class="FormSim" style="border: 1px solid #888888b0; -moz-border-radius: 9px; -webkit-border-radius:9px; padding: 15px;">
+        <div><span style="color: #555; font-weight: 500;">Formulario de envío</span>
+            <div style="margin-top: 3%;" class="flex-xs flex-wrap-xs flex-cont-1-xs flex-center">
+                <div class="form-group col-xs-12 padding-0 cac">
+                    <label style="font-weight: 500; color: grey;">Provincia</label>
+                    <select  name="provinciaCAC" id="provinciaCac" required=""
+                             class="inputSIM">
+                        <option value="">Elige tu provincia</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-12 padding-0 cac">
+                    <label style="font-weight: 500; color: grey;">Ciudad</label>
+                    <select name="ciudadCAC" id="ciudadCac" required=""
+                            class="inputSIM">
+                        <option value="">Elige tu ciudad</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-12 padding-0 centro cac">
+                    <label style="font-weight: 500; color: grey;">Centros de Atención</label>
+                    <select name="centro" id="centro" required="" class="inputSIM">
+                    </select>
+                </div>
+                <div class="form-group" style="color: #808080bf">
+                    <div class="form-group col-xs-12 padding-0 domicilio">
+                        <label style="font-weight: 500; color: grey;">Provincia</label>
+                        <select  name="provincia" id="provincia" required=""
+                                 class="inputSIM">
+                            <option value="">Elige tu provincia</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12 padding-0 domicilio">
+                        <label style="font-weight: 500; color: grey;">Ciudad</label>
+                        <select name="ciudad" id="ciudad" required=""
+                                class="inputSIM">
+                            <option value="">Elige tu ciudad</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12 padding-0 lugar domicilio">
+                        <label style="font-weight: 500; color: grey;">Lugar de entrega</label>
+                        <select name="lugar" id="lugar" required=""
+                                class="inputSIM">
+                            <option value="">Elige lugar de entrega</option>
+                            <option value="Domicilio">Domicilio</option>
+                            <option value="Trabajo">Lugar de trabajo</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12 padding-0 direccion domicilio">
+                        <label style="font-weight: 500; color: grey;">Dirección</label>
+                        <input style="box-shadow: none;" name="txtdireccion" id="txtdireccion" maxlength="200" type="text" required=""
+                               placeholder="Ingresa tu dirección" class="inputSIM"  data-only-letters="">
+                    </div>
+                    <div class="form-group col-xs-12 padding-0 referencia domicilio">
+                        <label style="font-weight: 500; color: grey;">Referencia</label>
+                        <input style="box-shadow: none;" name="txtreferencia" id="txtreferencia" maxlength="200" type="text" required=""
+                               placeholder="Ingresa una referencia de tu dirección" class="inputSIM"  data-only-letters="">
+                    </div>
+                    <div class="form-group col-xs-12 padding-0 contacto domicilio">
+                        <label style="font-weight: 500; color: grey;">Telefono de contacto</label>
+                        <input style="box-shadow: none;" name="telfcontacto" id="telfcontacto" type="text"  required=""
+                               placeholder="Ingresa teléfono" class="inputSIM" maxlength="10" data-only-numbers data-cellphone-validation>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block NewFormSim %}
+    <div class="FormSim {#tnd-mt-20-xs#}" style="">
+        <div style="margin-top: 3%;" class="flex-xs flex-wrap-xs flex-cont-1-xs flex-center">
+            <div class="form-group col-xs-12 padding-0">
+                <label>*Provincia</label>
+                <select name="provincia" id="provincia" required=""
+                        class="select tema1">
+                    <option value="">Seleccione una provincia</option>
+                </select>
+            </div>
+            <div class="form-group col-xs-12 padding-0 ">
+                <label>*Ciudad</label>
+                <select name="ciudad" id="ciudad" required=""
+                        class="select tema1">
+                    <option value="">Seleccione una ciudad</option>
+                </select>
+            </div>
+            <div class="form-group col-xs-12 padding-0 direccion">
+                <label>*Ingresa la dirección del domicilio</label>
+                <input style="box-shadow: none;" name="txtdireccion" id="txtdireccion" maxlength="500" type="text"
+                       required=""
+                       placeholder="Dirección completa" class="tnd-input-text theme-2" data-only-letters="">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block FormSimMapa %}
+
+    {#    <div class="mapa">
+        <iframe class="iframe" height="500" src="https://www.openstreetmap.org/export/embed.html?bbox=-82.55264282226564%2C22.971353928229505%2C-82.19009399414064%2C23.200960808078566&layer=mapnik"></iframe>
+    </div>#}
+    <div id="capturar-mapa">
+        <input name="portabilidad-mapa" type="hidden" id="portabilidad-mapa" accept="image/*">
+        <input name="lat-long" type="hidden" id="lat-long">
+        {#<canvas class="tnd-width-xs-10 tnd-br-25-xs"></canvas>#}
+        <label for="text">*Arrastra el marcador en la posición exacta de tu domicilio</label>
+        <div id="mimapa" class="tnd-width-xs-10"></div>
+       {# <img id="mapa-result" class="img-responsive" src="" alt="">#}
+    </div>
+{% endblock %}
+
+
+{% block FormSimJs %}
+    {#    <script>
+        var x = document.getElementById("demo");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+
+            console.log("Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude);
+        }
+    </script>#}
+    {#<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>#}
+    <script src="{{ asset('library/leaflet/leaflet.js') }}"></script>
+    <script src="{{ asset('library/leaflet/html2canvas.min.js') }}"></script>
+    <script src="{{ asset('library/leaflet/canvas2image.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            let slugPlan = '{{ plan.slug }}';
+            //console.log(slugPlan);
+            if(slugPlan == 'paquete-mas-gigas'){
+                var temp = [
+                    {
+                        "id": 1,
+                        "provincia": "GUAYAS",
+                        "ciudad": [
+                            {
+                                "name": "GUAYAQUIL",
+                                "agencia": [
+                                    {"nombre": "CAC EL DORADO"},{"nombre": "CAC CITY MALL"},{"nombre": "CAC MALL DEL SUR"},
+                                    {"nombre": "CAC  RIOCENTRO CEIBOS"},{"nombre": "CAC SAN MARINO"}]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "provincia": "PICHINCHA",
+                        "ciudad": [
+                            {
+                                "name": "QUITO",
+                                "agencia": [
+                                    {"nombre": "CAC EL PORTAL"},{"nombre": "CAC EL RECREO"},{"nombre": "CAC QUICENTRO NORTE"},
+                                    {"nombre": "CAC SAN LUIS"},{"nombre": "CAC SCALA"}]
+                            }
+                        ]
+                    }
+                ];
+            }else{
+                var temp = [
+                    {
+                        "id": 1,
+                        "provincia": "AZUAY",
+                        "ciudad": [{"name": "CAMILO PONCE ENRIQUEZ", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CHORDELEG",  "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "CUENCA",
+                                "agencia": [{"nombre": "CAC MALL DEL RIO"}]
+                            },
+                            {"name": "GIRON",  "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PAUTE",  "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SANTA ISABEL",  "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SIGSIG",  "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}]
+                    },
+                    {
+                        "id": 2,
+                        "provincia": "BOLIVAR",
+                        "ciudad": [
+                            {"name": "CALUMA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CHIMBO", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "ECHENDIA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name":"GUARANDA",
+                                "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]
+                            },
+                            {"name": "SAN MIGUEL", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}]
+                    },
+                    {
+                        "id": 3,
+                        "provincia": "CAÑAR",
+                        "ciudad": [
+                            {
+                                "name": "AZOGUES",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {"name": "BIBLIAN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CAÑAR","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "EL TAMBO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "LA TRONCAL","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}]
+                    },
+                    {
+                        "id": 4,
+                        "provincia": "CARCHI",
+                        "ciudad": [
+                            {"name": "BOLIVAR","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "ESPEJO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MIRA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MONTUFAR","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN PEDRO DE HUACA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "TULCAN",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            }]
+                    },
+                    {
+                        "id": 5,
+                        "provincia": "CHIMBORAZO",
+                        "ciudad": [
+                            {"name": "ALAUSI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CHAMBO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CHUNCHI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "COLTA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CUMANDA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "GUAMOTE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "GUANO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PENIPE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "RIOBAMBA",
+                                "agencia": [{"nombre": "CAC PASEO RIOBAMBA"}]
+                            }]
+                    },
+                    {
+                        "id": 6,
+                        "provincia": "COTOPAXI",
+                        "ciudad": [
+                            {"name": "LA MANA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "LASSO", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "LATACUNGA",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {"name": "PANGUA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PUJILI", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN MIGUEL DE SALCEDO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAQUISILI", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}]
+                    },
+                    {
+                        "id": 7,
+                        "provincia": "EL ORO",
+                        "ciudad": [
+                            {"name": "ARENILLAS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "BALSAS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "EL GUABO", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "HUAQUILLAS",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {
+                                "name": "MACHALA",
+                                "agencia": [{"nombre": "CAC PASEO MACHALA"}]
+                            },
+                            {"name": "MARCABELÍ", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PACCHA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PASAJE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PIÑAS", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PORTOVELO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SANTA ROSA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "ZARUMA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 8,
+                        "provincia": "ESMERALDAS",
+                        "ciudad": [
+                            {"name": "ATACAMES","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "ELOY ALFARO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "ESMERALDAS",
+                                "agencia": [{"nombre": "CAC MULTIPLAZA"}]
+                            },
+                            {"name": "MUISNE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "QUININDE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "RIO VERDE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN LORENZO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 9,
+                        "provincia": "GUAYAS",
+                        "ciudad": [
+                            {"name": "ALFREDO BAQUERIZO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "BALAO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "BALZAR","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "BUCAY","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "COLIMES","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CORONEL MARCELINO MARIDUEÑA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "DAULE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "DURAN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "EL EMPALME","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "EL TRIUNFO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "GUAYAQUIL",
+                                "agencia": [
+                                    {"nombre": "CAC EL DORADO"},{"nombre": "CAC CITY MALL"},{"nombre": "CAC MALL DEL SUR"},
+                                    {"nombre": "CAC  RIOCENTRO CEIBOS"},{"nombre": "CAC SAN MARINO"}]
+                            },
+                            {"name": "JUJAN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "LOMAS DE SARGENTILLO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "MILAGRO",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {"name": "NARANJAL","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "NARANJITO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "NOBOL","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PALESTINA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PEDRO CARBO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "PLAYAS",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {"name": "SALITRE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAMBORONDON","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN JACINTO DE YAGUACHI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SIMON BOLIVAR","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 10,
+                        "provincia": "IMBABURA",
+                        "ciudad": [
+                            {"name": "ANTONIO ANTE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "COTACACHI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "IBARRA",
+                                "agencia": [{"nombre": "CAC  LAGUNA MALL"}]
+                            },
+                            {"name": "OTAVALO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PIMAMPIRO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN MIGUEL DE URCUQUÍ","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 11,
+                        "provincia": "LOJA",
+                        "ciudad": [
+                            {"name": "CALVAS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CATAMAYO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CELICA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "LOJA",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "MACARÁ","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PALTAS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SARAGURO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 12,
+                        "provincia": "LOS RIOS",
+                        "ciudad": [
+                            {"name": "BABA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "BABAHOYO",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {"name": "BUENA FE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "EL EMPALME","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MOCACHE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MONTALVO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PICHINCHA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PUEBLO VIEJO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "QUEVEDO",
+                                "agencia": [{"nombre": "CAC PASEO QUEVEDO"}]
+                            },
+                            {"name": "QUINSALOMA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN JUAN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "URDANETA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "VALENCIA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "VENTANAS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "VINCES","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 13,
+                        "provincia": "MANABI",
+                        "ciudad": [
+                            {
+                                "name": "CHONE","agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            },
+                            {"name": "EL CARMEN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "FLAVIO ALFARO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "JARAMIJO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "JIPIJAPA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "JUNIN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "MANTA","agencia": [{"nombre": "CAC PASEO MANTA"}]
+                            },
+                            {"name": "MONTECRISTI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "OLMEDO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PAJAN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PEDERNALES","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "PORTOVIEJO","agencia": [{"nombre": "CAC PASEO PORTOVIEJO"}]
+                            },
+                            {"name": "PUERTO LOPEZ","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "ROCAFUERTE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN CLEMENTE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN JACINTO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN VICENTE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SANTA ANA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SUCRE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "TOSAGUA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}]
+                    },
+                    {
+                        "id": 14,
+                        "provincia": "MORONA SANTIAGO",
+                        "ciudad": [
+                            {"name": "LOGROÑO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MORONA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PALORA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SANTIAGO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SUCÚA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 15,
+                        "provincia": "NAPO",
+                        "ciudad": [
+                            {"name": "ARCHIDONA","agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "CARLOS JULIO AROSEMENA TOLA","agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "EL CHACO","agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "QUIJOS","agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "TENA","agencia": [{"nombre": "CAC NO DISPONIBLE"}]}
+                        ]
+                    },
+                    {
+                        "id": 16,
+                        "provincia": "ORELLANA",
+                        "ciudad": [
+                            {"name": "LA JOYA DE LOS SACHAS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "LORETO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "ORELLANA",
+                                "agencia": [{"nombre": "CAC NO DISPONIBLE"}]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 17,
+                        "provincia": "PASTAZA",
+                        "ciudad": [
+                            {"name": "MERA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PASTAZA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 18,
+                        "provincia": "PICHINCHA",
+                        "ciudad": [
+                            {"name": "CAYAMBE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MEJIA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PEDRO MONCAYO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PEDRO VICENTE MALDONADO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PUERTO QUITO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "QUITO",
+                                "agencia": [
+                                    {"nombre": "CAC EL PORTAL"},{"nombre": "CAC EL RECREO"},{"nombre": "CAC QUICENTRO NORTE"},
+                                    {"nombre": "CAC SAN LUIS"},{"nombre": "CAC SCALA"}]
+                            },
+                            {"name": "RUMINAHUI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN MIGUEL DE LOS BANCOS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 19,
+                        "provincia": "SANTA ELENA",
+                        "ciudad": [
+                            {"name": "LA LIBERTAD", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SALINAS","agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "SANTA ELENA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 20,
+                        "provincia": "SANTO DOMINGO DE LOS TSACHILAS",
+                        "ciudad": [
+                            {"name": "EL CARMEN","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "LA CONCORDIA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {
+                                "name": "SANTO DOMINGO",
+                                "agencia": [{"nombre": "CAC PASEO SANTO DOMINGO"}]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 21,
+                        "provincia": "SUCUMBIOS",
+                        "ciudad": [
+                            {"name": "CASCALES","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "GONZALO PIZARRO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "LAGO AGRIO","agencia": [{"nombre": "CAC NO DISPONIBLE"}]},
+                            {"name": "SHUSHUFINDI","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 22,
+                        "provincia": "TUNGURAHUA",
+                        "ciudad": [
+                            {
+                                "name": "AMBATO",
+                                "agencia": [{"nombre": "CAC MALL DE LOS ANDES"}]
+                            },
+                            {"name": "BAÑOS DE AGUA SANTA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "CEVALLOS","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "MOCHA","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "PATATE","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "QUERO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SAN PEDRO DE PELILEO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "SANTIAGO PILLARO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "TISALEO","agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    },
+                    {
+                        "id": 23,
+                        "provincia": "ZAMORA CHINCHIPE",
+                        "ciudad": [
+                            {"name": "CENTINELA DEL CONDOR", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "YANZATZA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]},
+                            {"name": "ZAMORA", "agencia": [{"nombre": "NO EXISTE CAC EN LA CIUDAD"}]}
+                        ]
+                    }
+                ];
+            }
+
+            var $select = $('#provincia');
+            var $selectCiudad = $('#ciudad');
+            /*var $selectAgencia = $('#centro');*/
+
+            //alert(options);
+            $.each(temp, function (id, provincia) {
+                $select.append('<option value="' + provincia.provincia + '">' + provincia.provincia + '</option>');
+            });
+
+            $select.change(function (e) {
+                $.each(temp, function (id, provincia) {
+                    if(provincia.provincia == e.currentTarget.value){
+                        $selectCiudad.html('')
+                        $selectCiudad.append('<option value="">Elige tu ciudad</option>');
+                        $.each(provincia.ciudad, function(id, ciudad) {
+                            $selectCiudad.append('<option value="' + ciudad.name + '">' + ciudad.name + '</option>');
+
+                        });
+                    }
+                });
+            });
+
+            /* $selectCiudad.change(function (e) {
+                 $selectAgencia.html('')
+                 $selectAgencia.append('<option value="">Elige un centro</option>');
+                 $.each(temp, function (id, provincia) {
+                         $.each(provincia.ciudad, function(id, ciudad) {
+                             if(ciudad.name == e.currentTarget.value){
+                                 $selectAgencia.html('')
+                                 $selectAgencia.append('<option value="">Elige un centro</option>');
+                                 $.each(ciudad.agencia, function(id, agencia) {
+                                     //$selectAgencia.append('<option value="' + agencia.nombre + '"> '+ agencia.nombre + '</option>');
+                                     if(agencia.nombre == 'NO EXISTE CAC EN LA CIUDAD'||agencia.nombre == 'CAC NO DISPONIBLE'){
+                                         $selectAgencia.html('')
+                                         $selectAgencia.append("<option value=''>" + agencia.nombre + "</option>");
+                                     }else{
+                                         $selectAgencia.append('<option value="' + agencia.nombre + '">' + agencia.nombre + '</option>');
+                                     }
+                                 });
+                             }
+                         });
+                      });
+                 });*/
+
+        });
+
+        $(document).ready(function() {
+            var soloCac = [
+                {
+                    "id": 1,
+                    "provincia": "GUAYAS",
+                    "ciudad": [
+                        {
+                            "name": "GUAYAQUIL",
+                            "agencia": [
+                                {"nombre": "CAC CITY MALL"},{"nombre": "CAC MALL SOL"}]
+                        }
+                    ]
+                }
+            ];
+
+            var $selectCac = $('#provinciaCac');
+            var $selectCiudadCac = $('#ciudadCac');
+            var $selectAgencia = $('#centro');
+
+            $.each(soloCac, function (id, provincia) {
+                $selectCac.append('<option value="' + provincia.provincia + '">' + provincia.provincia + '</option>');
+
+            });
+
+            $selectCac.change(function (e) {
+                $selectAgencia.html('')
+                $selectAgencia.append('<option value="">Elige un centro</option>');
+                $.each(soloCac, function (id, provincia) {
+                    if(provincia.provincia == e.currentTarget.value){
+                        $selectCiudadCac.html('')
+                        $selectCiudadCac.append('<option value="">Elige tu ciudad</option>');
+                        $.each(provincia.ciudad, function(id, ciudad) {
+                            $selectCiudadCac.append('<option value="' + ciudad.name + '">' + ciudad.name + '</option>');
+                        });
+                    }
+                });
+            });
+
+            $selectCiudadCac.change(function (e) {
+                $selectAgencia.html('')
+                $selectAgencia.append('<option value="">Elige un centro</option>');
+                $.each(soloCac, function (id, provincia) {
+                    $.each(provincia.ciudad, function(id, ciudad) {
+                        if(ciudad.name == e.currentTarget.value){
+                            $selectAgencia.html('')
+                            $selectAgencia.append('<option value="">Elige un centro</option>');
+                            $.each(ciudad.agencia, function(id, agencia) {
+                                //$selectAgencia.append('<option value="' + agencia.nombre + '"> '+ agencia.nombre + '</option>');
+                                if(agencia.nombre == 'NO EXISTE CAC EN LA CIUDAD'||agencia.nombre == 'CAC NO DISPONIBLE'){
+                                    $selectAgencia.html('')
+                                    $selectAgencia.append("<option value=''>" + agencia.nombre + "</option>");
+                                }else{
+                                    $selectAgencia.append('<option value="' + agencia.nombre + '">' + agencia.nombre + '</option>');
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+
+        });
+
+        var initMapaLeaflet = function(){
+            /*
+            var browserLat;
+            var browserLong;
+            navigator.geolocation.getCurrentPosition(function(position) {
+                browserLat =  position.coords.latitude;
+                browserLong = position.coords.longitude;
+                //console.log(browserLat);
+                //console.log(browserLong);
+            }, function(err) {
+                console.error(err);
+            });*/
+
+            var position = [-2.164600371164346, -79.89577099215116];
+            /*   if (navigator.geolocation) {
+                   navigator.geolocation.getCurrentPosition(showPosition);
+               } else {
+                   console.log("Geolocation is not supported by this browser.");
+               }
+
+               latitude = showPosition.coords.latitude;
+               longitude = showPosition.coords.longitude;*/
+
+            var mymap = L.map('mimapa', {
+                zoomDelta: 0.25,
+                zoomSnap: 0,
+                doubleClickZoom: false,
+                center: [ position[0], position[1] ]
+
+            }).setView([ position[0], position[1] ], 15);
+
+            mymap.locate({setView: true, maxZoom:12});
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 25,
+                attribution: 'Datos del mapa de &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, ' + '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imágenes © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v11'
+            }).addTo(mymap);
+
+            var markerIcon = L.icon({
+                iconUrl: 'https://catalogo.claro.com.ec/images/portabilidad/map-marker-icon.png',
+                //shadowUrl: 'https://catalogo.claro.com.ec/images/portabilidad/map-marker-icon.png',
+
+                iconSize:     [50, 35], // size of the icon
+                //shadowSize:   [50, 64], // size of the shadow
+                // iconAnchor:   [-259, 125], // point of the icon which will correspond to marker's location
+                // shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+            var marker = L.marker([position[0], position[1]], {
+                icon: markerIcon,
+                draggable: true,
+                //autoPan: true,
+                autoPanSpeed: 1
+            }).addTo(mymap);
+
+            var coordenadas = position;
+            marker.on("drag", function(e) {
+                position = marker.getLatLng();
+                //mymap.panTo(new L.LatLng(position.lat, position.lng));
+                //console.log(position);
+                coordenadas = position['lat']+','+position['lng'];
+                //console.log(coordenadas);
+                $('input[name="lat-long"]').val(coordenadas);
+            });
+            $('input[name="lat-long"]').val(coordenadas);
+            
+            //coordenadas = position[0]+','+position[1];
+            //$('input[name="lat-long"]').val(coordenadas);
+
+            //console.log(coordenadas);
+            /* coordenadas =  position[0]+','+position[1];
+                console.log(coordenadas);
+
+            /////Localizar la ubicación actual
+            /*                var api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+                async function getISS(){
+                        var response = await fetch(api_url);
+                        var data = await response.json();
+                        var { latitude, longitude } = data;
+
+                        marker.setLatLng([latitude, longitude]);
+                        console.log('data: '+data)
+                        console.log('latit: '+latitude)
+                        console.log('long: '+longitude)
+                    }
+                getISS();*/
+
+        };
+
+    </script>
+
+{% endblock %}
+
+{% block FormSimCSS %}
+    <link href="{{ asset('library/leaflet/leaflet.css') }}?v={{ tienda_version }}" rel="stylesheet" type="text/css">
+    {#<link rel="stylesheet" type="text/css" media="all" href="w3form6.css">#}
+{% endblock %}
+
+

@@ -1,0 +1,33 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#parameter_name: value
+
+services:
+  app.services.pdf_generator:
+    class: AppBundle\Service\PdfGenerator
+    arguments: ['%uploads_directory%', '@templating']
+  app.services.mailer:
+    class: AppBundle\Service\Mailer
+    arguments: ['@mailer', '@templating', '%images_directory%', '%uploads_directory%']
+  app.services.utm_handler:
+    class: AppBundle\Service\UtmHandler
+    arguments: ['@doctrine.orm.entity_manager']
+
+## Event Listeners:
+  dayscript_tienda_claro.utm_request.listener:
+    class: Dayscript\TiendaClaroBundle\Listener\UtmRequestListener
+    calls:
+      - [setUtmService, ['@app.services.utm_handler']]
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+## Validators:
+  app.validators.nip_validator:
+    class: AppBundle\Validator\Constraints\Nip
+    tags:
+      - { name: tienda.nip_validator, alias: nip_validator }
+
+## Alias
+#  carrito:
+#    alias: '@app.services.carrito'

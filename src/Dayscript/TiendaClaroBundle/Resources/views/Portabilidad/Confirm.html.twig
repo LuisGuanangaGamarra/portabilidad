@@ -1,0 +1,123 @@
+{% extends 'DayscriptTiendaClaroBundle::layout.html.twig' %}
+{% block body %}
+    <div id="wrapper-equipo-index" class="container jc-container container-max main">
+        <div id="content-encabezado" class="col-xs-12" style="margin-bottom: 2em">
+            <div class="row">
+                <button class="btn back back-menu" data-backtohome>
+                    <i class="glyphicon glyphicon-menu-left"></i><span>Regresar</span>
+                </button>
+                <button class="btn back back-menu" data-backtoggle="0" title="Retroceder al paso anterior" style="display: none">
+                    <i class="glyphicon glyphicon-menu-left"></i><span>Regresar</span>
+                </button>
+                <h2 class="title-menu-catalog">¡CÁMBIATE A CLARO!</h2>
+            </div>
+        </div>
+        <div id="content-contenido" class="col-xs-12">
+            <div class="container">
+                <div class="container-flex-2">
+                    <div class="col-xs-12 col-lg-6">
+                        <div>
+                            <img class="banner-new hidden-xs hidden-sm hidden-md" src="{{ asset('images/portabilidad/step-6-sm.jpg') }}" alt="">
+                            <img class="banner-new hidden-xs hidden-lg" src="{{ asset('images/portabilidad/step-6-lg.jpg') }}" alt="">
+                            <img class="banner-new hidden-sm hidden-md hidden-lg" src="{{ asset('images/portabilidad/step-6-xs.jpg') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-lg-6">
+                        <div class="card-thankyoupage">
+                            {% if not show %}
+                            <div id="call">
+                                <p class="text-center" style="padding: 1em">
+                                    <img src="{{ asset('/images/icon/boton_llamada.svg') }}" alt="">
+                                </p>
+                                <h2>¡Confirma tu número y te llamaremos en breve!</h2>
+                                <p>Hemos tratado de contactarnos contigo para completar tu proceso de cambio.</p>
+                                <div style="padding: 5%">
+                                    <form id="formPortabilidadCallback" action="{{ path('TiendaClaro_portabilidad_confirmado_slash', {form_base64: formCode, doc_base64: docSecuencia}) }}" method="POST" autocomplete="off">
+                                        <div class="form-group text-left">
+                                            <label for="Name">Nombre</label>
+                                            <input type="text" class="form-control" id="Name" name="Name" maxlength="50" value="{{ solicitud.clienteNombre }}" readonly>
+                                        </div>
+                                        {% for numero in solicitud.numeros %}
+                                            <div class="form-group text-left">
+                                                <label for="Number">Número</label>
+                                                <input type="text" class="form-control" id="Number" name="Number" maxlength="10" value="{{ numero.numero }}" required>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="form-group text-center">
+                                            <input type="submit" class="btn btn-landing block-center" value="Llámame">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div id="called" {% if not show %} style="display: none" {% endif %}>
+                                <p class="text-center" style="padding: 1em">
+                                    <img src="{{ asset('/images/portabilidad/typ-icon.png') }}" alt="">
+                                </p>
+                                <h1>¡Genial!</h1>
+                                <p>En breve, un ejecutivo se contactará contigo para completar tu proceso de cambio.</p>
+                                <h3>¡Prepárate para ser Claro!</h3>
+                                <button class="btn back-menu" data-backtohome="" style="position: relative; left: initial;">
+                                    Conoce nuestra Tienda
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('js/signature_pad.min.js') }}"></script>
+    <style>
+        @media (max-width: 767px) {
+            .banner-new {
+                margin-bottom: 1em;
+            }
+        }
+
+        #formPortabilidadCallback .btn {
+            font-size: 1em;
+            color: #ffffff;
+            background-color: #1f979e;
+            margin-top: 1em;
+        }
+        #formPortabilidadCallback .btn:hover {
+            background-color: #00acc1;
+        }
+        #formPortabilidadCallback .btn:focus {
+            background-color: #006064;
+        }
+    </style>
+    <script>
+        $( document ).ready(function() {
+            $("#formPortabilidadCallback").submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url : $(this).attr("action"),
+                    type: $(this).attr("method"),
+                    data : $(this).serialize(),
+                    beforeSend: function () {
+                        $('#formPortabilidadCallback .btn').addClass('disabled');
+                        load();
+                    },
+                    success: function (data) {
+                        $('#call').hide().empty();
+                        $('#called').show();
+                    },
+                    complete: function (data) {
+                        loaded();
+                    },
+                    error: function(err) {
+                        //console.error(err);
+                        modalAlert('Los datos ingresados son incorrectos.', 'ERROR');
+                        $('#formPortabilidadCallback .btn').removeClass('disabled');
+                    },
+                })
+            });
+        });
+    </script>
+{% endblock %}

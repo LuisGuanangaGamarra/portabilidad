@@ -1,0 +1,1451 @@
+{% extends 'DayscriptTiendaClaroBundle::layoutNew.html.twig' %}
+{% block title %}
+    {{ plan.nombre }} | Cámbiate a Claro con tu mismo número
+{% endblock %}
+
+{% block titulo %}
+{% endblock %}
+{#{% block alerta %}
+    <div id="alerta-notification" class="tnd-white tnd-text-center-xs tnd-bg-orange" style="padding: 5px">
+        <p style="margin:0; display: none" class="sorteoS20">¡Participa en el sorteo de un SAMSUNG S20+ !</p>
+        <p class="normal" style="margin:0">¡Con <img src="{{asset('images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;"> estás seguro!</p>
+        <p class="normal" style="margin:0">Puedes cambiarte aquí, de forma digital, con un solo clic, sin salir de tu casa.</p>
+    </div>
+{% endblock %}#}
+{% block alerta %}
+    <div id="alerta-notification" class="tnd-white tnd-text-center-xs tnd-bg-orange" style="padding: 5px">
+        <p style="margin:0">¡Con <img src="{{asset('images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;"> estás seguro!</p>
+        <p style="margin:0">Cámbiate a Claro desde la comodidad de tu hogar en un solo clic.</p>
+    </div>
+{% endblock %}
+
+
+{% block metadata %}
+    <!-- Metadata -->
+    <meta name="author" content="Claro Ecuador">
+    <meta name="copyright" content="Claro Ecuador">
+    <meta name="title" content="{{ metadata['postpago']['title'] }}">
+    <meta name="abstract" content="{{ metadata['postpago']['abstract'] }}">
+    <meta name="description" content="{{ metadata['postpago']['description'] }}">
+    <meta name="keywords" content="{{ metadata['postpago']['keywords'] }}">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@claroecua">
+    <meta name="twitter:creator" content="@claroecua">
+    <meta name="description" content="{{ metadata['postpago']['abstract'] }}">
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ metadata['postpago']['ogUrl'] }}">
+    <meta property="og:title" content="{{ metadata['postpago']['ogTitle'] }}">
+    <meta property="og:site_name" content="{{ metadata['postpago']['ogSiteName'] }}">
+    <meta property="og:description" content="{{ metadata['postpago']['ogDescription'] }}">
+    <meta property="og:image" content="{{ asset(banners['rutaSm']) }}">
+{% endblock %}
+
+{% block body %}
+    <section id="formularioPortabilidad">
+        {#{% if hasProduct %}#}
+        {% if plan.idTipo.id == 16  %}
+            <span class="to-hide-portabilidad activePrepago">
+                {% if bannersPrepago['formSm']|length > 0 %}
+                 <img class="tnd-mt-20-xs tnd-hidden-sm tnd-img-resp" src="{{ asset(bannersPrepago['rutaSm']) }}">
+                {% endif %}
+                {% if bannersPrepago['formLg']|length > 0 %}
+                    <img class="tnd-visible-sm tnd-img-resp" src="{{ asset(bannersPrepago['rutaLg']) }}">
+                {% endif %}
+            </span>
+        {% else %}
+            {% if banners['formSm']|length > 0 %}
+                <img class="tnd-mt-20-xs tnd-hidden-sm tnd-img-resp" src="{{ asset(banners['rutaSm']) }}">
+                {#<video class="tnd-hidden-sm tnd-img-resp" controls poster="{{ asset(banners['rutaSm']) }}"  >
+                 <source src="{{ asset('/videotutoriales/portabilidad-firma_digital.mp4') }}" type="video/mp4">
+             </video> #}
+            {% endif %}
+            {% if banners['formLg']|length > 0 %}
+                <img class="tnd-visible-sm tnd-img-resp" src="{{ asset(banners['rutaLg']) }}">
+            {% endif %}
+        {% endif %}
+     {#   {% endif %}#}
+        <div class="tnd-mt-40-xs tnd-font-link tnd-h3 tnd-p-20-xs tnd-text-center-xs tnd-hidden-md">
+            <i class="fa fa-long-arrow-left"></i> <a href="{{ path('TiendaClaro_portabilidad_index') }}">Regresar</a>
+        </div>
+        {#        <div class="center-middle amx-container tnd-visible-md flex-md flex-cont-3-md {% if hasProduct %} has-product-hide-step-2 {% endif %}" style="margin-top: 40px;">
+            <div class="tnd-text-center-md" style="width: 100%">
+                <div class="tnd-h2">Cámbiate aquí y se parte de nuestra familia <strong>Claro</strong></div>
+                <strong class="tnd-portDigital">Portabilidad Digital</strong>
+            </div>
+        </div>#}
+        <div class="amx-container tnd-pt-20-md flex-md flex-cont-3-md ">
+            <div class="tnd-mt-15-md flex-order-2-md tnd-width-md-3">
+                {#<div style="color: grey; font-weight: 500; margin-bottom: 5%; margin-top: 2%;">Plan seleccionado</div>#}
+                <div  class="plan-portabilidad-wrapper
+                    {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %} tnd-mb-15-xs tnd-bg-white tnd-br-10{% else %} tnd-bg-red tnd-white {% endif %}
+                    tnd-width-xs-10 hide-next-el-on-active tnd-m-15-md
+                    {% if hasProduct %} has-product {% else %}  tnd-br-25-md {% endif %}">
+                    {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                        <div class="tnd-bg-white tnd-width-xs-10 tnd-br-t-10-xs">
+                            <div class ="ofertaPlan">
+                                {% if plan.customPlan.promocion.sticker.icono is defined %}<img class="tnd-mr-5-xs" src="{{ asset(plan.customPlan.promocion.sticker.icono) }}" alt="icon" style="width: 100%;">{% endif %}
+                            </div>
+                            {% if plan.customPlan.promocion.vigencia is defined %}
+                            <div class="tnd-bg-dark-turquoise tnd-p-10-xs tnd-text-center-xs" style="border-radius: 10px 10px 0 0;">
+                                <div class="textBeneficio">RECIBE <strong><span style="text-decoration-line: underline;"> {{ plan.customPlan.promocion.gigas.promo }} </span></strong>GRATIS POR {{ plan.customPlan.promocion.vigencia }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="tnd-pt-10-xs tnd-text-center-xs">
+                            {% if plan.idTipo.id != 16 %}
+                            <div class="nombrePlan">
+                                <div style="font-weight: 300;">PLAN</div>
+                                <div style="font-weight: 700;">{{ plan.descripcion }}</div>
+                            </div>
+                            {% else %}
+                            <div class="planPrepago nombrePlan tnd-pt-2em-xs">
+                                <div style="font-weight: 700;">{{ plan.descripcion }}</div>
+                                <div style="font-weight: 300;font-size: 16px;">INCLUYE</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="">
+                            <img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs" src="{{ asset(plan.customPlan.incluye.totalGigas.imgGB) }}" alt="">
+                            {% if plan.idTipo.id != 16 %}
+                            <p class="tnd-mb-20-xs tnd-py-20-md tnd-py-20-xs textVigencia">*PROMOCIÓN VÁLIDA POR{% if plan.cuotaSinImp < 50 %}12 MESES{% else %}18 MESES{% endif %}</p>
+                            {% elseif plan.slug == 'paquete-mas-gigas' %}
+                            <p class="tnd-mb-20-xs tnd-py-20-md tnd-py-20-xs textVigencia">*PROMOCIÓN VÁLIDA SOLO PARA GUAYAQUIL Y QUITO</p>
+                            {% endif %}
+                            {% if plan.customPlan.promocion.vigenciaPrepago is defined %}<p class="tnd-mb-20-xs tnd-py-20-md tnd-py-20-xs textVigencia">* {{ plan.customPlan.promocion.vigenciaPrepago }}</p>{% endif %}
+                        </div>
+                    {% if plan.cuotaSinImp > 0 %}
+                        <div class="flex-md flex-center-md flex-row-reverse-md tnd-pb-10-xs tnd-hidden-md">
+                            <div class="tnd-text-center-xs">
+                                <span style="font-style: italic;" class="font-strong amx-h3"> ${{ plan.cuotaSinImp }}</span> {% if plan.slug == 'paquete-mas-gigas' %} / Precio final{% else %} + imp. / Tarifa básica  {% endif %}
+                            </div>
+                        </div>
+                        {% else %}
+                            <div class="flex-md flex-center-md flex-row-reverse-md tnd-pb-10-xs tnd-hidden-md">
+                                <div class="tnd-text-center-xs">
+                                    <span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h2">GRATIS</span>
+                                    <p>para cliente final</p>
+                                </div>
+                            </div>
+                    {% endif %}
+                    {% endif %}
+                    <div class="container-accordeon-element accordeon-hidden-md tnd-text-center-xs">
+
+                        <div class="accordeon-element-body">
+                            {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                                {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanDetail6Meses.html.twig" with { equipo: equipos, accordeonInclude: hasProduct}  %}
+                            {#{% elseif plan.idTipo.id == 16 %}
+                                {% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:FormSIM.html.twig" %}
+                                {{ block('cardPrepago') }}#}
+                                {#{% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanPrepagoDetail.html.twig" with { equipo: equipos, accordeonInclude: hasProduct}  %}#}
+                            {% else %}
+                                {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanDetail.html.twig" with { equipo: equipos, accordeonInclude: hasProduct}  %}
+                            {% endif %}
+
+                            {% if hasProduct %}
+                                <div class="plDetail6">
+                                    <div class="font-bold" style="padding: 20px 0; background: #E7E7E7; color: #000000; border-radius: 0px;">
+                                        <span style="margin-bottom: 20px;">TU EQUIPO NUEVO</span></div>
+                                    <div style="background: white; display: block;" class="bodyAccordion">
+                                        <div class="product-detail tnd-bg-white tnd-black">
+                                            {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:ProductDetail.html.twig" with { equipo: equipoCard, accordeonInclude: true }%}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16  %}
+                            <div style="color: #0B6676" class="accordeon-element-header side-arrow tnd-hidden-md-i">
+                                <a id="show_more_planes" style="color: #0B6676; text-decoration-line: underline;">Ver detalles</a>
+                            </div>
+                        {% else %}
+                            <div class="accordeon-element-header side-arrow card-info {#{{ plan['nombre'] }}#}">
+                                {% if hasProduct %} {{ equipoCard.nombreComercial }} <br> + <br> {% endif %}
+                                {{ plan.nombre }}
+                            </div>
+                        {% endif %}
+
+                        <div class="tnd-mb-10-xs padding-on-0-active only-md"></div>
+                    </div>
+                </div>
+                {% if plan.customPlan.imgDetalle.terminos is defined %}
+                <p class="center-middle tnd-ml-10-xs tnd-mb-30-xs"><a href="{{ asset(plan.customPlan.imgDetalle.terminos) }}" target="_blank">Términos y condiciones</a></p>
+                {% endif %}
+                {#<div class="font-link"> <a href="{{ path('TiendaClaro_portabilidad_masPlanes') }}"> Ver más planes
+                         </a> <i class="fa fa-long-arrow-right"></i> </div>#}
+                {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                    <div style="background: #ffff;">
+                    </div>
+                {% else %}
+                    <div style="background: #eee;" class="plan-portabilidad-wrapper tnd-bg-white tnd-text-center-xs tnd-br-b-25-xs tnd-p-20-xs {% if hasProduct %} hidden-elements-in-on-active-prev {% else %}  hidden-on-active-prev tnd-hidden-md  {% endif %} ">
+                        <div class="hide-on-active-xs">
+                            {% if hasProduct %}
+                                {% for skus in equipoCard.getSkus[0].getImgs %}
+                                    {% if loop.first %}
+                                        <img style="max-height: 150px" class="tnd-hidden-md" src="{{  asset(skus.rutaFull) }}" alt="{{ equipoCard.nombreComercial }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% if hasProduct %} <div style="color: #7c7c7c">Precio de contado:</div> {% endif %}
+                        <span class="font-strong amx-h3"> ${% if hasProduct %} {{ equipoCard.subtotalSinImp|number_format(2,',','.') }} {% else %} {{ plan.cuotaSinImp|number_format(2,',','.') }} {% endif %} + imp. </span>
+                        <br>
+                        <div class="tnd-turquoise tnd-pt-5-xs">{% if hasProduct %} Valor final del equipo ${{ equipoCard.totalConImp|number_format(2,',','.') }} {% else %} <!--Tarifa final mensual  ${{ plan.cuotaConImp|number_format(2,',','.') }} --> {% endif %}</div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            {#            <div class="center-middle flex-order-2-md tnd-hidden-md  {% if hasProduct %} has-product-hide-step-2 {% endif %}">
+                <div class="tnd-text-center-md tnd-mt-20-xs">
+                    <div class="tnd-h2" style="text-align: center;">Cámbiate aquí y ganarás hasta <strong>24GB</strong> por 1 año</div>
+                    <div class="tnd-portDigital" style="text-align: center;"> Portabilidad Digital</div>
+                </div>
+            </div>#}
+            <div class="flex-order-1-md tnd-width-md-7">
+                <div class="">
+                    <div class="amx-h1 tnd-mt-10-xs {#tnd-pl-20-xs tnd-border-l-orange-xs font-strong #} tnd-mt-20-md tnd-ml-0-xs">
+                        Para cambiarte, necesitamos estos datos:
+                    </div>
+                    <div style="font-size: 16px; font-weight: 400;">Los campos con asterisco (*) son obligatorios</div>
+                </div>
+                <form action="{{ path('TiendaClaro_portabilidad_redesign_typ') }}" data-action-completar="{{ path('TiendaClaro_portabilidad_store_paso_1') }}" data-action-llamada="{{ path('TiendaClaro_portabilidad_asesorStore') }}" tnd-validate-form id="create-portabilidad-form" name="create-portabilidad-form" method="post">
+                    <div class="tnd-width-md-6">
+                        <div class="font-bold tnd-red data-person tnd-pt-2em-xs">
+                            1. Datos personales
+                        </div>
+                        <div class="flex-xs flex-wrap-xs flex-cont-1-xs flex-center">
+                            <div>
+                                <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                                    <label for="text">*Ingresa el número de teléfono que deseas portar</label>
+                                    <div class="tnd-content-input">
+                                        <input data-only-numbers data-cellphone-validation name="celular" type="text" required=""
+                                               class="tnd-input-text theme-2" maxlength="10" placeholder="Celular">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-xs flex-wrap-xs flex-cont-1-xs flex-cont-2-lg flex-center">
+                            <div>
+                                <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                                    <label for="text">*Nombre</label>
+                                    <div class="tnd-content-input">
+                                        <input id="nombre-input" data-only-letters="" name="nombre" type="text" required=""
+                                               class="tnd-input-text theme-2" placeholder="Ingresa tu nombre">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                                    <label for="text">*Apellidos</label>
+                                    <div class="tnd-content-input">
+                                        <input data-only-letters="" name="apellido" type="text" required=""
+                                               class="tnd-input-text theme-2" placeholder="Ingresa tus apellidos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">*Número de cédula</label>
+                                    <div class="tnd-content-input">
+                                        <input required="" data-only-numbers="" data-custom-validate=""
+                                               data-identification-number="" name="numdoc" type="text" maxlength="10"
+                                               class="tnd-input-text theme-2" placeholder="Ej. 0991122334">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">*Correo electrónico</label>
+                                    <div class="tnd-content-input">
+                                        <input name="email" type="email" required="" class="tnd-input-text theme-2"
+                                               placeholder="Ej. usuario@gmail.com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="font-bold tnd-red tnd-pt-2em-xs">
+                            2. Línea actual
+                        </div>
+                        <label class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs" for="text">*Operadora actual</label>
+                        <div class="flex-xs flex-wrap-xs flex-cont-3-xs flex-cont-3-md{#flex-cont-3-sm#} radiocontainer tnd-text-center-xs">
+                            {% for operadora in operadoras %}
+                                <div class="element-radio">
+                                    <input type="radio" value="{{ operadora.codigo|base64_encode }}" name="operadora-actual" id="{{ operadora.codigo|base64_encode }}">
+                                    <label for="{{ operadora.codigo|base64_encode }}">
+                                        <div class="customCheck">
+                                            {{ operadora.NombreComercial }}
+                                        </div>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <label class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs" for="text">*Tipo de servicio actual</label>
+                        <div class="flex-xs flex-wrap-xs flex-cont-3-xs flex-cont-3-md radiocontainer tnd-text-center-xs">
+                            <div class="element-radio">
+                                <input type="radio" value="prepago" name="tipo-servicio" id="prepago" data-servicio="prepago">
+                                <label for="prepago">
+                                    <div class="customCheck">
+                                        Prepago
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="element-radio">
+                                <input type="radio" value="postpago" name="tipo-servicio" id="postpago" data-servicio="postpago">
+                                <label for="postpago">
+                                    <div class="customCheck">
+                                        Postpago
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        {% if equipos is not empty %}
+                            <div class="font-bold tnd-red tnd-pt-20-xs {#step-2#}">
+                                <span class="number-step-devices">3</span>. ¿Deseas agregar un equipo a tu plan?
+                            </div>
+                            <div class="flex-xs flex-wrap-xs flex-cont-1-xs flex-cont-2-small radiocontainer tnd-text-center-xs tnd-pt-10-xs {#step-2#}">
+                                <div class="element-radio">
+                                    <input type="radio" value="0" name="con-equipo" id="sinEquipo" {#{% if hasProduct %} checked {% endif %}#}>
+                                    <label for="sinEquipo">
+                                        <div class="customCheck">
+                                            No, por ahora
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="element-radio">
+                                    <input type="radio" value="1" name="con-equipo" id="conEquipo">
+                                    <label for="conEquipo">
+                                        <div class="customCheck">
+                                            Sí, deseo un equipo
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                        {% if equipos is not empty %}
+                            <div class="tnd-width-md-10 tnd-width-md-9 add-product hide-in-absolute">
+                                <div style="background-color: #f5f5f5; margin: 10px -20px 0;">
+                                    <div id="portabilidad" class="tnd-catalog tnd-p-10-xs slick-center">
+                                        {% for equipo in equipos %}
+                                            <div>
+                                                {% if equipo.isOferta %}
+                                                    {% embed 'DayscriptTiendaClaroBundle:Ofertas/Partials:productMovilListItem.html.twig' with { 'equipo': equipo, 'transaccion': 'portabilidad', gaCategory: 'Planes_Portabilidad', 'wait': false, 'preventa': preventa, 'financiados': financiados } only %}
+                                                        {% block button %}
+                                                            <a href="javascript:void(0);" class="tnd-btn turquoise bordered btn-device-plan"><span class="text-unselect">Solicitar</span><span class="text-select">Quitar</span></a>
+                                                        {% endblock %}
+                                                        {% block PromoIcon %}{% endblock %}
+                                                    {% endembed %}
+                                                {% else %}
+                                                    {% embed 'DayscriptTiendaClaroBundle:Equipos/Partials:movilListItem.html.twig' with { 'equipo': equipo, 'transaccion': 'portabilidad', 'preventa': preventa, 'financiados': financiados } only %}
+                                                        {% block button %}
+                                                            <a href="javascript:void(0);" class="tnd-btn turquoise bordered btn-device-plan"><span class="text-unselect">Solicitar</span><span class="text-select">Quitar</span></a>
+                                                        {% endblock %}
+                                                    {% endembed %}
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    <div class="tnd-width-md-6">
+                        <input type="hidden" name="plan-solicitud" value="{{ plan.id|base64_encode }}">
+                        <input type="hidden" name="solicitud" value="" id="solicitud">
+                        <input type="hidden" name="equipo" value="{% if hasProduct %}{{ equipoCard.slug }}{% endif %}" id="nombre-equipo">
+                        <input type="hidden" name="isLanding" value="{% if hasProduct %}true{% else %}false{% endif %}" id="isLanding">
+                        <input type="hidden" name="precio-equipo" value="{% if hasProduct %}{{ equipoCard.precio }}{% endif %}" id="precio-equipo">
+                        <div id="opcionesSolicitud">
+                            <div class="font-bold tnd-red tnd-pt-2em-xs">
+                                ¿Cómo deseas continuar tu portabilidad?
+                            </div>
+                            <div class="flex-xs flex-wrap-xs flex-cont-2-xs flex-cont-3-md">
+                                <input type="hidden" name="tipo_solicitud">
+                                <div>
+                                    <div class="tnd-m-10-xs tnd-card tnd-expand compraOption" data-target="completar">
+                                        <img src="{{ asset('web/images/iconos/ico_pasos.svg') }}" alt="">
+                                        <div class="tnd-mt-20-xs font-regular tnd-font-minimum tnd-text-center-xs">Completar la solicitud</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tnd-m-10-xs tnd-card tnd-expand compraOption" data-target="llamada">
+                                        <img src="{{ asset('web/images/iconos/ico_atencionClientes.svg') }}" alt="">
+                                        <div class="tnd-mt-20-xs font-regular tnd-font-minimum tnd-text-center-xs">Llamada de un asesor</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: none" class="divCeleste">
+                            <div class="lftPad">
+                                <img class="img-responsive" src="{{asset('images/iconos/ico-exclamacion-turq.svg')}}" alt="">
+                            </div>
+                            <div class="mensajePin">
+                                Da click en <strong>continuar</strong> para recibir un <strong>sms</strong> desde el número 2727 con el código NIP.
+                                Recuerda tener a la mano la línea celular a portar para recibir el código.
+                            </div>
+                        </div>
+
+                        <div class="tnd-px-20-xs">
+                            <div class="g-recaptcha" data-sitekey="{{datasitekey}}"></div>
+                        </div>
+
+                        <div id="modal-no-existe" style="display: none; width: 500px;" class="tnd-message-modal font-regular tnd-modal-content fancybox-content">
+   {#                         <form id="formNIP" name="formNIP" method="post" tnd-validate-form=""  action="/action_page.php">#}
+                            <div style="text-align: center; padding: 21px" class="tnd-modal-body">
+                                <div></div>
+                                <img src="{{ asset('web/images/iconos/ico_preguntasFrecuentes.svg') }}" style="width: 15%" alt="">
+                                <h3 id="titleModal" class="tnd-mt-10-xs tnd-m-30-xs">Ingresa el Código NIP para continuar con el proceso de portabilidad</h3>
+                                <span id="titleModal" class="tnd-m-30-xs textModal" style="font-weight: 100;">Hemos enviado un SMS a la línea celular que deseas portar con 4 dígitos.
+                                    Por favor introduce el código o da clic en "Reenviar" en caso de no haberlo recibido.</span>
+
+                                <div class="tnd-m-20-xs">
+                                    <input id="dig1" data-only-numbers="" name="codigoNIP" type="text" required="" class="codigoNIP tnd-input-text" minlength="1" maxlength="1" placeholder="">
+                                    <input id="dig2" data-only-numbers="" name="codigoNIP" type="text" required="" class="codigoNIP tnd-input-text" minlength="1" maxlength="1" placeholder="">
+                                    <input id="dig3" data-only-numbers="" name="codigoNIP" type="text" required="" class="codigoNIP tnd-input-text" minlength="1" maxlength="1" placeholder="">
+                                    <input id="dig4" data-only-numbers="" name="codigoNIP" type="text" required="" class="codigoNIP tnd-input-text" minlength="1" maxlength="1" placeholder="">
+                                </div>
+                                <input type="hidden" name="nipIngresado" value="" id="nipIngresado">
+{#                                <form id="form-carrito" name="form-carrito" method="post" tnd-validate-form=""  action="/action_page.php">
+                                    <div  style="margin-bottom: 2%;"><input id="datoNombre" data-only-letters name="nombre" type="text" required class="tnd-input-text" placeholder="Nombres"></div><br>
+                                    <div ><input id="datoCelular" data-only-numbers="" data-cellphone-validation="" name="celular" type="text" required="" class="tnd-input-text" minlength="10" maxlength="10" placeholder="Celular"></div><br>
+                                    <input style="display: none" placeholder="Escribe tu número de cédula" required="" data-only-numbers="" data-custom-validate="" data-identification-number="" name="numdoc" type="text" id="fnameInv" maxlength="10" name="fname"><br>
+                                </form>#}
+{#                                <form action="?" method="POST">
+                                <div class="center-middle tnd-pt-20-xs">
+                                    <div class="g-recaptcha" data-sitekey="{{datasitekey}}"></div>
+                                </div>
+                                </form>#}
+                            </div>
+                            <div class="tnd-p-20-xs">
+                                <div class="flex-small flex-justify-between-xs">
+                                    <button class="tnd-btn red tnd-ml-15-small order-2-xs guardarNIP btn_llamame" type="submit">Confirmar</button>
+                                    <div class="center-block timerNIP">
+                                        <span><img src="{{ asset('web/images/iconos/reloj-verde.svg') }}" alt=""></span> <span id="countdown"></span>
+                                    </div>
+                                    <a id="btn-back-form" class="reenviar link-btn tnd-mr-15-small order-1-xs" style="display: none">
+                                        <button type="button" class="{#tnd-close-modal#} tnd-btn turquoise bordered tnd-mt-0-small tnd-mt-20-xs ">Reenviar</button>
+                                    </a>
+                                </div>
+                            </div>
+              {#       </form>#}
+                        </div>
+
+                        <div class="continue-section paso3">
+                            <div class="sign-section">
+                                <span class="mostrarNIP" style="display: none">
+                                <div class="font-bold tnd-red tnd-pt-2em-xs">
+                                    Código NIP
+                                </div>
+                                <label for="text" class="tnd-pt-20-xs">* Ingrese código NIP</label>
+                                <div class="tnd-pt-10-xs">
+                                    <div class="tnd-m-20-xs tnd-ml-0-xs tnd-mt-0-xs">
+                                        <input id="digito1" name="codigoNIP" type="text" class="NIPgenerado" placeholder="" readonly>
+                                        <input id="digito2" name="codigoNIP" type="text" class="NIPgenerado" placeholder="" readonly>
+                                        <input id="digito3" name="codigoNIP" type="text" class="NIPgenerado" placeholder="" readonly>
+                                        <input id="digito4" name="codigoNIP" type="text" class="NIPgenerado" placeholder="" readonly>
+                                        {#<span class="tnd-ml-20-xs"><img src="{{ asset('web/images/iconos/Vector.svg') }}" alt=""></span>#}
+                                    </div>
+                                </div>
+                                </span>
+                                {#Envío de SIM#}
+                                {% if (plan.idTipo.id == 16 and infoPrepago['paso3'] == true) or (plan.idTipo.id != 16 and infoPostpago['paso3'] == true) %}
+                                    <div class="font-bold tnd-red tnd-pt-2em-xs">
+                                        4. Dirección de entrega del chip
+                                    </div>
+                                    {#<div class="separador"></div>#}
+                                    {% if plan.slug == 'paquete-mas-gigas' %}
+                                        <p class="text-item-cot tnd-mt-10-xs">*PROMOCIÓN VÁLIDA SOLO PARA GUAYAQUIL Y QUITO</p>
+                                    {% endif %}
+                                    <div class= "newFormEnvio" style="/*background: #f5f5f5;  padding: 15px; margin-top: 5%;*/">
+                                        {% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:FormSIM.html.twig" %}
+                                        {{ block('NewFormSim') }}
+                                        {{ block('FormSimMapa') }}
+                                    </div>
+                                {% endif %}
+                                {#Fin Envío de SIM#}
+                                <div class="font-bold tnd-red tnd-pt-20-xs">
+                                    {% if (plan.idTipo.id == 16 and infoPrepago['paso3'] == true) or (plan.idTipo.id != 16 and infoPostpago['paso3'] == true) %}
+                                        5. Completar la documentación
+                                    {% else %}
+                                    4. Completar la documentación
+                                    {% endif %}
+                                </div>
+                                <label for="text" class="tnd-pt-20-xs">Cargar foto de cédula frontal</label>
+                                <div class="customInputFileContainer tnd-pt-10-xs">
+                                    <div class="element-input-file">
+                                        <input id="foto-anverso" type="file" name="foto-anverso" accept="image/*">
+                                        <label for="foto-anverso">Seleccionar desde galería</label>
+                                        <div class="tnd-text-center-xs">No has seleccionado ningún archivo</div>
+                                    </div>
+                                </div>
+                                <label for="text" class="tnd-pt-20-xs">Cargar foto de cédula reverso</label>
+                                <div class="customInputFileContainer tnd-pt-10-xs">
+                                    <div class="element-input-file">
+                                        <input id="foto-reverso" type="file" name="foto-reverso" accept="image/*">
+                                        <label for="foto-reverso">Seleccionar desde galería</label>
+                                        <div class="tnd-text-center-xs">No has seleccionado ningún archivo</div>
+                                    </div>
+                                </div>
+                                <div class="tnd-turquoise tnd-pt-20-xs">
+                                    Recuerda que debes subir una foto (PNG,JPG o GIF), de  hasta 3MB
+                                </div>
+
+                                <div class="tnd-mx-20-xs tnd-ml-0-xs ">
+                                    <label class="checkcontainer tnd-content-input no-success-elements no-error-icon tnd-black">Deseo continuar sin cargar la cédula
+                                        <input class="no-success-elements" type="checkbox" name="not-required-id"
+                                               id="not-required-id" value="" unchecked="">
+                                        <span class="customCheck"></span>
+                                    </label>
+                                </div>
+                                <label class="tnd-pt-10-xs" for="text">Firma como en tu cédula para validar tu solicitud de portabilidad</label>
+
+                                <div class="tnd-pt-10-xs">
+                                    Desliza tu dedo para crear la forma de tu firma, después confirma que esté correcta
+                                </div>
+
+                                <div>
+                                    <div id="signature-pad-redesign" class="tnd-p-10-xs tnd-pos-rel tnd-mt-20-xs" style="border: 1px solid #ccc;border-radius: 27px;">
+                                        <div class="sign-here">
+                                            <div class="lines"></div>
+                                            <label>Tu firma aquí</label>
+                                        </div>
+                                        <div class="buttons-pad">
+                                            <a href="#?" class="btn-flat trash" title="Eliminar firma" data-action="signature-clear"><i class="glyphicon glyphicon-trash"></i></a>
+                                            <a href="#?" class="btn-flat save" title="Grabar firma" data-action="signature-save"><i class="glyphicon glyphicon-ok"></i></a>
+                                        </div>
+                                        <input name="portabilidad-firma" type="hidden">
+                                        <canvas class="tnd-width-xs-10 tnd-br-25-xs"></canvas>
+                                        <img id="signature-result" class="img-responsive" src="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="continue-section">
+
+                        {#<div class="font-bold tnd-red tnd-pt-2em-xs">
+                             5. ¿Deseas obtener tu tarjeta SIM?
+                             <div style="color: grey; font-weight: 400; margin-bottom: 5%; margin-top: 2%;"> Puedes escoger entre las siguientes opciones: </div>
+                         </div>
+                         <div class= "formEnvio" style="/*background: #f5f5f5;  padding: 15px; margin-top: 5%;*/">
+                             <div>
+                                 <div class="tnd-m-10-xs tnd-ml-0-xs tnd-mb-30-xs">
+                                     <label style="font-size: 12px;" class="tnd-black checkcontainer tnd-content-input no-success-elements no-error-icon">
+                                         Envío a domicilio
+                                         <input id="domicilioSim" class="no-success-elements" required="" type="radio" name="tipoEnvio" value="domicilioSim"
+                                                value="" unchecked="">
+                                         <span class="customCheck"></span>
+                                     </label>
+                                 </div>
+
+                                 <div class="domicilioSim" style="display: none">
+                                     {% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:FormSIM.html.tiwg" %}
+                                     {{ block('FormSim') }}
+                                 </div>
+                                 <div class="tnd-m-10-xs tnd-ml-0-xs tnd-mb-30-xs">
+                                     <label style="font-size: 12px;" class="tnd-black checkcontainer tnd-content-input no-success-elements no-error-icon">
+                                         Retirar en el CAC más cercano
+                                         <input id="cacSim" class="no-success-elements" required="" type="radio" name="tipoEnvio" value="cacSim"
+                                                unchecked="">
+                                         <span class="customCheck"></span>
+                                     </label>
+                                 </div>
+                                 <div class="cacSim"> </div>
+                             </div>
+                         </div>
+                         <div class="separador"></div>#}
+
+                        <div class="tnd-width-md-5 tnd-pt-10-xs">
+
+                            <div class="tnd-m-10-xs tnd-ml-0-xs tnd-mb-30-xs">
+                                <label class="tnd-black checkcontainer tnd-content-input no-success-elements no-error-icon">He leído y
+                                    estoy de acuerdo con los Términos y Condiciones del servicio
+                                    <input class="no-success-elements" required="" type="checkbox" name="terminosycondiciones"
+                                           id="terminosycondiciones" value="" unchecked="">
+                                    <span class="customCheck"></span>
+                                </label>
+                            </div>
+
+                            <div class="tnd-m-10-xs tnd-ml-0-xs tnd-mb-30-xs">
+                                <label class="checkcontainer tnd-black tnd-content-input no-success-elements no-error-icon">
+                                    Acepto que mi número telefónico sea usado utilizado para términos comerciales
+                                    <input type="checkbox" required="" name="suscripcion" id="suscripcion">
+                                    <span class="customCheck"></span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="tnd-m-20-xs">
+                            <button id="change-now" type="button" class="tnd-btn red tnd-br-50-xs tnd-mx-auto-xs">
+                                ¡Cambiarme ya!
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="tnd-mb-20-xs tnd-mt-10-xs {#tnd-m-20-xs#}">
+                        <button class="btnContinuar tnd-btn red {#tnd-br-50-xs#} {#tnd-mx-auto-xs#} btn-continue disabled" type="button" disabled>
+                            Continuar
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </section>
+    <section id="typAsesor" style="display: none; background: #ffffff;">
+        <div class="container" style="text-align: center">
+            <img id="imgLlamada" src="{{ asset('web/images/iconos/typ_atencionClientes.svg') }}" alt="¡Listo!">
+            <div class="contentPort" style="padding: 20px;">
+                <h1 class="txtSolicitud">¡Falta poco para que seas parte de la familia Claro!</h1>
+                <p class="mensajeTyp">Tu solicitud de portabilidad se envió con éxito, durante el transcurso del día uno de nuestros asesores se contactará contigo para ayudarte a completar el proceso de cambio.</p>
+                {#                <div class="tnd-red">
+                    {% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 25 or (plan.cuotaSinImp) == 15 %}
+                        <p class="sorteoS20 mensajeTyp" style="color: #EF3829; display: none">Recuerda que estas participando en el sorteo de un SAMSUNG S20+</p>
+                    {% endif %}
+                </div>#}
+            </div>
+            <div class="tnd-mb-20-xs">
+                <button id="btnatienda" class="tnd-btn red tnd-mx-auto-xs tnd-br-25-xs">Ir a la Tienda Virtual</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{#{% block timer -%}
+#}{#{% use "DayscriptTiendaClaroBundle:Portabilidad/Redesign:Help.html.twig" %}#}{#
+{{ block('designHelp') }}
+{% endblock %}
+
+{% block tituloHelpJs1 %}
+¿Necesitas ayuda?
+{% endblock %}
+{% block tituloHelpJs2 %}
+¿Necesitas ayuda?
+{% endblock %}#}
+
+
+{% block stylesheets -%}
+    <link href="{{ asset('web/css/sections/portabilidad/create.css') }}?v={{ tienda_version }}" rel="stylesheet" type="text/css">
+    {{ parent() }}
+    {% if (plan.idTipo.id == 16 and infoPrepago['paso3'] == true) or (plan.idTipo.id != 16 and infoPostpago['paso3'] == true) %}
+    {{ block('FormSimCSS') }}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {#    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+    <script type="text/javascript" src="https://github.com/SuperAL/canvas2image.js"></script>#}
+  {#  <script src="{{ asset('web/js/sections/portabilidad/ubicacionSIM.js') }}"></script>#}
+    <script src="{{ asset('web/js/signature_pad.min.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        if('{{ plan.idTipo.id }}' == 16 ){
+            gtag('event', 'Plan Visto', {
+                'event_category': 'Portabilidad_Prepago',
+                'event_label': '{{ plan.nombre }}'
+            });
+        }else{
+            gtag('event', 'Plan Visto', {
+                'event_category': 'Planes_Portabilidad',
+                'event_label': '{{ plan.nombre }}',
+                'value': '${{ plan.cuotaConImp }}'
+            });
+        }
+        
+        var mostrarMapa;
+
+        if(('{{ plan.idTipo.id }}' == 16 && '{{ infoPrepago['paso3'] }}' == true) || ('{{ plan.idTipo.id }}' != 16 && '{{ infoPostpago['paso3'] }}' == true)){
+            mostrarMapa = true;
+        }else{
+            mostrarMapa = false;
+        }
+
+        $(document).ready(function(){
+            $("#show_more_planes").click(function () {
+                $(this).text(function(i, text){
+                    return text === "Ver detalles" ? "Ver menos" : "Ver detalles";
+                })
+            });
+            __fbTrigger('ViewContent');
+        });
+        var fecha = new Date();
+        if(fecha.getMonth()+1 == 11 ){
+            $('.sorteoS20').css('display', 'unset');
+            $('.normal').css('display', 'none');
+        }
+
+        $('#btnatienda').click(function (e){
+            window.location.href = "https://catalogo.claro.com.ec/";
+            e.preventDefault();
+        });
+        $('.compraOption').click(function (e) {
+            $('.compraOption').removeClass('active');
+            $(this).addClass('active');
+            $('.btn-continue').removeClass('disabled').prop('disabled', false);
+            var option = $(this).attr('data-target');
+            $('input[type="hidden"][name="tipo_solicitud"]').val(option);
+            if(option == 'llamada') {
+                $('input[name="email"][type="email"]').prop('required', false);
+            } else {
+                $('input[name="email"][type="email"]').prop('required', true);
+            }
+        });
+
+        /*if (!isMobile()){
+            $('.btn-continue').parent().remove();
+            $('.continue-section').show();
+        }*/
+
+        $('.btn-device-plan').click(function (e) {
+
+            var $btnSelected = $(e.currentTarget);
+
+            if(!$btnSelected.hasClass('active')){
+                $('.btn-device-plan').removeClass('active');
+            }
+
+            activateElement(e.currentTarget, false);
+
+            if($btnSelected.hasClass('active')){
+                $('#nombre-equipo').val($btnSelected.closest('.box-wrapper-producto').data('slug'));
+                $('#precio-equipo').val($btnSelected.closest('.box-wrapper-producto').data('precioTotal'));
+            }else{
+                $('#nombre-equipo').val('');
+                $('#precio-equipo').val('');
+            }
+
+        });
+        var initAddProduct = function(){
+            $('.add-product').addClass('show-in-absolute');
+            $('.slick-center').slick({
+                centerMode: true,
+                slidesToShow: 1,
+                centerPadding: '10px',
+                arrows: true,
+                mobileFirst: true,
+                responsive: [
+                    {
+                        breakpoint: 625,
+                        settings: {
+                            centerPadding: '50px'
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            centerPadding: '80px'
+                        }
+                    },
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3,
+                            centerPadding: '50px'
+                        }
+                    }
+                ]
+            });
+        }
+        {% if equipos is not empty %}
+        $('label[for="conEquipo"] div.customCheck').click();
+        initAddProduct();
+        {% endif %}
+
+        //if($('input[name="con-equipo"] .customCheck').hasClass('active')){
+        $('input[name="con-equipo"]').on('click change',function (e) {
+            if(e.currentTarget.id == "conEquipo" && e.currentTarget.checked){
+                initAddProduct();
+            }
+            else{
+                $('.add-product').removeClass('show-in-absolute');
+                $('#nombre-equipo').val('');
+                $('#precio-equipo').val('');
+                $('.btn-device-plan').removeClass('active');
+            }
+
+        });
+        $('.customInputFileContainer input').on('change',function (e) {
+            var label	 = e.currentTarget.nextElementSibling;
+            var labelVal = label.innerHTML;
+            var fileName = e.target.value.split( '\\' ).pop();
+            if( fileName ) {
+                label.innerHTML = fileName;
+                $(label.nextElementSibling).hide()
+            }else
+                label.innerHTML = labelVal;
+        });
+
+        $('.card-info').click(function (e) {
+            activateElement($('.hide-next-el-on-active'), false);
+        });
+
+        var signaturePad;
+
+        var initSignPad = function(){
+
+            /*   if (!isMobile()){
+                   $('.number-step-devices').html('3');
+                   $('.sign-section').hide();
+                   return false;
+               }*/
+
+            var signature_wrapper = document.getElementById("signature-pad-redesign");
+            var canvas = signature_wrapper.querySelector("canvas");
+
+            signaturePad = new SignaturePad(canvas, {
+                // It's Necessary to use an opaque color when saving image as JPEG;
+                // this option can be omitted if only saving as PNG or SVG
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: "rgb(0, 0, 0)",
+                onBegin: function () {
+                    $('#signature-pad-redesign').addClass('active');
+                }
+            });
+
+            // Adjust canvas coordinate space taking into account pixel ratio,
+            // to make it look crisp on mobile devices.
+            // This also causes canvas to be cleared.
+            function resizeCanvas() {
+                // When zoomed out to less than 100%, for some very strange reason,
+                // some browsers report devicePixelRatio as less than 1
+                // and only part of the canvas is cleared then.
+                var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+
+                // This part causes the canvas to be cleared
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+
+                // This library does not listen for canvas changes, so after the canvas is automatically
+                // cleared by the browser, SignaturePad#isEmpty might still return false, even though the
+                // canvas looks empty, because the internal data of this library wasn't cleared. To make sure
+                // that the state of this library is consistent with visual state of the canvas, you
+                // have to clear it manually.
+                signaturePad.clear();
+            }
+
+            resizeCanvas();
+            // On mobile devices it might make more sense to listen to orientation change,
+            // rather than window resize events.
+            window.onresize = resizeCanvas;
+
+            $('a[data-action=signature-clear]').click(function (e) {
+                e.preventDefault();
+                var el_signature_img = $('#signature-result');
+                if(el_signature_img.attr('src') !== '') {
+                    el_signature_img.attr('src', '');
+                    canvas.style.display = '';
+                    $('a[data-action=signature-save]').show();
+                    $('#signature-pad div').css('background', '');
+                }
+                $(this).removeClass('active');
+                signaturePad.clear();
+                $('input[name="portabilidad-firma"]').val('');
+                $('#signature-pad-redesign,#signature-pad-redesign .save').removeClass('active');
+            });
+
+            $('a[data-action=signature-save]').click(function (e) {
+                e.preventDefault();
+                if (signaturePad.isEmpty()) {
+                    modalAlert("Primero realiza una firma antes de confirmarla.");
+                } else {
+                    var dataURL = signaturePad.toDataURL();
+                    $('#signature-result').attr('src', dataURL);
+                    $('#signature-pad div').css('background', '#D5D5D5');
+                    $('input[name="portabilidad-firma"]').val(dataURL);
+                    canvas.style.display = 'none';
+                    $('a[data-action=signature-clear],#signature-pad-redesign .save').addClass('active');
+                }
+            });
+
+        };
+        //console.log('mostrarMapa = '+mostrarMapa);
+        window.onload = function() {
+            // if (!isMobile())
+            initSignPad();
+        };
+
+        $(document).on("cut copy paste","input",function(e) {
+            e.preventDefault();
+        });
+
+        var $inputsFirstBlock = $('[tnd-validate-form] input[name=nombre],[tnd-validate-form] input[name=apellido],[tnd-validate-form] input[name=numdoc],[tnd-validate-form] input[type=email],[tnd-validate-form] input[name=celular], [tnd-validate-form] input[name=celular]');
+        //var $selectEnvio = $('[tnd-validate-form] select[name=ciudad]');
+        var $inputsDomicilio = $('[tnd-validate-form] select[name=provincia],[tnd-validate-form] input[name=txtdireccion],[tnd-validate-form] select[name=ciudad]/*[tnd-validate-form] input[name=txtreferencia],*//*[tnd-validate-form] input[type=telfcontacto],[tnd-validate-form] select[name=lugar]*/');
+        var $inputsCac = $('[tnd-validate-form] select[name=centro]');
+
+        $("div[data-target='completar']").click(function (e){
+            var tipoServicio = $("input[name='tipo-servicio']:checked").attr('data-servicio');
+            if(tipoServicio == 'prepago'){
+                $('.divCeleste').show();
+            }else{
+                $('.divCeleste').hide();
+            }
+        });
+        $("div[data-target='llamada']").click(function (e){
+            $('.divCeleste').hide();
+        });
+
+        function consumoNipAjax(){
+            //$('.divCeleste').show();
+            let numero = $('input[name="celular"]').val().substring(1);
+            /*let recaptchaval = $("#g-recaptcha-response").val() || "";*/
+            $.ajax({
+                url: "{{ path('TiendaClaro_consumir_NIP') }}",
+                type: 'POST',
+                data: { numero: numero/*, g-recaptcha-response: recaptchaval*/ },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    //console.log(data);
+                    if(!data.error) {
+                        $.fancybox.open(
+                            {
+                                src : document.getElementById('modal-no-existe'),
+                                type: 'inline',
+                                modal: true,
+                                afterClose: function (){
+                                    $.fancybox.close();
+                                    $.fancybox.close();
+                                }
+                            }
+                        );
+                        var seconds = 600;
+                        function secondPassed() {
+                            var minutes = Math.round((seconds - 30)/60);
+                            var remainingSeconds = seconds % 60;
+                            if (remainingSeconds < 10) {
+                                remainingSeconds = "0" + remainingSeconds;
+                            }
+                            document.getElementById('countdown').innerHTML = minutes + ":" +     remainingSeconds;
+                            if (seconds == 0) {
+                                clearInterval(countdownTimer);
+                                //alert('Se acabó el tiempo');
+                                $('.reenviar').show();
+                                $('.timerNIP').addClass('hidden');
+                                $('.reenviar').click(function (e){
+                                    $('.reenviar').hide();
+                                    $('.timerNIP').removeClass('hidden')
+                                    var countdownTimer = setInterval(secondPassed, 1000);
+                                });
+
+                            } else {
+                                seconds--;
+                            }
+                        }
+                        var countdownTimer = setInterval(secondPassed, 1000);
+                    } else {
+                        modalAlert(data.message);
+                    }
+                },
+                complete: function () {
+                },
+                error: function (error) {
+                    loaded();
+                    modalAlert("Estamos teniendo inconvenientes para generar su código NIP. Por favor, vuelva a intentarlo más tarde.");
+                }
+            });
+        }
+
+        //AJAX2
+        $('.guardarNIP').click(function (e){
+            var codigoIngresado;
+            codigoIngresado = $('#dig1').val() + $('#dig2').val() + $('#dig3').val() + $('#dig4').val();
+            document.getElementById('nipIngresado').value = codigoIngresado;
+            //console.log('num: ' + codigoIngresado);
+            if (codigoIngresado) {
+                $.fancybox.close();
+                $('.mostrarNIP').show();
+                $('.tnd-msg-input').hide();
+                $('.divCeleste').hide();
+                document.getElementById('digito1').value = document.getElementById('dig1').value;
+                document.getElementById('digito2').value = document.getElementById('dig2').value;
+                document.getElementById('digito3').value = document.getElementById('dig3').value;
+                document.getElementById('digito4').value = document.getElementById('dig4').value;
+
+                $('.continue-section').show();
+                $('.btn-continue').hide();
+                if(mostrarMapa)
+                    initMapaLeaflet();
+                initSignPad();
+                if (mostrarMapa)
+                    scrollToElement("div#mimapa");
+                else
+                    scrollToElement("div.sign-section");
+                //$('label[for="conEquipo"] div.customCheck').click();
+                $('#opcionesSolicitud').hide();
+
+            } else {
+                alert('código NIP incorrecto');
+                $('.mostrarNIP').hide();
+                $.fancybox.open();
+            }
+        });
+        //FIN AJAX2
+
+        $('.btn-continue').click(function (e) {
+            if (validateFirstBlock()) {
+                let recaptchaval = $("#g-recaptcha-response").val();
+                var aData = new FormData(document.getElementById('create-portabilidad-form'));
+                var tipo_solcitud = $('input[type="hidden"][name="tipo_solicitud"]').val();
+                var action = $('#create-portabilidad-form').attr('data-action-' + tipo_solcitud);
+                // var tipo_servicio = $('input[name="tipo-servicio"]').val();
+                var tipo_servicio = $("input[name='tipo-servicio']:checked").attr('data-servicio');
+                aData.append('g-recaptcha-response', recaptchaval);
+                $.ajax({
+                    url: action,
+                    data: aData,
+                    type: 'POST',
+                    enctype: 'multipart/form-data',
+                    cache: false,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,   // tell jQuery not to set contentType
+                    beforeSend: function () {
+                        load();
+                    },
+                    success: function (data) {
+                        //console.log(data);
+                        if (data.error == false) {
+                            $('div.g-recaptcha').remove();
+                            if(tipo_solcitud == 'llamada') {
+                                $('#formularioPortabilidad').hide();
+                                $('#typAsesor').show({top: 300});
+                                if('{{ plan.idTipo.id }}' == 16 ){
+                                    gtag('event', 'Envío de formulario (Asesor)', {
+                                        'event_category': 'Portabilidad_Prepago',
+                                        'event_label': '{{ plan.nombre }}'
+                                    });
+                                }else{
+                                    gtag('event', 'Envío de formulario (Asesor)', {
+                                        'event_category': 'Planes_Portabilidad',
+                                        'event_label': 'Plan: {{ plan.nombre }}',
+                                        'value': {{ plan.cuotaSinImp }}
+                                    });
+                                }
+                                __fbTrigger('Lead');
+                            } else {
+                                if(tipo_servicio == 'prepago'){
+                                    $('.divCeleste').show();
+                                    consumoNipAjax();
+                                    /*                                    $('.divCeleste').show();
+                                    $.fancybox.open(
+                                        {
+                                            src : document.getElementById('modal-no-existe'),
+                                            type: 'inline',
+                                            modal: true,
+                                            afterClose: function (){
+                                                $.fancybox.close();
+                                                $.fancybox.close();
+                                            }
+                                        }
+                                    );
+                                    var seconds = 10;
+                                    function secondPassed() {
+                                        var minutes = Math.round((seconds - 30)/60);
+                                        var remainingSeconds = seconds % 60;
+                                        if (remainingSeconds < 10) {
+                                            remainingSeconds = "0" + remainingSeconds;
+                                        }
+                                        document.getElementById('countdown').innerHTML = minutes + ":" +     remainingSeconds;
+                                        if (seconds == 0) {
+                                            clearInterval(countdownTimer);
+                                            //alert('Se acabó el tiempo');
+                                            $('.reenviar').show();
+                                            $('.timerNIP').css('display', 'none!important');
+                                            $('.reenviar').click(function (e){
+                                                $('.reenviar').hide();
+                                                $('.timerNIP').show();
+                                                var countdownTimer = setInterval(secondPassed, 1000);
+                                            });
+
+                                        } else {
+                                            seconds--;
+                                        }
+                                    }
+                                    var countdownTimer = setInterval(secondPassed, 1000);*/
+
+                                   /* $('.guardarNIP').click(function (e) {
+                                        var codigoIngresado;
+                                        codigoIngresado = $('#dig1').val() + $('#dig2').val() + $('#dig3').val() + $('#dig4').val();
+                                        document.getElementById('nipIngresado').value = codigoIngresado;
+                                        //console.log('num: ' + codigoIngresado);
+                                        if (codigoIngresado) {
+                                            $.fancybox.close();
+                                            $('.mostrarNIP').show();
+                                            $('.tnd-msg-input').hide();
+                                            document.getElementById('digito1').value = document.getElementById('dig1').value;
+                                            document.getElementById('digito2').value = document.getElementById('dig2').value;
+                                            document.getElementById('digito3').value = document.getElementById('dig3').value;
+                                            document.getElementById('digito4').value = document.getElementById('dig4').value;
+
+                                            $('.continue-section').show();
+                                            $('.btn-continue').hide();
+                                            if(mostrarMapa)
+                                                initMapaLeaflet();
+                                            initSignPad();
+                                            $('#solicitud').val(data.code);
+                                            if (mostrarMapa)
+                                                scrollToElement("div#mimapa");
+                                            else
+                                                scrollToElement("div.sign-section");
+                                            $('label[for="conEquipo"] div.customCheck').click();
+                                            $('#opcionesSolicitud').hide();
+                                        } else {
+                                            alert('código NIP incorrecto');
+                                            $('.mostrarNIP').hide();
+                                            $.fancybox.open();
+                                        }
+                                    });*/
+                                }else{
+                                    $('.continue-section').show();
+                                    $('.btn-continue').hide();
+                                    if(mostrarMapa)
+                                        initMapaLeaflet();
+                                    initSignPad();
+                                    $('#solicitud').val(data.code);
+                                    if (mostrarMapa)
+                                        scrollToElement("div#mimapa");
+                                    else
+                                        scrollToElement("div.sign-section");
+                                    //$('label[for="conEquipo"] div.customCheck').click();
+                                    $('#opcionesSolicitud').hide();
+                                }
+                            }
+                            loaded();
+                        } else {
+                            loaded();
+                            modalAlert("Ocurrió un error inesperado. Vuelva a intentarlo más tarde.");
+                        }
+                    },
+                    error: function () {
+                        loaded();
+                        modalAlert("Estamos teniendo inconvenientes para procesar su solicitud. Por favor, vuelva a intentarlo más tarde.");
+                    }
+                });
+            }
+        });
+
+        function validateFirstBlock() {
+            var valid = true;
+            $.each($inputsFirstBlock,function (key, value) {
+                if(!$inputsFirstBlock[key].checkValidity())
+                    valid = false;
+            });
+            if(!validateRadio(document.getElementsByName('operadora-actual'))){
+                scrollToElement($('.element-radio').get(0));
+                modalAlert('Seleccione su operadora actual');
+                return false;
+            }
+            if(!validateRadio(document.getElementsByName('tipo-servicio'))){
+                scrollToElement($('.element-radio').get(0));
+                modalAlert('Seleccione el tipo de servicio');
+                return false;
+            }
+            if(!valid){
+                scrollToElement('.data-person');
+                return false;
+            }
+
+            let recaptchaval = $("#g-recaptcha-response").val();
+
+            if (recaptchaval == "") {
+                modalAlert('Ups, parece que fallaste al demostrar que no eres un robot. Inténtalo nuevamente.');
+                grecaptcha.reset();
+                return false;
+                $.fancybox.open();
+            }
+
+            {% if equipos is not empty %}
+            if(!validateRadio(document.getElementsByName('con-equipo'))){
+                modalAlert('Seleccione si desea agregar un equipo a su plan');
+                return false;
+            }
+            if ($('#conEquipo').get(0).checked) {
+                if($('#nombre-equipo').val()==''){
+                    modalAlert("Primero debes seleccionar un equipo.");
+                    return false;
+                }
+            }
+            {% endif %}
+
+            return true;
+        }
+
+        function scrollToElement(element,time) {
+            $('html, body').animate({
+                scrollTop: $(element).offset().top - 86
+            }, time || 1000);
+        }
+
+        function validateSecondBlock() {
+            //if (isMobile()) {
+            if (!$('#not-required-id').get(0).checked) {
+                if (!$('#foto-anverso').val()) {
+                    modalAlert('No se ha cargado la foto de cédula frontal');
+                    return false
+                }
+                if (!$('#foto-reverso').val()) {
+                    modalAlert('No se ha cargado la foto del reverso de la cédula');
+                    return false
+                }
+            }
+
+            if (signaturePad.isEmpty()) {
+                modalAlert("Primero debes realizar tu firma");
+                return false;
+            }
+
+            if($('input[name="portabilidad-firma"]').val()==''){
+                modalAlert("Primero debes confirmar la firma.");
+                return false;
+            }
+
+            //}
+
+            /*                 if ($("#not-required-envio").checked) {
+                     $('#domicilioSim').prop("checked","false");
+                     $('#cacSim').prop("checked","false");
+                 }*/
+            /*if (!$('#not-required-envio').get(0).checked) {
+                 if(!validateRadio(document.getElementsByName('tipoEnvio'))){
+                     scrollToElement($('.element-radio').get(0));
+                     modalAlert('Elija una opción de envío');
+                     return false;
+                 }
+/!*                 var varEnvio;
+                 for (i = 0; i < document.getElementsByName('tipoEnvio').length; ++ i) {
+                     if (document.getElementsByName('tipoEnvio') [i].checked){
+                         varEnvio = document.getElementsByName('tipoEnvio') [i].value;
+                     }
+                 }
+                 if(varEnvio == 'domicilioSim'){
+                     $.each($inputsDomicilio,function (key, value) {
+                         if(!$inputsDomicilio[key].checkValidity())
+                             valid = false;
+                     });
+                 }else{
+                     $.each($inputsCac,function (key, value) {
+                         if(!$inputsCac[key].checkValidity())
+                             valid = false;
+                     });
+                 }
+                 if(!valid){
+                     scrollToElement('.formEnvio');
+                     modalAlert('Complete los datos');
+                     return false;
+                 }*!/
+             }*/
+            /*     if((!$('#domicilioSim').get(0).checked)){
+               if((!$('#cacSim').get(0).checked)){
+                   modalAlert('Primero elija como desea obtener su tarjeta');
+                   return false;
+               }
+            }*/
+
+            if(!$('#terminosycondiciones').get(0).checked){
+                modalAlert('Primero aceptemos los términos y condiciones');
+                return false;
+            }
+            var tipoServicio = $("input[name='tipo-servicio']:checked").attr('data-servicio');
+            if(tipoServicio == 'prepago' && $('input[name="nipIngresado"]').val()==''){
+                return false;
+            }
+            var valido = true;
+            if(mostrarMapa = true){
+                $.each($inputsDomicilio,function (key, value) {
+                    if(!$inputsDomicilio[key].checkValidity())
+                        valido = false;
+                });
+            }
+            if(!valido){
+                scrollToElement('.newFormEnvio');
+                modalAlert('Complete los datos para la entrega del chip');
+                return false;
+            }
+
+            return true;
+        }
+
+        /*$(document).ready(function() {
+                    $("input[ name=tipoEnvio]").click(function(event){
+                $(".domicilioSim").show();
+                var formSim = $(".FormSim").detach();
+                var valor = $(event.target).val();
+                $("."+valor).html(formSim)
+            });
+        });*/
+
+        function validateRadio (radios){
+            for (i = 0; i < radios.length; ++ i) {
+                if (radios [i].checked) return true;
+            }
+            return false;
+        }
+
+        $('#change-now').click(function () {
+            if(validateFirstBlock() && validateSecondBlock()){
+                var form = document.getElementById('create-portabilidad-form');
+                var $form = $('#create-portabilidad-form');
+                var aData = new FormData(form);
+                var $formName = $form.attr('name');
+                $.ajax({
+                    url: "{{ path('TiendaClaro_portabilidad_store') }}",
+                    data: aData,
+                    type: 'post',
+                    enctype: 'multipart/form-data',
+                    cache: false,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,   // tell jQuery not to set contentType
+                    beforeSend: function () {
+                        load();
+                    },
+                    success: function (data) {
+                        //console.info(data);
+                        if (data.error == false) {
+                            document.forms[$formName].submit();
+                            //Seguimiento form_sent
+                            if('{{ plan.idTipo.id }}' == 16 ){
+                                gtag('event', 'Envío de formulario', {
+                                    'event_category': 'Portabilidad_Prepago',
+                                    'event_label': '{{ plan.nombre }}'
+                                });
+                            }else{
+                                gtag('event', 'Envío de formulario', {
+                                    'event_category': 'Planes_Portabilidad',
+                                    'event_label': 'Plan: {{ plan.nombre }}',
+                                    'value': {{ plan.cuotaSinImp }}
+                                });
+                            }
+                            __fbTrigger('Lead');
+                            __fbTriggerCR('CompleteRegistration');
+                            //location.href = "{{ path('TiendaClaro_portabilidad_redesign_typ') }}";
+                        }else{
+                            loaded();
+                            modalAlert("Ocurrio un error inesperado, vuelva a intentarlo mas tarde");
+                        }
+                    },
+                    error: function () {
+                        loaded();
+                        modalAlert("Ocurrio un error inesperado, vuelva a intentarlo mas tarde");
+                    }
+                });
+
+            }
+
+        });
+
+        function __fbTrigger(eventName) {
+            window.dataLayer = window.dataLayer || [];
+            try {
+                window.dataLayer.push({
+                    event: eventName,
+                    content_ids: ['plan-port-{{ plan.id }}'],
+                    content_name: '{{ plan.nombre }}',
+                    content_category: "PORTABILIDAD {{ plan.idTipo.id == 16 ? 'PREPAGO' : 'POSTPAGO' }}",
+                    content_type: "product",
+                    value: {{ plan.cuotaConImp }},
+                    currency: "USD",
+                    google_items: [{
+                        id: 'plan-port-{{ plan.id }}',
+                        google_business_vertical: 'retail',
+                        item_id: 'plan-port-{{ plan.id }}',
+                        item_name: '{{ plan.nombre }}',
+                        item_category: "PORTABILIDAD {{ plan.idTipo.id == 16 ? 'PREPAGO' : 'POSTPAGO' }}",
+                        item_brand: 'CLARO',
+                        price: {{ plan.cuotaConImp }},
+                        currency: 'USD',
+                        quantity: 1
+                    }]
+                });
+            } catch (e) {   }
+        }
+        function __fbTriggerCR(eventName) {
+            window.dataLayer = window.dataLayer || [];
+            try {
+                window.dataLayer.push({
+                    event: eventName,
+                    content_ids: ["plan-port-{{ plan.id }}"],
+                    content_name: "Portabilidad Digital",
+                    content_category: "PORTABILIDAD {{ plan.idTipo.id == 16 ? 'PREPAGO' : 'POSTPAGO' }}",
+                    content_type: "product",
+                    contents: [{
+                        "id": "plan-port-{{ plan.id }}",
+                        "item_price": {{ plan.cuotaConImp }},
+                        "quantity": 1
+                    }],
+                    value: {{ plan.cuotaConImp }},
+                    currency: "USD",
+                    status: "complete",
+                    google_items: [{
+                        id: 'plan-port-{{ plan.id }}',
+                        google_business_vertical: 'retail',
+                        item_id: 'plan-port-{{ plan.id }}',
+                        item_name: '{{ plan.nombre }}',
+                        item_category: "PORTABILIDAD {{ plan.idTipo.id == 16 ? 'PREPAGO' : 'POSTPAGO' }}",
+                        item_brand: 'CLARO',
+                        price: {{ plan.cuotaConImp }},
+                        currency: 'USD',
+                        quantity: 1
+                    }]
+                });
+            } catch (e) {   }
+        }
+        function __fbTrigger(eventName) {
+            window.dataLayer = window.dataLayer || [];
+            try {
+                window.dataLayer.push({
+                    event: eventName,
+                    content_ids: ['plan-port-{{ plan.id }}'],
+                    content_name: '{{ plan.nombre }}',
+                    content_category: "PORTABILIDAD {{ plan.idTipo.id == 16 ? 'PREPAGO' : 'POSTPAGO' }}",
+                    content_type: "product",
+                    value: {{ plan.cuotaConImp }},
+                    currency: "USD",
+                    google_items: [{
+                        id: 'plan-port-{{ plan.id }}',
+                        google_business_vertical: 'retail',
+                        item_id: 'plan-port-{{ plan.id }}',
+                        item_name: '{{ plan.nombre }}',
+                        item_category: "PORTABILIDAD {{ plan.idTipo.id == 16 ? 'PREPAGO' : 'POSTPAGO' }}",
+                        item_brand: 'CLARO',
+                        price: {{ plan.cuotaConImp }},
+                        currency: 'USD',
+                        quantity: 1
+                    }]
+                });
+            } catch (e) {   }
+        }
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var bodyAccordion = this.nextElementSibling;
+                if (bodyAccordion.style.display === "block") {
+                    bodyAccordion.style.display = "none";
+                } else {
+                    bodyAccordion.style.display = "block";
+                }
+            });
+        }
+
+        $('.card-equipo .tnd-h4.title-style').hide();
+    </script>
+    {% if (plan.idTipo.id == 16 and infoPrepago['paso3'] == true) or (plan.idTipo.id != 16 and infoPostpago['paso3'] == true) %}
+    {{ block('FormSimJs') }}
+    {% endif %}
+
+    {{ block('helpJs') }}
+
+{% endblock %}
+

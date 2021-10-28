@@ -1,0 +1,124 @@
+<div>
+    <div>
+        <div class="tnd-pt-20-xs title-plan-info">
+            {{ plan.nombre }}
+        </div>
+        <span class="tnd-font-jumbo font-strong tnd-border-b-light-xs">
+            {#<i>{{ plan.getDetailByTypeAndTransaccion(22,2).cantidad }}</i><span class="tnd-font-jumbo-subtitle">GB</span>#}
+            {#{% if (plan.cuotaSinImp|number_format(2,',','.')) >= '20'%}
+            <div class="etiqueta-sorteo"><img class="tnd-mr-5-xs" src="{{ asset('/images/etiquetas/sorteo_iphone11pro.svg') }}" alt="icon" style="width: 60px;"></div>
+            {% endif %}#}
+            {% if (plan.slug) == 'plan-conexion-datos-31-99'%}
+                <i>{{ plan.getDetailByTypeAndTransaccion(22,2).cantidad}}</i><span class="tnd-font-jumbo-subtitle">GB</span>
+            {% elseif (plan.slug) == 'plan-conexion-datos-16-49'%}
+                    <i>{{ plan.getDetailByTypeAndTransaccion(22,2).cantidad}}</i><span class="tnd-font-jumbo-subtitle">GB</span>
+            {% elseif (plan.slug) == 'plan-conexion-datos-21-99'%}
+                    <i>{{ plan.getDetailByTypeAndTransaccion(22,2).cantidad}}</i><span class="tnd-font-jumbo-subtitle">GB</span>
+            {% else %}
+                <strong>{{ plan.getDetailByTypeAndTransaccion(23,2).cantidad }}<span class="tnd-font-jumbo-subtitle">GB</span></strong>
+            {% endif %}
+        </span>
+        <div class="tnd-pt-20-xs main-include-plan">
+            <strong>{{ plan.getDetailByTypeAndTransaccion(23,2).contenido|replace({"gb":"GB"})|raw  }}</strong>
+            {% if (plan.slug) == 'plan-conexion-datos-31-99'%}
+                <div style="font-weight: 500;">+ 2GB portabilidad (6 meses)</div>
+            {% elseif (plan.slug) == 'plan-conexion-datos-16-49' %}
+                <div style="font-weight: 500;">+ 2GB portabilidad (6 meses)</div>
+            {% elseif (plan.slug) == 'plan-conexion-datos-21-99' %}
+                <div style="font-weight: 500;">+ 2GB portabilidad (6 meses)</div>
+            {% endif %}
+        </div>
+        <div style="background: #eee;" class="pd-price tnd-bg-white tnd-black tnd-mt-20-xs tnd-px-12-xs tnd-text-center-xs">
+            <div class="flex-md flex-center-md flex-row-reverse-md">
+                <div>
+                    <span class="tnd-visible-md">&nbsp /</span>
+                    <span>{% if hasProduct is defined and hasProduct %} Precio de contado {% else %} Tarifa básica {% endif %}</span>
+                </div>
+                <div>
+                    <span class="font-strong amx-h3"> ${% if hasProduct is defined and hasProduct %} {{ (equipo.subtotalSinImp + plan.cuotaSinImp)|number_format(2,',','.') }} {% else %} {{ plan.cuotaSinImp|number_format(2,',','.') }} {% endif %} + imp. </span>
+                </div>
+            </div>
+            <div class="tnd-turquoise tnd-pt-5-xs">{% if hasProduct is defined and hasProduct %} Precio final {{ (equipo.totalConImp + plan.cuotaConImp)|number_format(2,',','.') }} {% else %} <!--Tarifa final mensual ${{ plan.cuotaConImp|number_format(2,',','.') }}--> {% endif %}</div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="tnd-pt-20-xs {% if accordeonInclude is defined and accordeonInclude %} container-accordeon-element {% endif %}">
+        <div class="font-bold flex-md {% if accordeonInclude is defined and accordeonInclude %} accordeon-element-header side-arrow {% else %} between-lines-md {% endif %}">
+            <i>INCLUYE</i>
+        </div>
+        <div class="{% if accordeonInclude is defined and accordeonInclude %} accordeon-element-body {% endif %}">
+            {% for item in plan.getDetalllesDefaultByTransaccion(2) %}
+                <div class="flex-center-xs tnd-px-12-xs">
+                    <img class="tnd-mr-5-xs"
+                         src="{{ asset(item.getIdDetalle.rutaImg) }}" alt="icon">
+                    <div class="data tnd-text-left-xs">
+                        <strong>{% if item.cantidad > 0 %} {{ item.cantidad }} {% endif %} {{  item.contenido }}</strong>
+                        {{ item.getIdDetalle.descripcion }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% for item in plan.getDetailsByTypeAndTransaccion(26,2) %}
+                <div class="flex-center-xs tnd-px-12-xs">
+                    <img class="tnd-mr-5-xs"
+                         src="{{ asset(item.getIdDetalle.rutaImg) }}" alt="icon">
+                    <div class="data tnd-text-left-xs">
+                        <strong>{% if item.cantidad > 0 %} {{ item.cantidad }} {% endif %} {{  item.contenido }}</strong>
+                        {{ item.getIdDetalle.descripcion }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="ocultar-enTyp" style="background: #ef3829; border-radius: 25px;padding: 4%;">
+                {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+                    <img class="tnd-img-resp tnd-py-20-md {% if loop.first %}tnd-visible-sm{% else %}tnd-hidden-sm{% endif %}" src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+                {% endfor %}
+            </div>
+            {% if accordeonInclude is defined and accordeonInclude %}
+                <div class="cont-img">
+                    <div class="tnd-pt-10-xs tnd-pb-20-small">
+                        {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+                                <img class=" tnd-py-20-md promo-plan tnd-va-bottom {% if loop.first %} tnd-visible-small tnd-img-resp-md {% else %}tnd-hidden-small tnd-img-resp{% endif %}"
+                                     src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="{% if accordeonInclude is defined and accordeonInclude %} padding-on-0-active {% endif %}"></div>
+    </div>
+</div>
+{% if accordeonInclude is not defined %}
+            {% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 15 or (plan.cuotaSinImp) == 25%}
+            <div class="cont-img tnd-bg-white imgBeneficio" style="">
+                <div class="tnd-pt-10-xs tnd-pb-20-small">
+                {% for detail in plan.getDetailsByTypeAndTransaccion(24,2) %}
+                    <img class=" tnd-py-20-md promo-plan tnd-va-bottom {% if loop.first %} tnd-visible-small tnd-img-resp-md {% else %}tnd-hidden-small tnd-img-resp{% endif %}"
+                         src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+                {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="cont-img">
+                <div class="tnd-pt-10-xs tnd-pb-20-small">
+                {% for detail in plan.getDetailsByTypeAndTransaccion(25,2) %}
+                    <img class=" tnd-py-20-md promo-plan tnd-va-bottom {% if loop.first %} tnd-visible-small tnd-img-resp-md {% else %}tnd-hidden-small tnd-img-resp{% endif %}"
+                         src="{{ asset(detail.getIdDetalle.rutaImg) }}" alt="">
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+{% endif %}
+{% block stylesheets -%}
+    <style>
+        @media (max-width: 767px) {
+            .imgBeneficio {
+                margin-top: 15px;
+            }
+        }
+        @media (min-width: 992px){
+            .imgBeneficio {
+                margin-top: 15px; margin-right: 1%; border-radius: 10px;
+            }
+        }
+    </style>
+{% endblock %}

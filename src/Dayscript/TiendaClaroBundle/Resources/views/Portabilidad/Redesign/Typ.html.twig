@@ -1,0 +1,667 @@
+{% extends 'DayscriptTiendaClaroBundle::layoutNew.html.twig' %}
+{% block title %}
+    Cámbiate a Claro | Tienda Virtual
+{% endblock %}
+
+{% block titulo %}
+{% endblock %}
+
+{% block metadata %}
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@claroecua">
+    <meta name="twitter:creator" content="@claroecua">
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://catalogo.claro.com.ec/portabilidad/cambiate-a-claro">
+    <meta property="og:title" content="Tienda | Cámbiate a Claro con tu mismo número y recibe hasta 24 GB gratis">
+    <meta property="og:site_name" content="Tienda | Cámbiate a Claro con tu mismo número y recibe hasta 24 GB gratis">
+    <meta property="og:description" content="Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.">
+    <meta property="og:image" content="https://catalogo.claro.com.ec/uploads/imgs/banners/banner_gigared_1440x540.jpg">
+{% endblock %}
+
+{% block socialtags %}
+    <!-- Metadata -->
+    <meta name="author" content="Claro Ecuador">
+    <meta name="copyright" content="Claro Ecuador">
+    <meta name="title" content="Tienda | Cámbiate a Claro con tu mismo número y recibe 12 GB gratis">
+    <meta name="abstract" content="Cámbiate a Claro con tu mismo número y recibe 12 GB gratis">
+    <meta name="description"
+          content="Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.">
+    <meta name="keywords"
+          content="cámbiate a claro, portabilidad, beneficios, cámbiate con mismo número, mismo número, gratis, conserva tu número, elige plan portabilidad, portabilidad postpago, escoge tu plan, telefonía prepago, pide tu chip">
+{% endblock %}
+{% block body %}
+    {% if plan is not null and plan.idTipo.id != 16 %}
+        <span class="bannersPostpago">
+         {% if banners['typSm']|length > 0 %}
+             <img class="tnd-mt-20-xs tnd-hidden-sm tnd-img-resp" src="{{ asset(banners['typSm']) }}">
+         {% endif %}
+            {% if banners['typLg']|length > 0 %}
+                <img class="tnd-visible-sm tnd-img-resp" src="{{ asset(banners['typLg']) }}">
+            {% endif %}
+     </span>
+    {% else %}
+        <span class="bannersPrepago">
+         {% if bannersPrepago['typSm']|length > 0 %}
+             <img class="tnd-mt-20-xs tnd-hidden-sm tnd-img-resp" src="{{ asset(bannersPrepago['typSm']) }}">
+         {% endif %}
+            {% if bannersPrepago['typLg']|length > 0 %}
+                <img class="tnd-visible-sm tnd-img-resp" src="{{ asset(bannersPrepago['typLg']) }}">
+            {% endif %}
+     </span>
+    {% endif %}
+    {#    <img class="tnd-hidden-sm tnd-img-resp" src="{{ asset('/images/portabilidad/Portabilidad-enero520x300.png') }}" alt="">
+    <img class="tnd-visible-sm tnd-img-resp" src="{{ asset('/images/portabilidad/Portabilidad-enero1920x300.png') }}" alt="">#}
+    {% if plan is not null%}
+        <div class="amx-h1 font-bold tnd-p-20-xs tnd-p-40-md tnd-text-center-md" style="line-height: 1;">Te mostramos el resumen de tu portabilidad</div>
+
+        {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 %}
+            <div class="amx-container {% if equipo is null %}center-middle{% endif %} tnd-mb-20-xs flex-xs flex-wrap-xs flex-cont-1-xs">
+                <div class="div1 {% if equipo is null %}mtDiv1{% endif %}">
+                    <div style="background: linear-gradient(to top, #ff0000bd  18%, #e7e7e769 10% );" class="tnd-mr-10-xs tnd-br-25-xs plan-portabilidad-wrapper tnd-mb-30-xs tnd-text-left-md">
+                        <div class="tnd-pt-20-xs tnd-pt-2em-md center-middle tnd-dark-turquoise txtDP"> Tus datos personales</div>
+                        <form style="padding: 10px 30px 40px 30px;" class="tnd-mb-20-md {#tnd-mb-40-xs tnd-p-20-xs tnd-p-40-md tnd-pt-0-md#}">
+                            <div class="flex-xs flex-wrap-xs flex-cont-1-xs">
+                                <div>
+                                    <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                        <label for="text">Nombre</label>
+                                        <div class="tnd-content-input">
+                                            <input id="nombre-input" data-only-letters="" name="nombre" type="text" required=""
+                                                   class="tnd-input-text theme-2" value="{{ persona['nombre'] }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                        <label for="text">Apellidos</label>
+                                        <div class="tnd-content-input">
+                                            <input data-only-letters="" name="apellido" type="text" required=""
+                                                   class="tnd-input-text theme-2" value="{{ persona['apellido'] }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                        <label for="text">Número de cédula</label>
+                                        <div class="tnd-content-input">
+                                            <input required="" data-only-numbers="" data-custom-validate=""
+                                                   data-identification-number="" name="numdoc" type="text" maxlength="10"
+                                                   class="tnd-input-text theme-2" value="{{ persona['cedula'] }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                        <label for="text">Correo electrónico</label>
+                                        <div class="tnd-content-input">
+                                            <input name="email" type="email" required="" class="tnd-input-text theme-2"
+                                                   value="{{ persona['email'] }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="div-servicio center-block flex-cont-2-xs flex-wrap-xs flex-xs tnd-h4 text-center tnd-white ">
+                            <div class="">{{ persona['operadora'] }} {{ persona['tipo-servicio'] }}
+                                <img {#style="width: 7%"#} src="{{ asset('/images/iconos/ico-puntasDeFlecha.svg') }}" class="ico-flecha {% if equipo is not null %}tnd-mb-30-xs ico-flecha-equipo{% endif %}"></div>
+                            <div class="font-bold">Claro Postpago</div>
+                        </div>
+                        {# <div class="flex-md">
+                    <div class="tnd-width-md-4">
+                        <div class="tnd-pt-10-xs">{{ persona['nombre'] }}</div>
+                        <div class="tnd-pt-10-xs">{{ persona['cedula'] }}</div>
+                        <div class="tnd-pt-10-xs">{{ persona['email'] }}</div>
+                    </div>
+                    {% if "{{ persona['operadora'] }}" is not null %}
+                        <div>
+                            <div class="tnd-pt-10-xs">{{ persona['numero'] }}-{{ persona['operadora'] }}</div>
+                            <div class="tnd-pt-10-xs">{{ persona['tipo-servicio'] }}</div>
+                        </div>
+                    {% endif %}
+                </div>#}
+                        {#                {% if plan is not null%}
+                    <div style="display: none; text-align: center;" class="sorteoS20">
+                        {% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 25 or (plan.cuotaSinImp) == 15%}
+                            <p class="tnd-red tnd-pt-20-xs font-bold">Recuerda que estas participando en el sorteo de un SAMSUNG S20+</p>
+                        {% endif %}
+                    </div>
+                {% endif %}#}
+                    </div>
+                    {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 %}
+                        <span class="tnd-font-featured tnd-p-10-xs">Promociones incluidas</span>
+                        {% if plan.customPlan.promocion.gigas.promo is defined and plan.customPlan.promocion.vigencia is defined%}
+                        <div class="">
+                            <div class="plBeneficios tnd-m-10-xs tnd-p-10-xs">Recibe <br>
+                                <span class="font-bold">
+{#                        {% for detail in plan.getDetailsByTypeAndTransaccion(26,2) %}
+                            {{ plan.getDetailByTypeAndTransaccion(26,2).cantidad }}
+                        {% endfor %}#}
+                    {{ plan.customPlan.promocion.gigas.promo }}
+                    </span> GRATIS POR {{ plan.customPlan.promocion.vigencia }}</div>
+                            {#<div class="promos tnd-m-10-xs tnd-p-10-xs">Claro video</div>#}
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="div2 tnd-bg-white tnd-br-25-xs tnd-text-center-xs {% if equipo is null %}tnd-mb-30-xs{% endif %}">
+                    <div class="div-width {% if equipo is not null %}wrapper-div2{% else %} plan-portabilidad-wrapper{% endif %}
+            tnd-bg-white tnd-mt-20-xs tnd-mt-20-xs tnd-mt-0-md">
+                        <div  class="{% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %} tnd-mb-15-xs tnd-bg-white tnd-br-10
+                      {% else %} tnd-bg-red tnd-white {% endif %}
+                    tnd-width-xs-10 tnd-br-t-25-xs hide-next-el-on-active tnd-m-15-md tnd-br-25-md">
+                            {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                                <div class="tnd-pt-20-xs tnd-text-center-xs">
+                                    <div class="nombrePlan tnd-pt-20-xs">
+                                        <div style="font-weight: 300;">PLAN</div>
+                                        <div style="font-weight: 700;">{{ plan.descripcion }}</div>
+                                    </div>
+                                </div>
+                                <div class="tnd-pl-20-xs tnd-pr-20-xs">
+                                    <div class="">
+                                        <img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs" src="{{ asset(plan.customPlan.incluye.totalGigas.imgGB) }}" alt="">
+                                        <p class="tnd-mb-20-xs tnd-py-20-md tnd-py-20-xs textVigencia">*PROMOCIÓN VÁLIDA POR{% if plan.cuotaSinImp < 50 %}12 MESES{% else %}18 MESES{% endif %}</p>
+                                    </div>
+                                </div>
+                                <div class="flex-md flex-center-md flex-row-reverse-md tnd-pb-10-xs tnd-hidden-md">
+                                    <div class="tnd-text-center-xs">
+                                        <p><span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h3"> ${{ plan.cuotaSinImp }}</span> + imp. / Tarifa básica</p>
+                                        <p><span style="font-size: 1.05rem;font-weight: 400;" class=""> ${{ plan.cuotaConImp|replace({".":","}) }}</span> <span style="color: #888888;"> Precio Final</span></p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="container-accordeon-element accordeon-hidden-md tnd-text-center-xs {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}{% else %}tnd-pt-20-xs{% endif %}">
+                                <div class="accordeon-element-body">
+                                    {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                                        {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanDetail6Meses.html.twig"  %}
+                                    {% else %}
+                                        {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanDetail.html.twig" %}
+                                    {% endif %}
+                                </div>
+                                {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                                    <div style="color: #0B6676" class="accordeon-element-header side-arrow tnd-hidden-md-i">
+                                        <a id="show_more_planes" style="color: #0B6676; text-decoration-line: underline;">Ver detalles</a>
+                                    </div>
+                                {% else %}
+                                    <div class="accordeon-element-header side-arrow card-info {#{{ plan['nombre'] }}#}">
+                                        {{ plan.nombre }}
+                                    </div>
+                                {% endif %}
+                                <div class="padding-on-0-active only-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if equipo is not null %}
+                    <div class="div3 tnd-bg-white tnd-br-25-xs tnd-text-left-xs tnd-mb-30-xs">
+                        <div class="div-width-equipo div-equipo wrapper-div3 tnd-mt-0-xs">
+                            {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:ProductDetail.html.twig" %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="amx-container center-middle tnd-mb-20-xs flex-xs flex-cont-2-md flex-cont-1-xs flex-wrap-typ {#flex-xs flex-wrap-xs flex-cont-2-md flex-cont-1-xs#}">
+                <div>
+                    <div class="tnd-ml-50 tnd-mt-m67 tnd-mr-10-xs tnd-br-25-xs plan-portabilidad-wrapper tnd-mb-30-xs tnd-text-left-md"
+                         style="">
+                        <div class="flex-cont-2-md flex-wrap-xs flex-xs tnd-p-20-xs">
+                            <div>
+                                <h4 class="tnd-pl-20-xs">Tus datos personales</h4>
+                                <form style="" class="tnd-pl-20-xs tnd-mb-20-md">
+                                    <div class="flex-xs flex-wrap-xs flex-cont-2-md flex-cont-1-xs">
+                                        <div>
+                                            <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                                <label for="text">Nombre</label>
+                                                <div class="tnd-content-input">
+                                                    <input id="nombre-input" data-only-letters="" name="nombre" type="text" required=""
+                                                           class="tnd-input-text theme-2" value="{{ persona['nombre'] }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                                <label for="text">Apellidos</label>
+                                                <div class="tnd-content-input">
+                                                    <input data-only-letters="" name="apellido" type="text" required=""
+                                                           class="tnd-input-text theme-2" value="{{ persona['apellido'] }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                                <label for="text">Número de cédula</label>
+                                                <div class="tnd-content-input">
+                                                    <input required="" data-only-numbers="" data-custom-validate=""
+                                                           data-identification-number="" name="numdoc" type="text" maxlength="10"
+                                                           class="tnd-input-text theme-2" value="{{ persona['cedula'] }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                                <label for="text">Correo electrónico</label>
+                                                <div class="tnd-content-input">
+                                                    <input name="email" type="email" required="" class="tnd-input-text theme-2"
+                                                           value="{{ persona['email'] }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="center-block">
+                                <div class="div-operadora">
+                                    <p><h4>Tu portabilidad</h4></p>
+                                    <img class="flecha-position tnd-img-resp tnd-py-20-md tnd-py-20-xs" src="{{ asset('/images/portabilidad/flecha.svg') }}" alt="">
+                                    <div class="tnd-pt-10-xs text-servicio">{{ persona['operadora'] }}</div>
+                                    <div class="text-servicio">{{ persona['tipo-servicio'] }}</div>
+                                    <img class="tnd-img-resp tnd-pt-20-xs tnd-pt-2em-md tnd-py-20-md tnd-py-20-xs" src="{{ asset('/images/portabilidad/claro_prepago.svg') }}" alt="Claro Prepago">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if plan is not null and plan.idTipo.id == 16 %}
+                        <a href="https://www.claro.com.ec/personas/servicios/servicios-moviles/prepago/" class="tnd-visible-sm amx-container center-middle tnd-mb-20-xs flex-xs flex-wrap-xs flex-cont-1-xs tnd-mb-20-xs">
+                            <button class="tnd-btn turquoise tnd-mx-auto-xs tnd-br-5-xs">Conoce nuestros paquetes prepago</button>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="{#div2#} p-100-pt-0 tnd-bg-white tnd-br-25-xs tnd-text-center-xs {% if equipo is null %}tnd-mb-30-xs{% endif %}"
+                     style="">
+                    <div class="{% if equipo is not null %}wrapper-div2{% else %} plan-portabilidad-wrapper{% endif %} tnd-bg-white tnd-mt-20-xs tnd-mt-20-xs tnd-mt-0-md">
+                        <div class="{% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %} tnd-mb-15-xs tnd-bg-white tnd-br-10
+                          {% else %} tnd-bg-red tnd-white {% endif %} tnd-width-xs-10 tnd-br-t-25-xs hide-next-el-on-active tnd-m-15-md tnd-br-25-md">
+                            {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}
+                                <div class="tnd-pt-20-xs tnd-text-center-xs">
+                                    <div class="nombrePlan tnd-pt-20-xs">
+                                        <div style="font-weight: 700;">{{ plan.descripcion }}</div>
+                                        <div style="font-weight: 300;font-size: 16px;">INCLUYE</div>
+                                    </div>
+                                </div>
+                                <div class="tnd-pl-20-xs tnd-pr-20-xs">
+                                    <div class="">
+                                        <img class="tnd-img-resp tnd-py-20-md tnd-py-20-xs"
+                                             src="{{ asset(plan.customPlan.incluye.totalGigas.imgGB) }}" alt="">
+                                    </div>
+                                </div>
+                                {#                         <div class="flex-md flex-center-md flex-row-reverse-md tnd-pb-10-xs tnd-hidden-md">
+                             <div class="tnd-text-center-xs">
+                                 <p> <span style="font-style: italic; padding-right: 0px!important; padding-left: 0px!important" class="font-strong amx-h3"> ${{ plan.cuotaSinImp }}</span> + imp. / Tarifa básica</p>
+                                 <p><span style="font-size: 1.05rem;font-weight: 400;" class=""> ${{ plan.cuotaConImp|replace({".":","}) }}</span> <span style="color: #888888;"> Precio Final</span></p>
+                             </div>
+                         </div>#}
+                            {% endif %}
+                            <div class="container-accordeon-element accordeon-hidden-md tnd-text-center-xs {% if plan.idTipo.id == 11 or plan.idTipo.id == 12 or plan.idTipo.id == 16 %}{% else %}tnd-pt-20-xs{% endif %}">
+                                <div class="accordeon-element-body">
+                                    {% if plan.idTipo.id == 16 %}
+                                        {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanDetail6Meses.html.twig" %}
+                                    {% else %}
+                                        {% include "DayscriptTiendaClaroBundle:Portabilidad/Redesign:PlanDetail.html.twig" %}
+                                    {% endif %}
+                                </div>
+                                {% if plan.idTipo.id == 16 %}
+                                    <div style="color: #0B6676" class="accordeon-element-header side-arrow tnd-hidden-md-i">
+                                        <a id="show_more_planes" style="color: #0B6676; text-decoration-line: underline;">Ver detalles</a>
+                                    </div>
+                                {% else %}
+                                    <div class="accordeon-element-header side-arrow card-info {# {{ plan['nombre'] }} #}">
+                                        {{ plan.nombre }}
+                                    </div>
+                                {% endif %}
+                                <div class="padding-on-0-active only-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.claro.com.ec/personas/servicios/servicios-moviles/prepago/" class="tnd-hidden-sm amx-container center-middle tnd-mb-20-xs flex-xs flex-wrap-xs flex-cont-1-xs tnd-mb-20-xs">
+                    <button class="tnd-btn turquoise tnd-mx-auto-xs tnd-br-5-xs">Conoce nuestros paquetes prepago</button>
+                </a>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <div class="tnd-pt-20-xs amx-container center-middle tnd-mb-20-xs flex-xs flex-wrap-xs flex-cont-1-xs">
+            <div class="w-50">
+                <div style="background: linear-gradient(to top, #ff0000bd  18%, #e7e7e769 10% );" class="tnd-mr-10-xs tnd-br-25-xs plan-portabilidad-wrapper tnd-mb-30-xs tnd-text-left-md">
+                    <div class="tnd-pt-20-xs tnd-pt-2em-md center-middle tnd-dark-turquoise txtDP"> Tus datos personales</div>
+                    <form style="padding: 10px 30px 40px 30px;" class="tnd-mb-20-md {#tnd-mb-40-xs tnd-p-20-xs tnd-p-40-md tnd-pt-0-md#}">
+                        <div class="flex-xs flex-wrap-xs flex-cont-1-xs">
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Nombre</label>
+                                    <div class="tnd-content-input">
+                                        <input id="nombre-input" data-only-letters="" name="nombre" type="text" required=""
+                                               class="tnd-input-text theme-2" value="{{ persona['nombre'] }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Apellidos</label>
+                                    <div class="tnd-content-input">
+                                        <input data-only-letters="" name="apellido" type="text" required=""
+                                               class="tnd-input-text theme-2" value="{{ persona['apellido'] }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Número de cédula</label>
+                                    <div class="tnd-content-input">
+                                        <input required="" data-only-numbers="" data-custom-validate=""
+                                               data-identification-number="" name="numdoc" type="text" maxlength="10"
+                                               class="tnd-input-text theme-2" value="{{ persona['cedula'] }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tnd-m-10-xs tnd-ml-0-xs">
+                                    <label for="text">Correo electrónico</label>
+                                    <div class="tnd-content-input">
+                                        <input name="email" type="email" required="" class="tnd-input-text theme-2"
+                                               value="{{ persona['email'] }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="div-servicio center-block flex-cont-2-xs flex-wrap-xs flex-xs tnd-h4 text-center tnd-white ">
+                        <div class="">{{ persona['operadora'] }} {{ persona['tipo-servicio'] }}
+                            <img {#style="width: 7%"#} src="{{ asset('/images/iconos/ico-puntasDeFlecha.svg') }}" class="ico-flecha2"></div>
+                        {% if provider is defined and provider is not null%}
+                            <div class="{{ provider }} font-bold">Claro</div>
+                        {% else %}
+                            <div class="{{ provider }} font-bold">Claro Prepago</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+    {% if plan is not null and plan.idTipo.id != 16 or plan is null %}
+        <div class="amx-container center-middle tnd-mb-20-xs flex-xs flex-wrap-xs flex-cont-1-xs tnd-mb-20-xs">
+            <button id="btnatienda" class="tnd-btn red tnd-mx-auto-xs tnd-br-5-xs">Ir a la Tienda Virtual</button>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block stylesheets -%}
+    {{ parent() }}
+    <style>
+        .text-servicio{
+            font-weight: 600;
+            font-size: 16px;
+            color: #666666e3;
+            font-style: italic;
+        }
+        .flecha-position {
+            position: absolute;
+            width: 13%;
+            left: 27%;
+            top: 74%;
+        }
+        .div-operadora{
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0% 0% 0% 20%;
+            text-align: center;
+        }
+        .textVigencia{
+            font-size: 10px;text-align: left;padding-left: 70px;
+        }
+        .ico-flecha{
+            width: 5%;
+            position: absolute;
+            left: 47%;
+        }
+        .ico-flecha2{
+            width: 5%;
+            position: absolute;
+            left: 50%;
+        }
+        .div-servicio{
+            padding: 0px 0px 40px 0px;
+        }
+        .div-equipo{
+            box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.05);
+            border: 1px solid transparent;
+            border-radius: 0px 0px 20px 20px;
+            background: #e7e7e769;
+            padding-bottom: 10px;
+            height: auto;
+        }
+        @media (min-width: 768px){
+            .tnd-ml-50{
+                margin-left: 50px;
+            }
+            .tnd-mt-m67{
+                margin-top: -67%;
+            }
+            .p-100-pt-0{
+                padding: 100px; padding-top: 0px
+            }
+            .wrapper-div2 {
+                border-radius: 20px 0px 0px 20px!important;
+            }
+            .wrapper-div3 {
+                border-radius: 0px 20px 20px 0px!important;
+            }
+            .div-equipo{
+                box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.05);
+                border: 1px solid transparent;
+                border-radius: 0px 20px 20px 0px;
+                background: #e7e7e769;
+                height: 689px;
+            }
+            .tnd-mb-20-md{
+                margin-bottom: 20px;
+            }
+            .tnd-mb-40-xs {
+                margin-bottom: 15px;
+            }
+            .ico-flecha{
+                width: 2%;
+                position: absolute;
+                left: 33.4%;
+                /*            bottom: -31%;
+                            left: 20.5%;*/
+            }
+            .ico-flecha2 {
+                width: 2%;
+                position: absolute;
+                left: 49.4%;
+            }
+            .ico-flecha-equipo {
+                left: 20% !important;
+            }
+            .tnd-pt-2em-md {
+                padding-top: 2em;
+            }
+            .div1{
+                width: 35%;
+            }
+            .div2{
+                width: 35%;
+            }
+            .div3{
+                width: 36%;
+                position: absolute;
+                left: 64%;
+            }
+            .div-width{
+                width: 89%;
+            }
+            .div-width-equipo{
+                width: 75%;
+            }
+            .mtDiv1{
+                margin-top: -30.5%;
+                margin-right: 0.5%;
+            }
+            .w-50{
+                width: 50%;
+            }
+        }
+        @media (max-width: 767px) {
+            .flecha-position {
+                position: absolute;
+                width: 44%;
+                left: 3%;
+                top: 125%;
+            }
+            .div-operadora{
+                margin: 0%;
+            }
+            .textVigencia {
+                padding-left: 50px;
+            }
+            .flex-wrap-typ{
+                flex-wrap: wrap;
+            }
+        }
+        .tnd-br-5-xs{
+            border-radius: 5px;
+        }
+        .promos{
+            border: 1px solid #ef392a;
+            width: max-content;
+            border-radius: 5px;
+            color: #ef392a;
+            font-size: 15px;
+            font-weight: 500;
+            background-color: #ef392a21;
+        }
+        .plBeneficios{
+            border: 1px solid #1c4d65e6;
+            width: max-content;
+            border-radius: 5px;
+            color: #287280fa;
+            font-size: 15px;
+            font-weight: 400;
+            background-color: #cadbde52;
+        }
+        .nombrePlan {
+            text-align: left;
+            margin-left: 20%;
+            font-size: 24px;
+            line-height: 20px;
+        }
+        .plDetail6{
+            display: none!important;
+        }
+        .title-plan-info{
+            display: none!important;
+        }
+        .txtDP{
+            font-weight: 900;
+            font-size: 20px;
+        }
+        label[for=text]{
+            color: #666666c9;
+            font-weight: 500;
+        }
+        form input[type="text"].theme-2, form input[type="email"].theme-2 {
+            background-color: #e7e7e700;
+            border: 1px solid #888888d1;
+            color: #222;
+            font-weight: 400;
+            padding-left: 1px;
+
+        }
+        form input[type="text"]:focus, form input[type="email"]:focus, form input[type="number"]:focus, form input[type="search"]:focus, form textarea:focus, form .no-elements textarea:focus {
+            border-top: 0 !important;
+            border-left: 0 !important;
+            border-right: 0 !important;
+        }
+        #main{
+            background: white;
+        }
+        .etiqueta-sorteo{
+            display: none;
+        }
+        .ocultar-enTyp{
+            display: none;
+        }
+        body{
+            background: #eee;
+        }
+
+        .font-bold{
+            font-weight: 700;
+        }
+
+        .pd-price{
+            display: none;
+        }
+
+        @media (min-width: 992px) {
+            .cont-img > div {
+                padding-bottom: 0;
+                padding-top: 20px;
+            }
+            .title-plan-info{
+                padding-bottom: 15px;
+            }
+
+            .tnd-font-jumbo{
+                padding-bottom: 10px;
+            }
+            .cont-plan-detail{
+                align-items: inherit;
+            }
+            .cont-plan-detail.flex-cont-3-md > div {
+                width: 40%;
+            }
+            .cont-plan-detail.flex-cont-3-md > div:first-child {
+                width: 25%;
+            }
+        }
+
+        .main-include-plan{
+            margin-top: 20px;
+        }
+        .plan-portabilidad-wrapper {
+            -webkit-box-shadow: -6px 2px 9px 4px rgba(0,0,0,0.15);
+            -moz-box-shadow: -4px 2px 9px 4px rgba(0,0,0,0.15);
+            box-shadow: -6px 0px 9px 0px rgba(0,0,0,0.15);
+            border: 1px solid #EEEEEE;
+            border-radius: 20px;
+        }
+        .wrapper-div3 {
+            box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+            border-radius: 0px 0px 20px 20px;
+        }
+        .wrapper-div2 {
+            box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+            border-radius: 20px 20px 0px 0px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            $("#show_more_planes").click(function () {
+                $(this).text(function(i, text){
+                    return text === "Ver detalles" ? "Ver menos" : "Ver detalles";
+                })
+            });
+            $(".font-strong").addClass("tnd-pl-20-xs tnd-pr-20-xs");
+            $(".card-equipo").addClass("tnd-p-card");
+        });
+        var fecha = new Date();
+        if(fecha.getMonth()+1 == 11 ){
+            $('.sorteoS20').css('display', 'unset');
+        }
+        $('#btnatienda').click(function (e){
+            window.location.href = "https://catalogo.claro.com.ec/";
+            e.preventDefault();
+        })
+    </script>
+{% endblock %}

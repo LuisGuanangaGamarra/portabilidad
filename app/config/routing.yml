@@ -1,0 +1,8 @@
+tienda_claro:
+    resource: "@DayscriptTiendaClaroBundle/Controller"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type:      annotation

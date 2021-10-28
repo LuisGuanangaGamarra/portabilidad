@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>FORMATO DE SOLICITUD DE PORTABILIDAD DE NÚMEROS TELEFÓNICOS MÓVILES</title>
+    <style>
+        * {font-family: "Verdana", Arial, Helvetica, sans-serif; font-size: 10px}
+        .row {padding: 0 00px}
+        .right-align {text-align: right !important;}
+        .left-align {text-align: left !important;}
+        .center {text-align: center !important;}
+        .bold {font-weight: bold}
+        .titulo {background: #e0e0e0 !important;}
+        .subth {background: #fafafa !important;}
+        .page-break {page-break-after: always;}
+        table { margin-top:0; width:100%; text-align: left; font-family:helvetica, sans-serif; }
+        .tabla-borde {border-collapse: collapse; border: 1px solid black;  font-size: 0.75em;}
+        .tabla-borde th, .tabla-borde td{border: 1px solid #212121; padding: 3px; font-size: 1.2em; text-align: left;}
+        .tabla-borde th{background-color: #f5f5f5;}
+        .no-border { border: 0 !important;}
+        .no-border-top { border-top: 0 !important;}
+        {% if solicitud.docSecuencia == null %}
+        body { background-image: url("{{ asset('images/docs/BORRADOR.png') }}"); background-position: bottom right; background-repeat: no-repeat; }
+        {% endif %}
+    </style>
+</head>
+<body>
+<table style="border-left: 1px solid black; border-right: 1px solid black; border-top: 2px solid blue; margin: 20px 20px 0 20px; padding: 10px 15px 0 5px">
+    <tr style="border-top: 1px solid blue">
+        <td>
+            <div class="row">
+                <table>
+                    <tr>
+                        <td style="width: 15%; padding: 5px; text-align: center"><img src="data:image/png;base64,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" alt=""></td>
+                        <td style="width: 85%; padding: 5px 10px; text-align: center"><b style="font-size: 1.1em; text-align: center">FORMATO DE SOLICITUD DE PORTABILIDAD DE NÚMEROS TELEFÓNICOS MÓVILES</b></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <table style="margin: 0">
+                    <tr>
+                        <td style="width: 15%; padding: 5px; text-align: center">NÚMERO:</td>
+                        <td style="width: 25%; padding: 5px; text-align: center; border-bottom: 1px solid black">
+                            {% if solicitud.docSecuencia == null %}
+                            BORRADOR
+                            {% else %}
+                            {{ solicitud.docSecuencia }}
+                            {% endif %}
+                        </td>
+                        <td style="width: 15%; padding: 5px; text-align: center">FECHA:</td>
+                        <td style="width: 20%; padding: 5px; text-align: center; border-bottom: 1px solid black">
+                            {% if solicitud.docSecuencia != null and solicitud.docFechaCreacion != null %}
+                                {{ solicitud.docFechaCreacion|date("Y-m-d") }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td style="width: 15%; padding: 5px; text-align: center">HORA:</td>
+                        <td style="width: 10%; padding: 5px; text-align: center; border-bottom: 1px solid black">
+                            {% if solicitud.docSecuencia != null and solicitud.docFechaCreacion != null %}
+                                {{ solicitud.docFechaCreacion|date("H:i:s") }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row" style="margin: 5px 0">
+                <table style="margin: 0; border: 1px solid black">
+                    <tr>
+                        <td style="padding: 5px">
+                            <table>
+                                <tr>
+                                    <th colspan="3" style="text-align: left; padding: 5px">DATOS DEL ABONADO:</th>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;" colspan="2">
+                                        <span style="margin: 5px">PERSONA NATURAL</span>
+                                        {% if solicitud.clienteIsNatural %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDElEQVR42qXTP0tCURjHcQ0tnNWhRgldVBCEwBcQNBpobraGCLoIDg0O9Q5CXMXFmpoqaCgQaRB6CS4SIQm2KYL6fehBLt1r3msPfODec8/5ce7543b9VAZXOITbtblm6OJCOqfwihpeMLcRsIcikhJwgwOkbQyU/n58achQGlr4RsFGwCWqKKOBvpOABN6wiztknQTIoB5iGCGKTycB1zp1qRza+mwKkPd9fBgGH6EDD25xZvhmCqjjHKd4gA/viOiUY7oDlgEVaUAQEw05RgkL3eb7X79mmkEczxoyhRc7aCJvsTaWi2gMkRro1Md2A4whAZzgac3u9P86yiGE8bhm8Ooo//sySW19nZe52k6/f6dAzQAAAABJRU5ErkJggg==" alt="X" style="margin-left: 20px">
+                                        {% else %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwABEI8AARCPAbZ2bGgAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAABbSURBVDhPY/Dw8GA3MjKabGxs/AGI/xOJP4D0gPQygBhA/BAoGArE1kTiUJAekF4GIAdkcygDiQCkB6QXxAA5yRoqTjQA6QHpHTVg1ACqGUBZUqY4M1GWnT3YAXqahzmBaFo4AAAAAElFTkSuQmCC" alt="O" style="margin-left: 20px">
+                                        {% endif %}
+                                    </td>
+                                    <td style="width: 50%;">
+                                        PERSONA JURÍDICA
+                                        {% if solicitud.clienteIsNatural == false and solicitud.clienteOtros == null %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDElEQVR42qXTP0tCURjHcQ0tnNWhRgldVBCEwBcQNBpobraGCLoIDg0O9Q5CXMXFmpoqaCgQaRB6CS4SIQm2KYL6fehBLt1r3msPfODec8/5ce7543b9VAZXOITbtblm6OJCOqfwihpeMLcRsIcikhJwgwOkbQyU/n58achQGlr4RsFGwCWqKKOBvpOABN6wiztknQTIoB5iGCGKTycB1zp1qRza+mwKkPd9fBgGH6EDD25xZvhmCqjjHKd4gA/viOiUY7oDlgEVaUAQEw05RgkL3eb7X79mmkEczxoyhRc7aCJvsTaWi2gMkRro1Md2A4whAZzgac3u9P86yiGE8bhm8Ooo//sySW19nZe52k6/f6dAzQAAAABJRU5ErkJggg==" alt="X" style="margin-left: 20px">
+                                        {% else %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwABEI8AARCPAbZ2bGgAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAABbSURBVDhPY/Dw8GA3MjKabGxs/AGI/xOJP4D0gPQygBhA/BAoGArE1kTiUJAekF4GIAdkcygDiQCkB6QXxAA5yRoqTjQA6QHpHTVg1ACqGUBZUqY4M1GWnT3YAXqahzmBaFo4AAAAAElFTkSuQmCC" alt="O" style="margin-left: 20px">
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%; padding: 5px" colspan="2">
+                                        OTROS (Órganos públicos, asociaciones, gremios)
+                                        {% if solicitud.clienteIsNatural != false and solicitud.clienteOtros != null %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDElEQVR42qXTP0tCURjHcQ0tnNWhRgldVBCEwBcQNBpobraGCLoIDg0O9Q5CXMXFmpoqaCgQaRB6CS4SIQm2KYL6fehBLt1r3msPfODec8/5ce7543b9VAZXOITbtblm6OJCOqfwihpeMLcRsIcikhJwgwOkbQyU/n58achQGlr4RsFGwCWqKKOBvpOABN6wiztknQTIoB5iGCGKTycB1zp1qRza+mwKkPd9fBgGH6EDD25xZvhmCqjjHKd4gA/viOiUY7oDlgEVaUAQEw05RgkL3eb7X79mmkEczxoyhRc7aCJvsTaWi2gMkRro1Md2A4whAZzgac3u9P86yiGE8bhm8Ooo//sySW19nZe52k6/f6dAzQAAAABJRU5ErkJggg==" alt="X" style="margin-left: 10px">
+                                        {% else %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwABEI8AARCPAbZ2bGgAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAABbSURBVDhPY/Dw8GA3MjKabGxs/AGI/xOJP4D0gPQygBhA/BAoGArE1kTiUJAekF4GIAdkcygDiQCkB6QXxAA5yRoqTjQA6QHpHTVg1ACqGUBZUqY4M1GWnT3YAXqahzmBaFo4AAAAAElFTkSuQmCC" alt="O" style="margin-left: 10px">
+                                        {% endif %}
+                                    </td>
+                                    <td style="width: 60%; border-bottom: 1px solid black">
+                                        {% if solicitud.clienteIsNatural != false and solicitud.clienteOtros != null %}
+                                            {{ solicitud.clienteOtros }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%; padding: 5px" colspan="2">NOMBRE DEL ABONADO/REPRESENTANTE LEGAL:</td>
+                                    <td style="width: 60%; border-bottom: 1px solid black">{{ solicitud.clienteNombre }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%; padding: 5px">RAZON SOCIAL:</td>
+                                    <td style="width: 80%; border-bottom: 1px solid black" colspan="2">
+                                        {% if solicitud.clienteIsNatural != false and solicitud.clienteRazon != null %}
+                                            {{ solicitud.clienteRazon }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row" style="margin: 5px 0">
+                <table style="margin: 0; border: 1px solid black">
+                    <tr>
+                        <td style="padding: 5px">
+                            <table>
+                                <tr>
+                                    <th colspan="2" style="text-align: left; padding: 5px">MODALIDAD DE PAGO ACTUAL:</th>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%; padding: 5px">
+                                        PREPAGO
+                                        {% if solicitud.isPrepagoBefore %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDElEQVR42qXTP0tCURjHcQ0tnNWhRgldVBCEwBcQNBpobraGCLoIDg0O9Q5CXMXFmpoqaCgQaRB6CS4SIQm2KYL6fehBLt1r3msPfODec8/5ce7543b9VAZXOITbtblm6OJCOqfwihpeMLcRsIcikhJwgwOkbQyU/n58achQGlr4RsFGwCWqKKOBvpOABN6wiztknQTIoB5iGCGKTycB1zp1qRza+mwKkPd9fBgGH6EDD25xZvhmCqjjHKd4gA/viOiUY7oDlgEVaUAQEw05RgkL3eb7X79mmkEczxoyhRc7aCJvsTaWi2gMkRro1Md2A4whAZzgac3u9P86yiGE8bhm8Ooo//sySW19nZe52k6/f6dAzQAAAABJRU5ErkJggg==" alt="X" style="margin-left: 20px">
+                                        {% else %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwABEI8AARCPAbZ2bGgAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAABbSURBVDhPY/Dw8GA3MjKabGxs/AGI/xOJP4D0gPQygBhA/BAoGArE1kTiUJAekF4GIAdkcygDiQCkB6QXxAA5yRoqTjQA6QHpHTVg1ACqGUBZUqY4M1GWnT3YAXqahzmBaFo4AAAAAElFTkSuQmCC" alt="O" style="margin-left: 20px">
+                                        {% endif %}
+                                    </td>
+                                    <td style="width: 50%; padding: 5px">
+                                        POSPAGO
+                                        {% if solicitud.isPrepagoBefore == false %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDElEQVR42qXTP0tCURjHcQ0tnNWhRgldVBCEwBcQNBpobraGCLoIDg0O9Q5CXMXFmpoqaCgQaRB6CS4SIQm2KYL6fehBLt1r3msPfODec8/5ce7543b9VAZXOITbtblm6OJCOqfwihpeMLcRsIcikhJwgwOkbQyU/n58achQGlr4RsFGwCWqKKOBvpOABN6wiztknQTIoB5iGCGKTycB1zp1qRza+mwKkPd9fBgGH6EDD25xZvhmCqjjHKd4gA/viOiUY7oDlgEVaUAQEw05RgkL3eb7X79mmkEczxoyhRc7aCJvsTaWi2gMkRro1Md2A4whAZzgac3u9P86yiGE8bhm8Ooo//sySW19nZe52k6/f6dAzQAAAABJRU5ErkJggg==" alt="X" style="margin-left: 20px">
+                                        {% else %}
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwABEI8AARCPAbZ2bGgAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAABbSURBVDhPY/Dw8GA3MjKabGxs/AGI/xOJP4D0gPQygBhA/BAoGArE1kTiUJAekF4GIAdkcygDiQCkB6QXxAA5yRoqTjQA6QHpHTVg1ACqGUBZUqY4M1GWnT3YAXqahzmBaFo4AAAAAElFTkSuQmCC" alt="O" style="margin-left: 20px">
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row" style="margin: 5px 0">
+                <table style="margin: 0; border: 1px solid black">
+                    <tr>
+                        <td style="padding: 5px">
+                            <table>
+                                <tr>
+                                    <th colspan="3" style="text-align: left; padding: 5px">DATOS DEL PROVEEDOR DEL SERVICIO DE TELEFONÍA MÓVIL:</th>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%; padding: 5px" colspan="2">PRESTADOR DONANTE:</td>
+                                    <td style="width: 60%; border-bottom: 1px solid black" colspan="3">{{ solicitud.operadoraDonante }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%; padding: 5px" colspan="2">PRESTADOR RECEPTOR:</td>
+                                    <td style="width: 60%; border-bottom: 1px solid black" colspan="3">{{ solicitud.operadoraReceptor }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 60%; padding: 5px" colspan="3">NÚMERO IDENTIFICADOR DEL OPERADOR DONANTE (NIP):</td>
+                                    <td style="width: 40%; border-bottom: 1px solid black" colspan="2">{{ nip }}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row" style="margin: 5px 0">
+                <table>
+                    <tr>
+                        <th colspan="7" style="text-align: left; padding: 5px">NÚMEROS A SER PORTADOS:</th>
+                    </tr>
+                    {% for i in 1..5 %}
+                        <tr>
+                            {% for j in 0..3 %}
+                                <td style="width: 5%; padding: 5px; text-align: right">{{ i + (5*j) }}</td>
+                                <td style="width: 20%; border-bottom: 1px solid black">
+                                    {% if solicitud.numeros|length > i + (5*j) -1 %}
+                                        {{ solicitud.numeros[i + (5*j) -1].numero }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="row" style="margin: 5px 0">
+                <table>
+                    <tr>
+                        <td style="width: 40%; padding: 5px">CANTIDAD DE NÚMEROS A SER PORTADOS:</td>
+                        <td style="width: 60%; border-bottom: 1px solid black">{{ solicitud.numeros|length }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%; padding: 5px">NÚMERO DE DOCUMENTOS ANEXOS:</td>
+                        <td style="width: 60%; border-bottom: 1px solid black">
+                            {% if solicitud.docSecuencia == null %}
+                                {{ solicitud.anexos|length }}
+                            {% else %}
+                                {{ solicitud.anexos|length }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row" style="margin: 5px 0">
+                <table>
+                    <tr>
+                        <th>NOTAS:</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 100%; padding: 5px; text-align: justify">
+                            <p><b style="margin-right: 10px">1.</b>El Abonado/cliente acepta que con la firma de la presente Solicitud de Portabilidad, manifiesta
+                                su consentimiento de terminar la relación contractual con el Prestador Donante, únicamente de los
+                                servicios de telecomunicaciones cuya prestación requiere de los números telefónicos a ser portados,
+                                a partir de la fecha efectiva en que se realice la portabilidad de los mismos.</p>
+                            <p><b style="margin-right: 10px">2.</b>El abonado/cliente en modalidad pospago, podrá portar su(s) número(s) telefónico(s), únicamente
+                                si ha dado cumplimitos a todas las obligaciones que haya contraído por la relación contractual con
+                                el Prestador Donante respecto de dicho(s) número(s), esto es, deberá previamente cancelar de forma
+                                obligatoria todos  los valores que adeude por factura(s) generada(s) por el Prestador Donante, considerando
+                                todos los valores por concepto de la prestación del servicio móvil avanzado y/o la valores de financiamiento
+                                de equipo(s) terminal(es) adquirido(s), de dicho(s) número(s) telefónico(s), de conformidad a las obligaciones
+                                contraídas, al momento de presentar las solicitudes de portabilidad.</p>
+                            <p><b style="margin-right: 10px">3.</b>El Abonado/cliente reconoce que la Portabilidad del (los) número(s) solicitada está sujeta al
+                                cumplimiento de todos los requisitos establecidos en la norma técnica de portabilidad móvil.</p>
+                            <p><b style="margin-right: 10px">4.</b>El firmante declara que los datos consignados en la presente solicitud y, en su caso, los documentos
+                                que la acompañan son verdaderos.</p>
+                            <p><b style="margin-right: 10px">5.</b>Cuando una solicitud de portabilidad es rechazada, por causas imputables  al abonado/cliente
+                                establecidas en las  Especificaciones Técnicas y Operativas de   la Norma Técnica de Portabilidad
+                                Móvil, los costos y gastos derivados desu tramitación serán asumidos  por éste, conforme a las
+                                políticas  comerciales  del prestador del servicio móvil avanzado o móvil avanzado a través de
+                                operador móvil virtual. El valor para cubrir  dichos  costos  y  gastos  será como máximo
+                                el valor de una transación de portabilidad convenido entre el prestador del servicio móvil
+                                avanzado o móvil avanzado a través de operador móvil virtual y el ASCP.</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<div class="page-break"></div>
+<table style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; margin: 20px 20px 0 20px; padding: 10px 15px 0 5px">
+    <tr>
+        <td>
+            <div class="row" style="margin: 5px 0">
+                <table>
+                    <tr>
+                        <td style="width: 100%; padding: 5px; text-align: justify">
+                            <p><b style="margin-right: 10px">6.</b>Causas de rechazo de una solicitud de portabilidad:</p>
+                            <p><b style="margin-right: 10px">6.1. Prepago:</b>a)El solicitante de la portabilidad no sea el abonado/cliente titular del o los números
+                                a ser portados. b) La solicitud de portabilidad se presentó como prepago y se encuentra suscrito bajo
+                                el esquema pospago, o viceversa. c) El o los números a ser portados se encuentren al momento de la
+                                solicitud de portabilidad en estado retirado, cancelado o dado de baja en el Prestador Donante. d)
+                                Se considera motivo de rechazo la presencia de corrección en la solicitud del Número a ser portado
+                                y cantidad de números a ser portados; así como enmendaduras y correcciones en el documento de solicitud
+                                que no permitan la legibilidad de datos. e)No se acepatrá solicitudes de portabilidad de menores de
+                                edad. f) Será motivo de rechazo que el o los números a ser portados se encuentren suspendidos por mal
+                                uso de los números de emergencia. g) No se aceptarán solicitudes de portabilidad cuando la copia o foto
+                                del documento de identidad: Cédula, pasaporte o ficha de identidad con información o datos proporcionados
+                                por el Registro Civil, no contenga la firma o sea ilegible.</p>
+                            <p><b style="margin-right: 10px">6.2. Pospago:</b>Además de las anteriores se consideran las siguientes causales: a) El solicitante de la
+                                portabilidad no sea el abonado/cliente titular del o los números a ser portados. B) Cuando el abonado/cliente
+                                en modalidad pospago adeude valores del o los números a ser portados en factura(s) generada(s) por el
+                                Prestador Donante, en la(s) cual(es) conste(n) el concepto de la prestación del servicio móvil avanzado
+                                y/o mantenga valores pendientes de financiamiento de equipo(s) terminal(es) adquirido(s), de conformidad
+                                a las obligaciones contraídas, al momento de la revisión de la solicitud de portabiliad realizada por
+                                el Prestador Donante. Éste requisito se verificará únicamente respecto de la(s) línea(s) o número(s)
+                                que se va(n) a portar</p>
+                            <p><b style="margin-right: 10px">7.</b>A partir de la tercera portación efectiva por línea telefónica en un mismo año calendario, el
+                                Prestador Receptor podrá cobrar al abonado/cliente como máximo el valor de una transacción de portabilidad
+                                convenido entre el prestador del servicio móvil avanzado o móvil avanzado a través de operador móvil
+                                virtuall y el ASCP, el mismo que se incluye en los contratos suscritos entre el ASCP y los prestadores
+                                del servicio móvil avanzado o móvil avanzado a través de operador.</p>
+                            <p><b style="margin-right: 10px">8.</b>El cobro por el proceso de portabilidad, cuando sea aplicable es para cada número a portar.</p>
+                            <p style="margin-bottom: 0"><b style="margin-right: 10px">9.</b>Desistimiento de la solicitud de portabilidad por parte abonado/cliente.- Acto mediante el cual
+                                el abonado/cliente titular de un número, habiendo solicitado la portabilidad, decide finalmente dejar
+                                sin efecto dicha solicitud. La solicitud de desistimiento deberá ser presentada, ante el Prestador
+                                Receptor, hasta las 16:00 del primer día hábil contado a partir del ingreso de la solicitud de portabilidad.</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; margin: 0 20px; padding: 0.5em">
+</table>
+<table style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; margin: 0 20px; padding: 0 15px 0 5px">
+    <tr>
+        <td>
+            <div class="row" style="margin: 5px 0">
+                <table>
+                    <tr>
+                        <td style="width: 100%; padding: 5px; text-align: justify; font-weight: bold" colspan="3">
+                            En función de lo anterior, el abonado declara que ha revisado el contenido de la información descrita en
+                            esta solicitud, y como tal, acepta los términos y condiciones expuestos en ella:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center" style="width: 49%; border-bottom: 1px solid black">
+                            {{ solicitud.clienteNombre }}
+                            <br>
+                            C.I.: {{ solicitud.clienteIdentificacion }}
+                        </td>
+                        <td style="width: 2%"></td>
+                        <td class="center" style="width: 49%; border-bottom: 1px solid black; height: 5em">
+                            {% if solicitud.docFirma != null %}
+                                <img src="{{ solicitud.docFirma }}" alt="" style="height: 5em; width: auto">
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center bold" style="width: 49%"> NOMBRE DEL SUSCRIPTOR/REPRESENTANTE LEGAL </td>
+                        <td style="width: 2%"></td>
+                        <td class="center bold" style="width: 49%"> FIRMA </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

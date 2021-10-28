@@ -1,0 +1,81 @@
+parameters:
+  sections:
+    PORTABILIDAD:
+      slugs:
+        - tcl-6125f1
+        - iphone-se-2020-64gb
+        - samsung-a21s-64gb
+      #planes: [49,50,51,52,63,64,65] ###PLANES DEV
+      ##planes: [63,64,65,66,67,68,69,70,71,81,130] ###PLANES PORTABILIDAD PROD
+      planes: [81, 130,114,115,116,117,118,119,120,121] ##NUEVOS PLANES PORTABILIDAD PROD
+      timeStart: 08:00
+      timeFinish: 17:35
+      equipos:
+        154:
+          precio: 150
+          precioFinal: 168
+          #planes: [43,44,49,50,51,52]
+          planes: [63,64,65]
+        231:
+          precio: 100
+          precioFinal: 112
+          #planes: [42,44,43,49,50,51,52]
+          planes: [63,64,65]
+      banners:
+        section:
+          rutaSm: 'https://catalogo.claro.com.ec/uploads/imgs/banners/portabilidad/10082021-portabilidad-483x468.png'
+          rutaLg: 'https://catalogo.claro.com.ec/uploads/imgs/banners/portabilidad/10082021-portabilidad-1920x300.png'
+          formSm: ''
+          formLg: ''
+          typSm: 'https://catalogo.claro.com.ec/images/portabilidad/Portabilidad-enero520x300.png'
+          typLg: 'https://catalogo.claro.com.ec/images/portabilidad/Portabilidad-enero1920x300.png'
+        landing:
+          rutaSm: 'https://catalogo.claro.com.ec/uploads/imgs/banners/banner_2020__portabilidad_landing_sm.jpg'
+          rutaLg: 'https://catalogo.claro.com.ec/uploads/imgs/banners/banner_2020__portabilidad_landing_lg.jpg'
+        prepago:
+          rutaSm: 'https://catalogo.claro.com.ec/uploads/imgs/banners/portabilidad/10092021-BannerPrepago-483x468.jpg'
+          rutaLg: 'https://catalogo.claro.com.ec/uploads/imgs/banners/portabilidad/10092021-BannerPrepago-1920X300.jpg'
+          formSm: 'https://catalogo.claro.com.ec/uploads/imgs/banners/portabilidad/10092021-BannerPrepago-483x468.jpg'
+          formLg: 'https://catalogo.claro.com.ec/uploads/imgs/banners/portabilidad/10092021-BannerPrepago-1920X300.jpg'
+          typSm:  'https://catalogo.claro.com.ec/images/portabilidad/Portabilidad-enero520x300.png'
+          typLg:  'https://catalogo.claro.com.ec/images/portabilidad/Portabilidad-enero1920x300.png'
+      tipo:
+        prepago:
+          titulo: '¡Cámbiate a Claro con la opción que mejor se adapte a ti!'
+          subtitulo1: 'Quiero recargar y activar paquetes'
+          subtitulo2: ''
+          paso3: true
+        postpago:
+          titulo: '¡Cámbiate a Claro con la opción que mejor se adapte a ti!'
+          subtitulo1: 'Cámbiate aquí y disfruta 15 gigas adicionales a tu plan'
+          subtitulo2: ''
+          paso3: true
+      test_environment: false
+      metadata:
+        postpago:
+          title: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          abstract: 'Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          description: 'Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.'
+          keywords: 'Cámbiate a claro, portabilidad, beneficios, cámbiate con mismo número, mismo número, gratis, conserva tu número, elige plan portabilidad, portabilidad postpago, escoge tu plan, telefonía prepago, pide tu chip'
+          ogUrl: 'https://catalogo.claro.com.ec/portabilidad/cambiate-a-claro'
+          ogTitle: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          ogSiteName: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          ogDescription: 'Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.'
+        prepago:
+          title: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          abstract: 'Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          description: 'Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.'
+          keywords: 'Cámbiate a claro, portabilidad, beneficios, cámbiate con mismo número, mismo número, gratis, conserva tu número, elige plan portabilidad, portabilidad postpago, escoge tu plan, telefonía prepago, pide tu chip'
+          ogUrl: 'https://catalogo.claro.com.ec/portabilidad/cambiate-a-claro'
+          ogTitle: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          ogSiteName: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          ogDescription: 'Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.'
+        landing:
+          title: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          abstract: 'Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          description: 'Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.'
+          keywords: 'Cámbiate a claro, portabilidad, beneficios, cámbiate con mismo número, mismo número, gratis, conserva tu número, elige plan portabilidad, portabilidad postpago, escoge tu plan, telefonía prepago, pide tu chip'
+          ogUrl: 'https://catalogo.claro.com.ec/portabilidad/cambiate-a-claro'
+          ogTitle: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          ogSiteName: 'Tienda | Cámbiate a Claro con tu mismo número y recibe gigas gratis'
+          ogDescription: 'Es muy fácil, conserva tu número y sigue estos sencillos pasos. Disfruta de los beneficios de cambiarte a Claro.'

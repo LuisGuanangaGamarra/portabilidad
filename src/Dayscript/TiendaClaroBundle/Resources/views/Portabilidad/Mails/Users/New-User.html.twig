@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Su cuenta de usuario ha sido creada | Tienda Virtual | Claro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .btn-action {
+            color: #FFFFFF;
+            display: inline-block;
+            font-weight: bold;
+            width: 100%;
+            text-decoration: none;
+            text-align: center;
+            background-color: #1f979e;
+            font-size: 1.2em;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background: #EFEFEF">
+<div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    Este es un correo electrónico enviado automáticamente por Tienda Virtual. Por favor, no lo responda.
+</div>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td style="padding: 10px 10px 30px 10px;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td bgcolor="#EF3829" style="padding: 10px 25px; ">
+                        <table border="0" cellpadding="0" style="width: 100%; height: 100%">
+                            <tr>
+                                <td style="width: 70%; text-align: left">
+                                    <img src="{{ imagenes['claro'] }}" alt="" style="height: 27px; width: auto">
+                                </td>
+                                <td style="width: 30%; text-align: right">
+                                    <img src="{{ imagenes['servicios'] }}" alt="">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" style="font-family: Arial, sans-serif; padding: 20px 30px; text-align: justify; font-size: 15px; line-height: 22px; color: #696969">
+                        <h2 style="font-size: 20px; color: #243C48">Su cuenta de usuario ha sido creada</h2>
+                        <p>
+                            Estimado <b>{{ usuario['NICKNAME'] }}</b>,
+                        </p>
+                        <p style="text-align: justify">
+                            Su cuenta en el <a href="{{ route }}"><i>Administrador de Tienda Virtual</i></a> ha sido
+                            creada correctamente.
+                        </p>
+                        <p>Los datos para que pueda identificarse en el sitio son:</p>
+                        <div style="color: #424242; margin-left: 25px; padding: 7px 25px; border-left: 5px solid #1f979e;">
+                            <p><strong>Correo Electrónico:</strong><br><span style="padding-left: 1.5em">{{ usuario['EMAIL'] }}</span></p>
+                            <p><strong>Contraseña autogenerada:</strong><br><span style="padding-left: 1.5em">{{ usuario['password'] }}</span></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" align="center" style="padding: 10px 20% 20px 20%">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="width: 100%">
+                            <tbody>
+                            <tr bgcolor="#1f979e">
+                                <td style="text-align:center; padding: 10px;" align="center">
+                                    <a class="btn-action" href="{{ route }}">Iniciar sesión</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td bgcolor="#CADBDE" style="padding: 10px 40px; text-align: center; font-family: Arial, sans-serif; font-size: 10px; ">
+                        <p>Si tienes problemas al dar clic al botón "Iniciar sesión", puedes copiar y pegar la siguiente dirección
+                            en el navegador de tu preferencia: <br><a href="{{ route }}">{{ route }}</a></p>
+                        <p>Este es un correo electrónico enviado automáticamente por Tienda Virtual. Por favor, no lo responda.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#EF3829" style="padding: 10px 25px; ">
+                        <table border="0" cellpadding="0" style="width: 100%; height: 100%">
+                            <tr>
+                                <td style="width: 100%; text-align: center">
+                                    <a href=""><img src="{{ imagenes['rrss-facebook'] }}" alt="" title="Me gusta!"></a>
+                                    <a href=""><img src="{{ imagenes['rrss-twitter'] }}" alt="" title="Síguenos!"></a>
+                                    <a href=""><img src="{{ imagenes['rrss-youtube'] }}" alt="" title="Suscríbete!"></a>
+                                    <a href=""><img src="{{ imagenes['rrss-instagram'] }}" alt="" title="Explora!"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

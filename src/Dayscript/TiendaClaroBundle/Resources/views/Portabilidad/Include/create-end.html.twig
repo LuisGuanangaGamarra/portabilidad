@@ -1,0 +1,25 @@
+<div id="content-final" class="row no-margin" style="display: none">
+    <div class="container">
+        <div class="container-flex-2">
+            <div class="col-xs-12 col-lg-6">
+                <div class="card-thankyoupage">
+                    <p class="text-center" style="padding: 1em">
+                        <img src="{{ asset('/images/portabilidad/typ-icon.png') }}" alt="">
+                    </p>
+                    <h1>¡Genial!</h1>
+                    <p>Tu proceso de cambio ya se encuentra en curso. {% if is_landing is defined and is_landing %}  {% else %} En breve, un ejecutivo se contactará contigo para validar la información que nos proporcionaste. {% endif %}</p>
+                    <h3>¡Prepárate para ser Claro!</h3>
+                    <button class="btn back-menu" data-backtohome="" style="position: relative; left: initial;">
+                        Conoce nuestra Tienda
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div class="card-thankyoupage-banner">
+                    <img class="banner-new hidden-sm hidden-md" src="{{ asset('images/portabilidad/step-6-sm.jpg') }}" alt="">
+                    <img class="banner-new hidden-xs hidden-lg" src="{{ asset('images/portabilidad/step-6-lg.jpg') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

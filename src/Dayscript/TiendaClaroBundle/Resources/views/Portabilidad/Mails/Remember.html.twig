@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Necesitamos hablar contigo para concretar tu solicitud de cambio | Claro | Ecuador</title>
+    <link rel="shorcut icon" type="image/x-icon" href="https://tienda.claro.com.ec/images/home/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
+        * {
+            font-family: 'Roboto', Arial, 'Verdana', sans-serif !important;
+        }
+        h1 {
+            font-size: 25px;
+            color: #243C48;
+        }
+        h2 {
+            font-size: 20px;
+            color: #243C48;
+        }
+        img.banner {
+            height: auto; width: 100%;
+        }
+        table.detail {
+            width: 60%; margin-top: 30px;
+        }
+        table.detail tr {
+           /* vertical-align: top;*/
+        }
+        table.detail td:first-child {
+            width: 30%;
+        }
+        table.detail td:last-child {
+            width: 70%;
+            /*padding-top: 12px;*/
+        }
+        table.detail span {
+            font-size: 80px; font-weight: bold; color: #B7BEC3;
+        }
+        table.detail h2 {
+            font-size: 1.9em; margin: 0; font-weight: bold; padding-left: 10px; text-align: left;
+        }
+        p.with-img {
+            text-align: center; margin: 0 0 1em 0;
+        }
+        .normal-text {
+            font-size: 15px; line-height: 22px; color: #696969;
+        }
+        h1.subtitle {
+            font-size: 50px; font-weight: bold; color: #f5f5f5; margin: 40px 0 15px 0; text-align: center;
+        }
+        img {
+            width: auto;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background: #EFEFEF">
+<div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    Este es un correo electrónico enviado automáticamente por Tienda Virtual. Por favor, no lo responda.
+</div>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td style="padding: 5px">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="box-shadow: 6px 12px 12px 0 #dedede; max-width: 600px">
+                <tr>
+                    <td bgcolor="#EFEEEA" style="padding: 0 20px; width: 600px; height: 393px; background: url('https://tienda.claro.com.ec/images/mailing/banners/fondo-asesor.png')">
+                        <table style="height: 100%">
+                            <tr>
+                                <td style="text-align: left; padding: 10px">
+                                    <img class="banner" src="{{ imagenes['claro'] }}" alt="" style="width: auto; height: 40px">
+                                </td>
+                                <td style="text-align: right; padding: 10px">
+                                    <img class="banner" src="{{ imagenes['servicios'] }}" alt="" style="width: 114px; height: 27px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70%; padding: 30px">
+                                    <h1 style="font-size: 2.9em; line-height: 1.1em; margin: 0 !important; font-weight: 500">Necesitamos hablar contigo</h1>
+                                    <h3 style="font-size: 1.25em; color: #696969; font-weight: 400; margin: 0">para concretar tu solicitud de portabilidad</h3>
+                                </td>
+                                <td valign="bottom" style="padding: 0; vertical-align:bottom">
+                                    <img class="banner" src="{{ imagenes['asesora'] }}" alt="" title="Necesitamos hablar contigo" style="height: 100%; width: auto">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" style="padding: 30px 50px; text-align: justify">
+                        <h1 style="margin-top: 0">Estás a un paso de formar parte de nuestra familia Claro.</h1>
+                        <p class="normal-text">Hola <strong>{{ nombre }}</strong>,</p>
+                        <p class="normal-text">Hemos tratado de comunicarnos contigo a los números de contacto que
+                            registraste en el formulario; pero, no conseguimos ubicarte.</p>
+                        <p class="normal-text">Recuerda que es importante que nos contestes para culminar tu solicitud con éxito y obtener
+                            tu chip Claro, con el que disfrutarás de la mejor cobertura del país.</p>
+                    </td>
+                </tr>
+                <tr style="width: 600px; height: 242px; overflow: hidden; background: url('https://tienda.claro.com.ec/images/mailing/banners/banner01.jpg'); background-color: #A6DBE1;">
+                    <td style="padding: 15px 40px;">
+                        <table style="width: 300px">
+                            <tr>
+                                <td>
+                                    <h3 style="font-weight: 300;">Puedes dar clic <a href="{{ url_action }}" style="color: #1097AE; text-decoration: underline #1097AE;">aquí</a> y te llamamos de inmediato.</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 10px">
+                                    <a href="{{ url_action }}"><img src="{{ imagenes['btn-llamame'] }}" alt="" style="width: 100px; height: 35px"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr bgcolor="#f6f6f6">
+                    <td style="padding: 15px 30px; text-align: center">
+                        <h2 style="color: #696969; font-size: 17px">¿Tienes alguna duda de tu proceso de cambio?</h2>
+                        <p class="normal-text">Comunícate con nosotros por medio de nuestros canales de atención:</p>
+                        <table style="margin: 0 auto">
+                            <tr>
+                                <td style="padding: 0 10px">
+                                    <a href="https://www.facebook.com/claroecua"><img src="{{ imagenes['rrss-facebook'] }}" alt="" style="margin-right: 10px" title="Me gusta!"></a>
+                                </td>
+                                <td style="padding: 0 10px">
+                                    <a href="https://twitter.com/claroecua"><img src="{{ imagenes['rrss-twitter'] }}" alt="" style="margin-right: 10px" title="Síguenos!"></a>
+                                </td>
+                                <td style="padding: 0 10px">
+                                    <a href="https://www.youtube.com/user/ClaroEcuador"><img src="{{ imagenes['rrss-youtube'] }}" alt="" style="margin-right: 10px" title="Suscríbete!"></a>
+                                </td>
+                                <td style="padding: 0 10px">
+                                    <a href="https://www.instagram.com/claroecuador/"><img src="{{ imagenes['rrss-instagram'] }}" alt="" title="Explora!"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td style="padding: 30px">
+                        <table style="width: 85%">
+                            <tr bgcolor="#ffffff">
+                                <td style="padding-right: 30px">
+                                    <img src="{{ imagenes['content-05'] }}" alt="">
+                                </td>
+                                <td>
+                                    <h2 class="">También puedes llamarnos al</h2>
+                                    <p class="normal-text" style="font-size: 18px"><strong>*111</strong> desde un teléfono Claro o desde un
+                                        convencional al <strong>1800638638</strong>, opción 9, clave 777.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td style="padding: 0 30px 30px 30px; text-align: justify">
+                        <p class="normal-text"><strong>RECUERDA:</strong> Para que el proceso de cambio sea exitoso no debes presentar deudas en tu
+                            operadora actual. En caso de que el cambio no sea aprobado nos comunicaremos contigo para informarte el motivo.</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center; padding: 20px">
+            <img src="{{ imagenes['claro'] }}" alt="" style="height: 27px; width: auto">
+        </td>
+    </tr>
+</table>
+</body>
+</html>

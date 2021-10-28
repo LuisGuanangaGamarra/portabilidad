@@ -1,0 +1,53 @@
+/*!
+ */
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+    font-family: 'FontSamsung-bold';
+    src: url('../fonts/samsungsharpsans-bold.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FontSamsung-medium';
+    src: url('../fonts/samsungsharpsans-medium.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontSamsungsharpsans';
+    src: url('../fonts/samsungsharpsans.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontSamsungSans-Light';
+    src: url('../fonts/SamsungSans-Light.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontSamsungSans-Medium';
+    src: url('../fonts/SamsungSans-Medium.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontSamsungSans-Regular';
+    src: url('../fonts/SamsungSans-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontSamsungSans-Bold';
+    src: url('../fonts/SamsungSans-Bold.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontSamsungSans-Thin';
+    src: url('../fonts/SamsungSans-Thin.ttf');
+    font-weight: normal;
+    font-style: normal;
+}

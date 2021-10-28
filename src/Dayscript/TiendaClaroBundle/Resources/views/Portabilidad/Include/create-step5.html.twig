@@ -1,0 +1,48 @@
+<div id="form-step-5" class="row no-margin" style="display: none">
+    <div class="row no-margin">
+        <div class="col-xs-12 col-md-6">
+            <h4>¡Confirma tus datos!</h4>
+            <p style="text-align: justify">Debes estar seguro que los datos que te mostramos a continuación son los correctos; así podremos atender tu solicitud sin ningún inconveniente.</p>
+            <div class="row super-panel">
+                <div class="col-xs-12" style="margin: 0 0 1em 0">
+                    <h5 style="margin-top: 0">Datos personales</h5>
+                    <div class="col-xs-12 col-md-6">
+                        <p>Nombres: <span id="__result_nombres"></span></p>
+                        <p>C.I.: <span id="__result_cedula"></span></p>
+                        <p>Correo: <span id="__result_email"></span></p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <p class="no-margin">Número a portar: <span id="__result_numero"></span></p>
+                        <p class="no-margin">Operador actual: <span id="__result_operadora"></span> -  <span id="__result_modalidad"></span></p>
+                    </div>
+                </div>
+                <div id="resume__chip" class="col-xs-12" style="margin: 0 0 1em 0">
+                    <h5>Te enviaremos tu chip a:</h5>
+                    <div class="col-xs-12">
+                        <p id="__result_dir_direccion"></p>
+                        <p id="__result_dir_referencia"></p>
+                        <p><span id="__result_dir_ciudad"></span> - <span id="__result_dir_provincia"></span></p>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin: 0 0 2em 0">
+                    <h5 class="show-on-postpago">Archivos adjuntos</h5>
+                    <div class="col-xs-12 show-on-postpago">
+                        <p><a id="__result_an_solicitud" href="#" target="_blank" data-target="solicitud"><i class="glyphicon glyphicon-ok"></i>Solicitud de portabilidad</a></p>
+                        <p><a id="__result_an_cedfrontal" href="#" target="_blank" data-target="ced-anverso"><i class="glyphicon glyphicon-ok"></i>Cédula (frontal)</a></p>
+                        <p><a id="__result_an_cedreverso" href="#" target="_blank" data-target="ced-reverso"><i class="glyphicon glyphicon-ok"></i>Cédula (reverso)</a></p>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <label class="suscri checkcontainer" style="text-align: justify">
+                        Confirmo que leí y acepto los <a id="verterminoscondicionesEquipos" class="cursor" target="_blank" href="{{ terminos_y_condiciones }}">Términos y condiciones del servicio</a>
+                        <input type="checkbox" id="terminosycondiciones" class="" name="terminosycondiciones" value="" unchecked="">
+                        <span class="customCheck"></span>
+                    </label>
+                    <a class="btn btn-continue disabled" href="#!" data-source="5" data-toggle="6">Aceptar</a>
+                    <a class="btn btn-flat" href="#!" data-cancel="all">Cancelar</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

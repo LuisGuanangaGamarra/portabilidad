@@ -1,0 +1,93 @@
+.btnWhatsApp{
+    border-radius: 50%;
+    z-index: 999999;
+    box-shadow: 2px 0px 2px 2px rgba(0, 0, 0, 0.05);
+}
+#content{
+    right: -118px;
+    /* right: 0px; */
+    /* left: 1px; */
+    bottom: 2px;
+    position: fixed;
+    z-index: 998;
+    /* top: 589px; */
+    width: 169px;
+    height: 52px;
+    cursor: pointer;
+    background: transparent;
+    display: flex;
+    font-weight: 500;
+    border-radius: 200px 200px 200px 200px;
+    margin-right: 15px;
+}
+#content:hover{/*left: 81%;*/
+    animation: floating-left 1s!important;
+    animation-fill-mode: forwards!important;
+    color:#ffffff!important;
+    background: linear-gradient(0deg, #20B038 0%, #60D66A 100%)!important;
+    margin-right: 15px!important;
+}
+@keyframes floating-left {to {right: 0px;}}
+#content-cerrar{position:fixed;z-index:998;left:95px;top:400px;width:30px;height:75px;background:#e31d1a;border-radius:0px 5px 5px 0px;cursor:pointer;box-shadow:10px 0px 50px -9px #999, -10px 0px 50px -9px #999;}
+/*.asesor{padding-top:10%;width:30%;}*/
+.asesor{width:75%;}
+.asesorcerrar{margin-top:110%;width:43%;}
+#content-cerrar:after{content:'';display:block;position:absolute;top:30px;left:-9px;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:10px solid #e31d1a;}
+/*#content-chat{display:none;}*/
+.width40,.width60{float:left;display:flex;align-items:center;}
+.width40{width:40%;}
+.width60{width:50%;}
+.width60>p{margin:0;}
+#content-chat-responsive{
+    top:0px;
+    height:100%;
+    width:100%;
+}
+#btn-chat-responsive:hover{/*left: 81%;*/
+    animation: floating-left 1s!important;
+    animation-fill-mode: forwards!important;
+    color:#ffffff!important;
+    background: linear-gradient(0deg, #20B038 0%, #60D66A 100%)!important;
+}
+#btn-chat-responsive{
+    position: fixed;
+    border: none;
+    color: white;
+    top: 88%;
+    left: 80%;
+    z-index: 16;
+}
+.tamanoicon {
+    width: 50px;
+    height: 50px;
+    /* padding: 10%; */
+    border-radius: 50%;
+}
+.width30 {
+    width: 30%;
+}
+.width55 {
+    width: 60%;
+}
+#content-responsive {
+    right: -111px;
+    position: fixed;
+    z-index: 998;
+    /* top: 515px; */
+    bottom: 10px;
+    width: 162px;
+    height: 50px;
+    cursor: pointer;
+    /* background: #ffffff; */
+    display: flex;
+    font-weight: 500;
+    border-radius: 200px 200px 200px 200px;
+}
+#content-responsive:hover {
+    /* left: 81%; */
+    animation: floating-left 1s!important;
+    animation-fill-mode: forwards!important;
+    color: #ffffff!important;
+    background: linear-gradient(0deg, #20B038 0%, #60D66A 100%)!important;
+    margin-right: 15px!important;
+}

@@ -1,0 +1,401 @@
+{% block designHelp %}
+<div class="to-hide-portabilidad solicitar-llamada tnd-pos-sticky-bottom tnd-bottom-0-xs tnd-mt-20-xs tnd-bg-white font-bold tnd-p-10-xs tnd-z-index-2-xs tnd-pos-fixed tnd-pos-sticky-md tnd-width-xs-10">
+    <div class="container-accordeon-element accordeon-hidden-md">
+        <div class="accordeon-element-header tnd-text-center-xs tnd-hidden-md tnd-p-10-xs">
+            {% block tituloHelpJs1 %}
+                ¡Cámbiate aquí!
+            {% endblock %}
+        </div>
+        <div class="accordeon-element-body accordeon-visible-md">
+{#            <div style="display: none" class="sorteoS20 font-light #}{#tnd-pt-10-xs#}{# tnd-text-center-xs tnd-hidden-md">
+                Y participa en el sorteo de un SAMSUNG S20+</div>#}
+            <div class="{#normal#} font-light {#tnd-pt-10-xs#} tnd-text-center-xs tnd-hidden-md">
+                Solicita la llamada de un asesor </div>
+            <form id="tnd-formCallback" action="{{ path('TiendaClaro_callback') }}" tnd-validate-form>
+                <div class="flex-xs flex-nowrap-md flex-wrap-xs flex-cont-1-xs flex-center tnd-validate-form flex-cont-5-md amx-container-md" >
+                    <div class="tnd-visible-md">
+                        <div class="accordeon-element-header tnd-text-center-xs tnd-text-left-md font-strong">
+                            {% block tituloHelpJs2 %}
+                                ¡Cámbiate aquí!
+                            {% endblock %}
+                            <br>
+                            {#<div style="display: none" class="sorteoS20 font-light #}{#tnd-pt-10-xs#}{#">Y participa en el sorteo de un SAMSUNG S20+ #}{#Solicita la llamada de un asesor#}{#</div>#}
+                            <div class="{#normal#} font-light {#tnd-pt-10-xs#}">Solicita la llamada de un asesor</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                            <label for="text">Nombre</label>
+                            <div class="tnd-content-input">
+                                <input data-only-letters="" id="name-cb" name="name-cb" type="text" required="" class="tnd-input-text theme-2" placeholder="Ingresa tu nombre">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                            <label for="text">Número de cédula</label>
+                            <div class="tnd-content-input">
+                                <input id="ced-cb" required="" data-only-numbers="" data-custom-validate="" data-identification-number="" name="ced-cb" type="text" maxlength="10" class="tnd-input-text theme-2" placeholder="Ej. 0991122334">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                            <label for="text">Número telefónico</label>
+                            <div class="tnd-content-input">
+                                <input data-only-numbers data-cellphone-validation name="number-cb" type="text" required="" class="tnd-input-text theme-2" maxlength="10" placeholder="Ej. 0999123456">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                            <label for="text">Operadora actual</label>
+                            <div class="tnd-content-input">
+                                <input type="hidden" id="operadora-cb" name="operadora-cb" value="">
+                                <div class="cajaselect cajaselectOperadora">
+                                    <span class="operadoraValue seleccionado">Seleccione operadora</span>
+                                    <ul class="operadora listaselect">
+                                        <li><div href="#">Movistar</div></li>
+                                        <li><div href="#">Tuenti</div></li>
+                                        <li><div href="#">MaxiPlus</div></li>
+                                        <li><div href="#">CNT</div></li>
+                                        <li><div href="#">AkiMovil</div></li>
+                                    </ul>
+                                    <span class="fa fa-angle-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#<div>
+                        <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                            <label for="text">Servicio actual</label>
+                            <div class="tnd-content-input">
+                                <input type="hidden" id="servicio-cb" name="servicio-cb" value="">
+                                <div class="cajaselect cajaselectServicio">
+                                    <span class="servicioValue seleccionado">Seleccione servicio</span>
+                                    <ul class="servicio listaselect">
+                                        <li><div href="#">Prepago</div></li>
+                                        <li><div href="#">Postpago</div></li>
+                                    </ul>
+                                    <span class="fa fa-angle-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>#}
+                    <div>
+                        <div class="tnd-m-10-xs tnd-mb-20-xs tnd-ml-0-xs">
+                            {% if sQueueNameJITCB == 'CLIC2CALL_TIENDA4_2019' %}
+                                <label class="servicioPrepago" for="text">Servicio deseado</label><label class="planDeseado" style="display: none" for="text">Plan deseado</label>
+                            {% else %}<label class="servicioPrepago" style="display: none" for="text">Servicio deseado</label><label class="planDeseado" for="text">Plan deseado</label>{% endif %}
+                            <div class="tnd-content-input">
+                                <input type="hidden" id="plan-name-cb" name="plan-name-cb" value="">
+                                <div class="cajaselect cajaselectServicio">
+                                    {% if sQueueNameJITCB == 'CLIC2CALL_TIENDA4_2019' %}
+                                    <span class="servicioValue seleccionado">Prepago</span>
+                                    {% else %}
+                                        <span class="servicioValue seleccionado">Seleccione un plan</span>
+                                    {% endif %}
+                                    <ul class="servicio listaselect">
+                                        {% if sQueueNameJITCB == 'CLIC2CALL_TIENDA4_2019' %}
+                                            <li class="activePrepago"><div href="#">Prepago</div></li>
+                                            <li class="activePostpago" style="display: none"><div href="#">Plan Básico</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Básico Max</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Ideal</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Ideal Max</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Sin Limites</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Sin Limites Max</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Sin Limites Black</div></li>
+                                            <li class="activePostpago" style="display: none" ><div href="#">Plan Sin Limites VIP</div></li>
+                                        {% else %}
+                                            <li class="activePrepago" style="display: none"><div href="#">Prepago</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Básico</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Básico Max</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Ideal</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Ideal Max</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Sin Limites</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Sin Limites Max</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Sin Limites Black</div></li>
+                                            <li class="activePostpago" ><div href="#">Plan Sin Limites VIP</div></li>
+                                        {% endif %}
+                                    </ul>
+                                    <span class="fa fa-angle-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden"  id="stringDataCb" name="stringDataCb" value="{{ stringDataCb }}">
+                    <input type="hidden"  id="sQueueNameCb" name="sQueueNameCb" value="{{ sQueueNameCb }}">
+                    <input type="hidden"  id="sQueueNameJITCB" name="sQueueNameJITCB" value="{{ sQueueNameJITCB }}">
+
+                    <button id="send-callback" type="button" class="tnd-btn red send-callback tnd-mx-auto-xs tnd-mt-10-xs tnd-br-50-xs" tabindex="0">Solicitar llamada</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="tnd-pb8-pt4" id="typLlamada" style="display: none; background: #ffffff;">
+    <div class="container" style="text-align: center">
+        <img id="imgLlamada" src="{{ asset('web/images/iconos/typ_atencionClientes.svg') }}" alt="¡Listo!">
+        <div class="contentPort" style="padding: 20px;">
+            {#{% if {{ "now"|date("H:i") }} == 1 %}#}
+            <h1 class="msg1 txtSolicitud">¡Falta poco para que seas parte de la familia Claro!</h1>
+            <p class="msg1 mensajeTyp">Tu solicitud de portabilidad se envió con éxito, durante el transcurso del día uno de nuestros asesores se contactará contigo para ayudarte a completar el proceso de cambio.</p>
+            {#{% else %}#}
+            <h1 class="msg2 txtSolicitud" style="display: none">¡Falta poco para que seas parte de la familia Claro!</h1>
+            <p class="msg2 mensajeTyp" style="display: none">Tu solicitud de portabilidad se envió con éxito, durante el transcurso del día uno de nuestros asesores se contactará contigo para ayudarte a completar el proceso de cambio.</p>
+            {#{% endif %}#}
+            {#                <div class="tnd-red">
+                {% if (plan.cuotaSinImp) == 10 or (plan.cuotaSinImp) == 25 or (plan.cuotaSinImp) == 15 %}
+                    <p class="sorteoS20 mensajeTyp" style="color: #EF3829; display: none">Recuerda que estas participando en el sorteo de un SAMSUNG S20+</p>
+                {% endif %}
+            </div>#}
+        </div>
+        <div class="tnd-mb-20-xs">
+            <button id="btnatienda" class="tnd-btn red tnd-mx-auto-xs tnd-br-25-xs">Ir a la Tienda Virtual</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block helpJs %}
+    <style>
+        .cajaselect {
+            background-image: none;
+            border-top: 0 !important;
+            border-left: 0 !important;
+            border-right: 0 !important;
+            border-bottom: 1px solid #DDD;
+            font-size: 0.9rem;
+            color: #222222;
+            /*            padding: 10px;
+                        padding-right: 32px;*/
+            font-weight: 300;
+            border-radius: 2px;
+            width: 100%;
+            cursor: pointer;;
+            position: relative;
+            z-index: 1;
+            padding: 10px 0px 10px 5px;
+        }
+        .operadora{
+            position: fixed;
+            bottom: 61px;
+            right: 392px;
+            width: 13%;
+        }
+        .servicio{
+            position: fixed;
+            bottom: 70px;
+            right: 216px;
+            width: 13%;
+        }
+        ul.listaselect {
+            background: none repeat scroll 0 0 #fff;
+            border: 2px solid #50ace0;
+            display: none;
+            border-radius: 10px;
+            text-indent: 15px;
+        }
+        ul.listaselect li {
+            cursor: pointer;
+            display: block;
+            list-style: outside none none;
+            margin: 0;
+            padding: 0.7em 0.3em;
+        }
+        ul.listaselect li a {
+            color: #333;
+            text-decoration: none;
+        }
+        ul.listaselect li:hover {
+            background: #1097ae;
+            color: white!important;
+        }
+        ul.SelectProductos li:last-child {
+            border-bottom: medium none;
+        }
+        .fa{
+            color: #50ace0;
+            float: right;
+            margin-right: 5%;
+        }
+        .tnd-pb8-pt4{
+            padding-bottom: 8em;
+            padding-top: 4em;
+        }
+        .accordeon-element-header{
+            color: #ef3829
+        }
+        .font-light{
+            color: #000000;
+        }
+        .solicitar-llamada{
+            -webkit-box-shadow: 0px -6px 11px 0px rgba(0,0,0,0.15);
+            -moz-box-shadow: 0px -6px 11px 0px rgba(0,0,0,0.15);
+            box-shadow: 0px -6px 11px 0px rgba(29, 1, 1, 0.15);
+        }
+        @media screen and (min-width: 768px) {
+            .tnd-pos-sticky-bottom .accordeon-element-header::after {
+                display: none;
+            }
+            .flex-nowrap-md {
+                flex-wrap: nowrap;
+            }
+            .send-callback {
+                max-width: 135px;
+            }
+        }
+        @media screen and (max-width: 767px) {
+            .servicio {
+                position: fixed;
+                bottom: 133px;
+                right: 19px;
+                width: 92%;
+            }
+            .operadora {
+                position: fixed;
+                bottom: 228px;
+                right: 17px;
+                width: 93%;
+            }
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            function clickcaja(e) {
+                var lista = $(this).find("ul"),
+                    triangulo = $(this).find("span:last-child");
+                e.preventDefault();
+                //lista.is(":hidden") ? $(this).find("ul").show() : $(this).find("ul").hide();
+                $(this).find("ul").toggle();
+                if(lista.is(":hidden")) {
+                    triangulo.removeClass("fa-angle-up").addClass("fa-angle-down");
+                }
+                else {
+                    triangulo.removeClass("fa-angle-down").addClass("fa-angle-up");
+                }
+            }
+            function clickliOperadora(e) {
+                var textoOperadora = $(this).text(),
+                    operadoraValue = $(this).parent().prev(),
+                    lista = $(this).closest("ul"),
+                    triangulo = $(this).parent().next();
+                e.preventDefault();
+                e.stopPropagation();
+                operadoraValue.text(textoOperadora);
+                lista.hide();
+                triangulo.removeClass("fa-angle-up").addClass("fa-angle-down");
+                $('#operadora-cb').val(textoOperadora);
+
+                //console.log($('#operadora-cb').val());
+            }
+            function clickliServicio(e) {
+                var textoServicio = $(this).text(),
+                    servicioValue = $(this).parent().prev(),
+                    lista = $(this).closest("ul"),
+                    triangulo = $(this).parent().next();
+                e.preventDefault();
+                e.stopPropagation();
+                servicioValue.text(textoServicio);
+                lista.hide();
+                triangulo.removeClass("fa-angle-up").addClass("fa-angle-down");
+                //$('#servicio-cb').val(textoServicio);
+                $('#plan-name-cb').val(textoServicio);
+
+               // console.log($('#servicio-cb').val());
+            }
+            $(".cajaselect").click(clickcaja);
+            $(".cajaselectOperadora").on("click", "li", clickliOperadora);
+            $(".cajaselectServicio").on("click", "li", clickliServicio);
+        });
+
+        var lastScrollTop = 0;
+        $(window).scroll(function(event){
+            var st = $(this).scrollTop();
+            if (st > lastScrollTop){
+                // downscroll code
+                $(".listaselect").css('display', 'none');
+            }
+            //  else {
+            //     // upscroll code
+            //     $(".listaselect").css('display', 'inline');
+            // }
+            lastScrollTop = st;
+        });
+
+        $( document ).ready(function() {
+            var timeStart = '{{ timeStart }}';
+            var timeFinish = '{{ timeFinish }}';
+            var fecha = new Date();
+
+            if(fecha.getMonth()+1 == 11 ){
+                $('.sorteoS20').css('display', 'unset');
+                $('.normal').css('display', 'none');
+            }
+            var hora = fecha.getHours() + ":" + fecha.getMinutes();
+            //console.log(new Date().getHours() + ":" + fecha.getMinutes())
+            if ((!hora >= timeStart ) &&(!hora < timeFinish)) {
+                $('.msg2').show();
+                $('.msg1').hide();
+            }else{
+                $('.msg1').show();
+            }
+        });
+        $('#send-callback').on('click',function() {
+            var form_cb =  $("#tnd-formCallback");
+            if(form_cb.get(0).checkValidity()){
+                var form_data = form_cb.serialize();
+                $.ajax({
+                    url: form_cb.attr("action"),
+                    data: form_data,
+                    type: 'post',
+                    cache: false,
+                    beforeSend: function(){
+                        load();
+                    },
+                    success: function(data){
+                        if (!data.error){
+                            $("#name-cb").val("");
+                            $("#number-cb").val("");
+                            $("#ced-cb").val("");
+                            //$("#servicio-cb").val("");
+                            $("#plan-name-cb").val("");
+                            $("#operadora-cb").val("");
+                            //$("#servicio-cb").attr('disabled','disabled');
+                            $("#plan-name-cb").attr('disabled','disabled');
+                            $("#operadora-cb").attr('disabled','disabled');
+                            $("#name-cb").attr('disabled','disabled');
+                            $("#number-cb").attr('disabled','disabled');
+                            $("#ced-cb").attr('disabled','disabled');
+                            $('#send-callback').attr('disabled','disabled');
+                        }
+                        //modalAlert(data.msg);
+                        $('#typLlamada').show({top: 300});
+                        $('.to-hide-portabilidad').hide();
+                        gtag('event', 'Envío de formulario', {
+                            'event_category': data.stringData,
+                            'event_label': data.planNameStringData,
+                        });
+                        $('#btnatienda').click(function (e){
+                            window.location.href = "https://catalogo.claro.com.ec/";
+                            e.preventDefault();
+                        });
+
+                        loaded();
+                    },
+                    error : function (){
+                        loaded();
+                        modalAlert("Ocurrio un error inesperado, vuelva a intentarlo mas tarde");
+                    }
+                });
+            }
+        });
+
+    </script>
+
+{% endblock %}

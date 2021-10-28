@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Solicitud de Portabilidad | Claro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin: 0; padding: 0; background: #EFEFEF">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td style="padding: 10px 10px 30px 10px;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td bgcolor="#EF3829" style="padding: 10px 25px; ">
+                        <table border="0" cellpadding="0" style="width: 100%; height: 100%">
+                            <tr>
+                                <td style="width: 70%; text-align: left">
+                                    <img src="{{ asset('images/mailing/Claro-blanco.png') }}" alt="" style="height: 27px; width: auto">
+                                </td>
+                                <td style="width: 30%; text-align: right">
+                                    <img src="{{ asset('images/mailing/iconos-header-blanco.png') }}" alt="">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" style="font-family: Arial, sans-serif; padding: 20px 30px; text-align: justify; font-size: 15px; line-height: 22px; color: #696969">
+                        <h2 style=" font-size: 20px; color: #243C48">Hemos recibido una nueva solicitud de Portabilidad</h2>
+                        <p>La información recibida es la siguiente:</p>
+                        <div style="color: #424242; margin-left: 25px; padding: 7px 25px; border-left: 5px solid #1f979e; background-color: #eee;">
+                            <ul style="list-style: none">
+                                <li style="padding: 0 5px 5px 5px"><b style="margin-right: 2em">Número de solicitud:</b>{{ solicitud.docSecuencia }}</li>
+                                <li style="padding: 10px 5px 5px 5px"><b>Datos del solicitante:</b></li>
+                                <li>
+                                    <table border="0" cellpadding="0" style="margin-left: 2em">
+                                        <tr>
+                                            <th>Nombres:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.clienteNombre }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Cédula/RUC:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.clienteIdentificacion }}</td>
+                                        </tr>
+                                        {% if solicitud.clienteRazon != null %}
+                                            <tr>
+                                                <th>Razón Social:</th>
+                                                <td> style="padding-left: 1em"{{ solicitud.clienteRazon }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <th>Correo electrónico:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.clienteEmail }}</td>
+                                        </tr>
+                                    </table>
+                                </li>
+                                <li style="padding: 10px 5px 5px 5px"><b>Datos del(os) número(s) a portar:</b></li>
+                                <li>
+                                    <table border="0" cellpadding="0" style="margin-left: 2em">
+                                        <tr>
+                                            <th>Operador donante:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.operadoraDonante }} - {{ solicitud.isPrepagoBefore ? 'Prepago' : 'Postpago' }}</td>
+                                        </tr>
+                                        {% if solicitud.isPrepagoBefore == false %}
+                                            <tr>
+                                                <th>Tarifa previa:</th>
+                                                <td style="padding-left: 1em">$ {{ solicitud.tarifaMinima }} - $ {{ solicitud.tarifaMaxima }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <th>Números:</th>
+                                            <td style="padding-left: 1em">
+                                                {% for numero in solicitud.numeros %}
+                                                    {{ numero.numero }}
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                                <li style="padding: 10px 5px 5px 5px"><b>Desea cambiarse a:</b></li>
+                                <li>
+                                    <table border="0" cellpadding="0" style="margin-left: 2em">
+                                        <tr>
+                                            <th>Tipo:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.isPrepagoAfter ? 'Prepago' : 'Postpago' }}</td>
+                                        </tr>
+                                        {% if solicitud.planCodigo != null %}
+                                            <tr>
+                                                <th>Plan deseado:</th>
+                                                <td style="padding-left: 1em">{{ solicitud.planNombre }} ({{ solicitud.planCodigo }})</td>
+                                            </tr>
+                                        {% endif %}
+                                    </table>
+                                </li>
+                                {% if solicitud.direccionProvincia != null %}
+                                <li style="padding: 10px 5px 5px 5px"><b>Dirección para la recepción del chip:</b></li>
+                                <li>
+                                    <table border="0" cellpadding="0" style="margin-left: 2em">
+                                        <tr>
+                                            <th>Provincia:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.direccionProvincia }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ciudad:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.direccionCiudad }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Dirección:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.direccionExacta }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Referencia:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.direccionReferencia }}</td>
+                                        </tr>
+                                    </table>
+                                </li>
+                                {% endif %}
+                                {% if solicitud.contacto1 != null and solicitud.contacto2 != null %}
+                                <li style="padding: 10px 5px 5px 5px"><b>Contacto:</b></li>
+                                <li>
+                                    <table border="0" cellpadding="0" style="margin-left: 2em">
+                                        <tr>
+                                            <th>Número 1:</th>
+                                            <td style="padding-left: 1em">{{ solicitud.contacto1 }}</td>
+                                        </tr>
+                                        {% if solicitud.contacto2 != null %}
+                                            <tr>
+                                                <th>Número 2:</th>
+                                                <td style="padding-left: 1em">{{ solicitud.contacto2 }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    </table>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <p style="text-align: justify">
+                            Adjunto a este correo podrás encontrar:
+                        </p>
+                        <ul style="font-size: 15px; line-height: 22px; color: #696969">
+                            <li>Solicitud firmada.</li>
+                            <li>Foto del frente (anverso) de la cédula del solicitante.</li>
+                            <li>Foto del reverso de la cédula del solicitante.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#EF3829" style="padding: 10px 25px; ">
+                        <table border="0" cellpadding="0" style="width: 100%; height: 100%">
+                            <tr>
+                                <td style="width: 100%; text-align: center">
+                                    <a href=""><img src="{{ asset('images/mailing/rrss/fb.png') }}" alt="" style="margin-right: 15px" title="Me gusta!"></a>
+                                    <a href=""><img src="{{ asset('images/mailing/rrss/twitter.png') }}" alt="" style="margin-right: 15px" title="Síguenos!"></a>
+                                    <a href=""><img src="{{ asset('images/mailing/rrss/youtube.png') }}" alt="" style="margin-right: 15px" title="Suscríbete!"></a>
+                                    <a href=""><img src="{{ asset('images/mailing/rrss/instagram.png') }}" alt="" title="Explora!"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

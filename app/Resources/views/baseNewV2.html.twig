@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    {%- block metadata %}
+        {{- metadata|raw -}}
+    {% endblock %}
+    <title>{% block title %}{% endblock %} | Portabilidad Prepago</title>
+    <link rel="shorcut icon" href="{{ asset('web/favicon.ico') }}"> 
+    {%- block DataLayer -%}
+        <script>
+            window.dataLayer = window.dataLayer || []; // Google Tag Manager dataLayer
+        </script>
+    {% endblock %}
+    {%- block Analitycs %}
+        {#{- tags_header|raw -}#}
+    {% endblock -%}
+</head>
+<body>
+{%- block AnalitycsBody %}
+    {#{- tags_body|raw -}#}
+{% endblock -%}
+<aside id="main-loading" style="width: 100%; height: 100%; background: url('{{ asset("web/images/loading/claro_white.gif") }}') no-repeat center center #EF3829; background-size: 100px 100px; position: fixed; top: 0; left: 0; z-index: 999;"></aside>
+<header id="header" style="display:none">
+    {% block header %}
+    {% endblock %}
+    {% block alerta %}
+        {% if cambiateaclaro is defined %}
+            <div id="cambiateaclaro">
+                <p>C&aacute;mbiate a <img src="{{asset('web/images/section/logo-claro-blanco.png')}}" alt="Claro" style="margin-top: -0.5em;"/>
+                    <a href="{{ path('TiendaClaro_portabilidad_create_slash') }}" style="color: #fff; font-size: inherit; text-decoration: underline white">haciendo click aqu&iacute;</a>
+                </p>
+            </div>
+        {% endif %}
+    {% endblock %}
+</header>
+<main role="main" style="display:none" id="main">
+    {% block titulo %}
+        <section class="headerSection">
+            <div class="container">
+                <h1>Portabilidad Prepago</h1>
+            </div>
+        </section>
+    {% endblock %}
+    {% block body %}
+    {% endblock %}
+    <div id="previewsContainer" class="tnd-container">
+        {% block previews %}
+            {% include "DayscriptTiendaClaroBundle:Default/Previews:preview-home.html.twig" %}
+        {% endblock %}
+    </div>
+    {% block timer %}
+    {% endblock %}
+    {% block helpButtons %}
+    {% endblock %}
+</main>
+<footer id="footer" style="display:none">
+    {% block footer %}
+    {% endblock %}
+</footer>
+{% block stylesheets -%}
+    <link href="{{ asset('web/css/Bootstrap/bootstrap.min.css') }}" rel="stylesheet" type="text/css"><!-- En proceso de removerlo -->
+    <link href="{{ asset('web/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/library/slick/slick.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/library/slick/slick-theme.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/library/scrollbar/OverlayScrollbars.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/library/scrollbar/os-theme-round-dark.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/library/range/asRange.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/library/fancybox/jquery.fancybox.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/components/alerts/alerts.css') }}?v=202005061810" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/css/tienda.css') }}?v=202005061810" rel="stylesheet" type="text/css">
+    <link href="{{ asset('web/components/wsbutton/wsbutton.css') }}?v=202005061810" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block javascripts %}
+    <script>
+        var root = '{{ domainProtocol ~ app.request.httpHost ~ domainServer }}';
+        var rootImg = '{{ domainProtocol ~ app.request.httpHost ~ domainServerImg }}';
+    </script>
+    <script src="{{ asset('web/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('web/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('web/library/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('web/library/scrollbar/OverlayScrollbars.min.js') }}"></script>
+    <script src="{{ asset('web/library/range/jquery-asRange.min.js') }}"></script>
+    <script src="{{ asset('web/library/fancybox/jquery.fancybox.min.js') }}"></script>
+    <script src="{{ asset('web/components/alerts/alerts.js') }}?v=202005061810"></script>
+    <script src="{{ asset('web/components/events/events.js') }}?v=202005061810"></script>
+    <script src="{{ asset('web/js/tienda.js') }}?v=202005061810"></script>
+    <script async src="{{ asset('web/library/lazysizes/lazysizes.min.js') }}"></script>
+    <script src="{{ asset('web/components/wsbutton/wsbutton.js') }}?v=202005061810"></script>
+{% endblock %}
+</body>
+</html>

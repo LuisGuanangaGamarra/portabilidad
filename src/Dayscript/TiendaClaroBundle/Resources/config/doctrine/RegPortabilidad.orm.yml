@@ -1,0 +1,365 @@
+Dayscript\TiendaClaroBundle\Entity\RegPortabilidad:
+    type: entity
+    table: reg__portabilidad
+    repositoryClass: Dayscript\TiendaClaroBundle\Entity\RegPortabilidadRepository
+    properties:
+        clienteIdentificacion:
+            - NotBlank: ~
+            - AppBundle\Validator\Constraints\Cedula: ~
+    indexes:
+        IDX_482811DD54F03532:
+            columns:
+                - id_donante
+        IDX_482811DDB91944F2:
+            columns:
+                - id_receptor
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: AUTO
+            sequenceGenerator:
+                sequenceName: REG__PORTABILIDAD_ID_SEQ
+                allocationSize: 100
+                initialValue: 48429
+    fields:
+        formCodigo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: form_codigo
+        formPaso:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: form_paso
+        formIsConfirmado:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+            column: form_is_confirmado
+        formIsAprobado:
+            type: boolean
+            nullable: true
+            column: form_is_aprobado
+        clienteIdentificacion:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: cliente_identificacion
+        clienteNombre:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+            column: cliente_nombre
+        clienteRazon:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+            column: cliente_razon
+        clienteOtros:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: cliente_otros
+        clienteEmail:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+            column: cliente_email
+        clienteIsNatural:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+            column: cliente_is_natural
+        operadoraDonante:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: operadora_donante
+        operadoraReceptor:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: operadora_receptor
+        tarifaMinima:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: tarifa_minima
+        tarifaMaxima:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: tarifa_maxima
+        isPrepagoBefore:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+            column: is_prepago_before
+        isPrepagoAfter:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+            column: is_prepago_after
+        idPlan:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_plan
+        planNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: plan_nombre
+        planCodigo:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: plan_codigo
+        planTarifa:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: plan_tarifa
+        direccionProvincia:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: direccion_provincia
+        direccionCiudad:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: direccion_ciudad
+        direccionExacta:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+            column: direccion_exacta
+        direccionReferencia:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+            column: direccion_referencia
+        contacto1:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: contacto_1
+        contacto2:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: contacto_2
+        docSecuencia:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: doc_secuencia
+        docFechaCreacion:
+            type: datetime
+            nullable: true
+            column: doc_fecha_creacion
+        docFirma:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: doc_firma
+        ip:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+        observaciones:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP
+            column: updated_at
+        expiresAt:
+            type: datetime
+            nullable: true
+            column: expires_at
+        sentToClientAt:
+            type: datetime
+            nullable: true
+            column: sent_to_client_at
+        sentToClaroAt:
+            type: datetime
+            nullable: true
+            column: sent_to_claro_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        sentNoResponse:
+            type: datetime
+            nullable: true
+            column: sent_no_response
+        sentCallme:
+            type: datetime
+            nullable: true
+            column: sent_callme
+        isLanding:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+            column: is_landing
+        idStoPlan:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_sto_plan
+        idProducto:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_producto
+        nombreProducto:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+            column: nombre_producto
+        providerCb:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+            column: provider_cb
+        agencia:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+            column: agencia
+        lugar:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+            column: lugar
+        obtenerSim:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+            column: obtener_sim
+        tipoSolicitud:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+            column: tipo_solicitud
+        suscripcion:
+            type: boolean
+            nullable: true
+            options:
+                default: false
+            column: suscripcion
+    manyToOne:
+        idDonante:
+            targetEntity: TipoOperadora
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_donante:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idReceptor:
+            targetEntity: TipoOperadora
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_receptor:
+                    referencedColumnName: id
+            orphanRemoval: false
+        stoPlan:
+            targetEntity: StoPlan
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_sto_plan:
+                    referencedColumnName: id
+            orphanRemoval: false
+        producto:
+            targetEntity: StoProducto
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_producto:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

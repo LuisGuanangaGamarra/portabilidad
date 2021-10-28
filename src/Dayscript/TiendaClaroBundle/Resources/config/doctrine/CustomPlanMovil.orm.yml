@@ -1,0 +1,82 @@
+Dayscript\TiendaClaroBundle\Entity\CustomPlanMovil:
+    type: entity
+    table: cus__pl_moviles
+    indexes:
+        IDX_3BE7ABAE567A477F:
+            columns:
+                - id_plan
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        bp:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+        bpWeb:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            column: bp_web
+        oneId:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            column: one_id
+        isForPpaPost:
+            type: boolean
+            nullable: false
+            default: false
+            column: is_for_ppa_post
+        orden:
+            type: integer
+            length: 50
+            column: orden
+        subtipo:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            column: subtipo
+        incluye:
+            type: text
+            nullable: true
+            fixed: false
+            column: incluye
+        promocion:
+            type: text
+            nullable: true
+            fixed: false
+            column: promocion
+        imgDetalle:
+            type: text
+            nullable: true
+            fixed: false
+            column: img_detalle
+    oneToOne:
+        plan:
+            targetEntity: StoPlan
+            inversedBy: customPlan
+            joinColumn:
+                name: id_plan
+                referencedColumnName: id
+    manyToOne:
+        idPlan:
+            targetEntity: StoPlan
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_plan:
+                    referencedColumnName: id
+            orphanRemoval: false
+
+    lifecycleCallbacks: {  }

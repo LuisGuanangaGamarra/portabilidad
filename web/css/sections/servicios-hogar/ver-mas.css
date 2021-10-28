@@ -1,0 +1,223 @@
+/*.slick-slide.slick-cloned{
+    width: 103px!important;
+}
+.slick-track{
+    transform: translate3d(-738px, 0px, 0px)!important;
+    width: 1845px!important;
+}*/
+/*.slick-track{
+        transform: translate3d(-738px, 0px, 0px);
+    width: 1845px;
+}
+.slick-list {
+    padding: 0!important;
+}
+.slick-slide {
+    width: 280px!important;
+}*/
+.tnd-font-featured {
+    line-height: 20px;
+    font-size: 18px!important;
+}
+.tiposCanales{
+    font-size: 18px;
+    font-weight: 400;
+    color: #555555e6;
+}
+.fa.fa-search{
+    color: #1097AE;
+}
+.lupa{
+    position: relative;
+    z-index: 1;
+    /* bottom: -26px; */
+    right: 10%;
+    width: 60px;
+    height: 60px;
+    background: #EFF0F9;
+    border-radius: 10px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+}
+.inputBuscador{
+    width: 100%;
+    height: 60px;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 24px rgba(216, 219, 239, 0.85);
+    border-radius: 10px;
+    font-size: 18px;
+    border: #e8eaf6!important;
+}
+.slick-prev{
+    display: none!important;
+}
+button.slick-next {
+    /*background: url(https://www.catalogo.claro.com.ec/images/iconos/slick/arrow_right_blue.svg)!important;
+      background-repeat: no-repeat!important;*/
+    top: 50%;
+}
+.width-img-80{
+    width: 70%;
+}
+.div-canal{
+    background: linear-gradient(
+            180deg, #FFFFFF 0%, #FFEBEE 100%), #BDBDBD;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 12px;
+    width: 110px;
+    height: 110px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.text-servicio{
+    font-size: 13px;
+    color: #888888;
+    font-weight: 400;
+}
+.text-plan{
+    font-size: 37px;
+    font-weight: 900;
+}
+.text-precio {
+    font-size: 60px;
+    text-align: right;
+}
+@media (min-width: 768px){
+    .plan-feactures{
+        padding: 0px 100px;
+    }
+    .tnd-mt-35-md{
+        margin-top: 35px;
+    }
+}
+
+@media (max-width: 767px){
+    .txtDescripB {
+        margin-bottom: 25px;
+    }
+    .text-servicio {
+        font-size: 18px;
+    }
+    .text-anexo{
+        width: 100%!important;
+    }
+    .img-anexo{
+        width: 100%!important;
+    }
+    .parrafo-contenido{
+        width: 90%!important;
+    }
+}
+.img75{
+    width: 75%!important;
+    margin-top: 10%;
+}
+.funcionalidades{
+    line-height: 1.4;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #222;
+    margin-bottom: 20px;
+    list-style-type: square;
+    margin: 5% 5% 0% 5%;
+    text-align: justify;
+}
+.flex-cont-1-xs .img-anexo {
+    margin-top: 5%;
+}
+.titulo{
+    font-size: 32px;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #222;
+}
+.parrafo-contenido{
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #222;
+}
+.contenido-planes.plan-hogar {
+    background-image: url(https://www.catalogo.claro.com.ec/images/planeshogar/IMG_BG_fondo.png);
+    background-size: 50% 70%;
+    background-repeat: no-repeat;
+    background-position: 50% 40%;
+}
+.plan-hogar .txtDescrip {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 24px;
+}
+.plan-hogar .iconDetalles {
+    width: 110%;
+    height: auto;
+}
+.detalleProductoTabs .txtDescrip {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 24px;
+}
+.detalleProductoTabs .titulo {
+    font-size: 22px;
+    font-weight: 500;
+}
+.detalleProductoTabs #caracteristicasProducto {
+    min-height: 0px;
+    background: #e8eaf6!important;
+}
+.detalleProductoTabs #fichaProducto {
+    min-height: 0px;
+    background: #e8eaf6!important;
+}
+[role="main"] {
+    background-color: #f4f5fb;
+}
+.detalleProductoTabs .img-detalle{
+    /*width: 75%*/
+    width: 90%;
+}
+.tnd-p-20-100-md{
+    padding: 0px 100px;
+    padding-top: 10px;
+}
+.float-left-width{
+    float: left; width: 50%
+}
+.float-right-width{
+    float: right; width: 50%
+}
+
+@media (max-width: 480px){
+    .inputBuscador {
+        width: 310px;
+    }
+    .lupa {
+        position: relative;
+        z-index: 1;
+        width: 60px;
+        height: 62px;
+    }
+    .float-right-width{
+        float: none;  width: 100%
+    }
+    .float-left-width{
+        float: none;  width: 100%
+    }
+    .tnd-px-0-xs {
+        padding: 0px!important;
+    }
+    .detalleProductoTabs .img-detalle{
+        width: 100%;
+    }
+    .contenido-planes.plan-hogar {
+        background-image: url(https://www.catalogo.claro.com.ec/images/planeshogar/IMG_BG_fondo.png);
+        background-size: 100% 40%;
+        background-repeat: no-repeat;
+        background-position: 50% 5%;
+    }
+}

@@ -1,0 +1,64 @@
+<div id="form-step-3" class="row no-margin" style="display: none">
+    <div class="col-xs-12 col-md-5">
+        {% include "DayscriptTiendaClaroBundle:Portabilidad/Partials:banner.html.twig" with {step: 3, web: false, responsive: true} %}
+        <p>Ingresa la siguiente información para enviarte el chip:</p>
+        <h5>1. Dirección</h5>
+        <div class="row no-margin">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label class="required" for="provincia">Provincia:</label>
+                <select class="form-control2" name="provincia" id="provincia" data-type="select" onchange="changeCombo(this.value,'#ciudad','Escoger Ciudad');" >
+                    <option value="" selected disabled>Escoger Provincia</option>
+                    {% for valor, descripcion in provincias %}
+                        <option value="{{ valor|raw }}" >{{ descripcion|raw }}</option>
+                    {% endfor %}
+                </select>
+                <p class="form-control-msj truncate" data-target="provincia" data-error="Debes escoger una provincia"></p>
+            </div>
+            <div class="form-group col-xs-12 col-sm-6">
+                <label class="required" for="ciudad">Ciudad:</label>
+                <select class="form-control2" name="ciudad" id="ciudad" data-type="select">
+                    <option value="" disabled selected>Escoger Ciudad</option>
+                </select>
+                <p class="form-control-msj truncate" data-target="ciudad" data-error="Debes escoger una ciudad"></p>
+            </div>
+        </div>
+        <div class="row no-margin">
+            <div class="form-group col-xs-12">
+                <label class="required" for="direccion-calle">Dirección exacta:</label>
+                <input id="direccion-calle" name="direccion-calle" type="text" class="form-control" placeholder="Ingresar calle principal" data-type="text_full" required>
+                <p class="form-control-msj truncate" data-target="direccion-calle" data-error="Debes ingresar tu calle principal"></p>
+            </div>
+            <!--div class="form-group col-xs-12 col-sm-6">
+                <label class="required" for="direccion-casa">Numeración:</label>
+                <input id="direccion-casa" name="direccion-casa" type="text" class="form-control" placeholder="Ingresar numeración" data-type="text_full" required>
+                <p class="form-control-msj truncate" data-target="direccion-casa" data-error="Debes ingresar la numeración de la dirección"></p>
+            </div-->
+        </div>
+
+        <div class="row no-margin">
+            <div class="form-group col-xs-12">
+                <label class="required" for="direccion-referencia">Referencia:</label>
+                <input id="direccion-referencia" name="direccion-referencia" type="text" class="form-control" placeholder="Ingresar referencia" data-type="text_full" required>
+                <p class="form-control-msj truncate" data-target="direccion-referencia" data-error="Debes ingresar la referencia de la dirección"></p>
+            </div>
+        </div>
+        <div class="row no-margin">
+            <h5>2. Datos de contacto</h5>
+        </div>
+        <div class="row no-margin">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label class="required" for="contacto-telefono1">Teléfono de contacto:</label>
+                <input id="contacto-telefono1" name="contacto-telefono1" type="text" class="form-control" data-type="text_full" data-validate="numeric" maxlength="10" required>
+                <p class="form-control-msj truncate" data-target="contacto-telefono1" data-error="Debes ingresar un teléfono de contacto">Si es fijo, incluye el prefijo de área. Ej: 042XXXXXX</p>
+            </div>
+            <div class="form-group col-xs-12 col-sm-6">
+                <label class="optional" for="contacto-telefono2">Otro teléfono:</label>
+                <input id="contacto-telefono2" name="contacto-telefono2" type="text" class="form-control" data-validate="numeric" maxlength="10">
+            </div>
+        </div>
+        <a class="btn btn-continue" href="#!" data-source="3" data-toggle="4">Continuar</a>
+    </div>
+    <div class="col-xs-12 col-md-7" style="text-align: center; padding: 1.5em">
+        {% include "DayscriptTiendaClaroBundle:Portabilidad/Partials:banner.html.twig" with {step: 3, web: true, responsive: false} %}
+    </div>
+</div>

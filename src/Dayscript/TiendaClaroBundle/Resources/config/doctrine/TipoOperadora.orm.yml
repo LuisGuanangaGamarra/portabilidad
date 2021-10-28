@@ -1,0 +1,74 @@
+Dayscript\TiendaClaroBundle\Entity\TipoOperadora:
+    type: entity
+    table: tipo__operadoras
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        codigo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        nombreComercial:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: nombre_comercial
+        nombreLegal:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: nombre_legal
+        rutaImg:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: ruta_img
+        rutaThumb:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: ruta_thumb
+        isNosotros:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+            column: is_nosotros
+        isCompetencia:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+            column: is_competencia
+        createdAt:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    lifecycleCallbacks: {  }

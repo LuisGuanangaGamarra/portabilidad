@@ -1,0 +1,437 @@
+<script>
+
+    var root = '{{ domainServer }}';
+    var rootImg = '{{ domainServerImg }}';
+
+    var avatar = function (vista){
+        return false;
+    }
+
+    var string = function(array) { return array.join('\n'); };
+
+
+    $( document ).ready(function() {
+        /* LOAD */
+
+        gtag('event', 'Página Vista', {
+            'event_category': 'Landing portabilidad {{ provide }}'
+        });
+
+        var loader = document.createElement('div');
+        loader.className = 'loader';
+        loader.innerHTML = string([
+            '<div class="content">',
+            '<img src="'+ rootImg +'images/body/etiquetas/loading.gif">',
+            '<p>Procesando, espera unos segundos por favor.</p>',
+            '</div>'
+        ]);
+
+        document.body.appendChild(loader);
+
+        load = function() {
+            loader.style.display = 'flex';
+        };
+
+        loaded = function() {
+            loader.style.display = 'none';
+        };
+
+        var customForm = $('[tnd-validate-form]');
+
+        if ( customForm.length > 0 ){
+
+            var $inputs = $('[tnd-validate-form] input[type=text],[tnd-validate-form] input[type=email],[tnd-validate-form] textarea,[tnd-validate-form] select,[tnd-validate-form] input[type=checkbox][required]',);
+
+            $inputs.on('invalid', function(ev) {
+                ev.preventDefault();
+                var input = ev.currentTarget;
+                var $input = $(input);
+                deleteSuccesInput(input);
+                $($input.parent()).addClass('tnd-error-input');
+                $input.closest('.tnd-content-input').find('.tnd-error').remove();
+                $input.after(string([
+                    '<div class="tnd-msg-input tnd-error tnd-font-error">',
+                    input.validationMessage,
+                    '</div>',
+                ]));
+            });
+
+            $inputs.on('blur', function(ev) {
+                if(ev.currentTarget.checkValidity()){
+                    ev.preventDefault();
+                    var input = ev.currentTarget;
+                    var $input = $(input);
+                    $($input.parent()).addClass('tnd-success-input');
+                    $input.next('.tnd-success').remove();
+                    $input.after(string([
+                        '<div class="tnd-msg-input tnd-success tnd-font-success">Válido</div>',
+                    ]));
+                }
+            });
+
+            var deleteSuccesInput = function (input){
+                $($(input).parent()).removeClass('tnd-success-input');
+                $(input).next('.tnd-success').remove();
+            }
+
+            $inputs.on('focus', function(ev) {
+                var input = ev.currentTarget;
+                input.setCustomValidity("");
+                $($(input).parent()).removeClass('tnd-error-input');
+                $(input).next('.tnd-error').remove();
+                deleteSuccesInput(input);
+            });
+
+            $(document).on("mouseenter", ".tnd-custom-select.tnd-error-input", function(e) {
+                $(e.currentTarget).removeClass('tnd-error-input');
+                $($(e.currentTarget).parent()).find('.tnd-msg-input').remove();
+            });
+
+            // Identification number validation
+
+            $('[data-identification-number]').on('blur', function(ev) {
+                var input = ev.currentTarget;
+                if (!validateIdentificationNumber(input.value)) {
+                    input.setCustomValidity("Cédula inválida");
+                    input.checkValidity();
+                }
+            });
+
+            $('[data-cellphone-validation]').on('blur', function(ev) {
+                var input = ev.currentTarget;
+                var patternText = new RegExp(/^0[8-9]\d\d\d\d\d\d\d\d$/);
+                if (!patternText.test($(this).val())) {
+                    input.setCustomValidity("Número celular inválido");
+                    input.checkValidity();
+                }
+            });
+
+            $('[data-only-numbers]').keypress(function(ev) {
+                var charCode = ev.which || event.keyCode;
+                return (charCode >= 48 && charCode <= 57) || charCode == 8 || charCode == 9;
+            });
+
+            $('[data-only-letters]').keypress(function(ev) {
+                var tecla = ev.which || event.keyCode;
+
+                if (tecla == 8 || tecla == 9 || tecla == 241 || tecla == 209) {
+                    return true;
+                }
+
+                var pattern = /^[a-no-z A-NO-Z]$/;
+                var te = String.fromCharCode(tecla);
+                return pattern.test(te);
+            });
+
+        }
+
+        var signature_wrapper = document.getElementById("signature-pad-redesign");
+        var canvas = signature_wrapper.querySelector("canvas");
+
+        signaturePad = new SignaturePad(canvas, {
+            // It's Necessary to use an opaque color when saving image as JPEG;
+            // this option can be omitted if only saving as PNG or SVG
+            backgroundColor: 'rgb(255, 255, 255)',
+            penColor: "rgb(0, 0, 0)",
+            onBegin: function () {
+                $('#signature-pad-redesign').addClass('active');
+            }
+        });
+
+        // Adjust canvas coordinate space taking into account pixel ratio,
+        // to make it look crisp on mobile devices.
+        // This also causes canvas to be cleared.
+        function resizeCanvas() {
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+
+            // This part causes the canvas to be cleared
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+
+            // This library does not listen for canvas changes, so after the canvas is automatically
+            // cleared by the browser, SignaturePad#isEmpty might still return false, even though the
+            // canvas looks empty, because the internal data of this library wasn't cleared. To make sure
+            // that the state of this library is consistent with visual state of the canvas, you
+            // have to clear it manually.
+            signaturePad.clear();
+        }
+
+        resizeCanvas();
+        // On mobile devices it might make more sense to listen to orientation change,
+        // rather than window resize events.
+        window.onresize = resizeCanvas;
+
+        $('a[data-action=signature-clear]').click(function (e) {
+            e.preventDefault();
+            var el_signature_img = $('#signature-result');
+            if(el_signature_img.attr('src') !== '') {
+                el_signature_img.attr('src', '');
+                canvas.style.display = '';
+                $('a[data-action=signature-save]').show();
+                $('#signature-pad div').css('background', '');
+            }
+            $(this).removeClass('active');
+            signaturePad.clear();
+            $('input[name="portabilidad-firma"]').val('');
+            $('#signature-pad-redesign,#signature-pad-redesign .save').removeClass('active');
+        });
+
+        $('a[data-action=signature-save]').click(function (e) {
+            e.preventDefault();
+            if (signaturePad.isEmpty()) {
+                modalAlert("Primero realiza una firma antes de confirmarla.");
+            } else {
+                var dataURL = signaturePad.toDataURL();
+                $('#signature-result').attr('src', dataURL);
+                $('#signature-pad div').css('background', '#D5D5D5');
+                $('input[name="portabilidad-firma"]').val(dataURL);
+                canvas.style.display = 'none';
+                $('a[data-action=signature-clear],#signature-pad-redesign .save').addClass('active');
+            }
+        });
+
+        $('#change-now').on('click',function () {
+
+            if(validateForm()){
+                var form = document.getElementById('create-portabilidad-form');
+                var $form = $('#create-portabilidad-form');
+                var aData = new FormData(form);
+                var $formName = $form.attr('name');
+                $.ajax({
+                    url: "{{ path('TiendaClaro_portabilidad_storeLanding') }}",
+                    data: aData,
+                    type: 'post',
+                    enctype: 'multipart/form-data',
+                    cache: false,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,   // tell jQuery not to set contentType
+                    beforeSend: function () {
+                        load();
+                    },
+                    success: function (data) {
+                        console.info(data);
+                        if (data.error == false) {
+                            document.forms[$formName].submit();
+                            //Seguimiento form_sent
+                            //location.href = "{{ path('TiendaClaro_portabilidad_redesign_typ') }}";
+                            gtag('event', 'Envío de formulario', {
+                                'event_category': 'Landing portabilidad {{ provide }}'
+                            });
+                        }else{
+                            loaded();
+                            modalAlert("Ocurrio un error inesperado, vuelva a intentarlo mas tarde");
+                        }
+                    },
+                    error: function () {
+                        loaded();
+                        modalAlert("Ocurrio un error inesperado, vuelva a intentarlo mas tarde");
+                    }
+                });
+
+            }
+
+        });
+
+        var $inputsFirstBlock = $('[tnd-validate-form] input[name=nombre],[tnd-validate-form] input[name=apellido],[tnd-validate-form] input[name=numdoc],[tnd-validate-form] input[type=email],[tnd-validate-form] input[name=celular]');
+
+        function validateForm () {
+
+            var valid = true;
+
+            $.each($inputsFirstBlock,function (key, value) {
+                if(!$inputsFirstBlock[key].checkValidity())
+                    valid = false;
+            });
+
+            if(!valid){
+                scrollToElement('.data-person');
+                return false;
+            }
+
+            if(!validateRadio(document.getElementsByName('operadora-actual'))){
+                scrollToElement($('.element-radio').get(0));
+                modalAlert('Seleccione su operadora actual');
+                return false;
+            }
+
+            if(!validateRadio(document.getElementsByName('tipo-servicio'))){
+                scrollToElement($('.element-radio').get(0));
+                modalAlert('Seleccione el tipo de servicio');
+                return false;
+            }
+
+            if (!$('#foto-anverso').val()) {
+                modalAlert('No se ha cargado la foto de cédula frontal');
+                return false
+            }
+            if (!$('#foto-reverso').val()) {
+                modalAlert('No se ha cargado la foto del reverso de la cédula');
+                return false
+            }
+
+            if (signaturePad.isEmpty()) {
+                modalAlert("Primero debes realizar tu firma");
+                return false;
+            }
+
+            if($('input[name="portabilidad-firma"]').val()==''){
+                modalAlert("Primero debes confirmar la firma.");
+                return false;
+            }
+
+            var checks = $('#terminosycondiciones,#suscripcion');
+
+            $.each(checks,function (key, value) {
+                if(!checks[key].checkValidity())
+                    valid = false;
+            });
+
+            return valid;
+
+        };
+
+        function scrollToElement(element,time) {
+            $('html, body').animate({
+                scrollTop: $(element).offset().top - 86
+            }, time || 1000);
+        };
+
+        $('.customInputFileContainer input').on('change',function (e) {
+            var label	 = e.currentTarget.nextElementSibling;
+            var labelVal = label.innerHTML;
+            var fileName = e.target.value.split( '\\' ).pop();
+            if( fileName ) {
+                label.innerHTML = fileName;
+                $(label.nextElementSibling).hide()
+            }else
+                label.innerHTML = labelVal;
+        });
+
+        document.body.insertAdjacentHTML('beforeend', string([
+            '<div id="tnd-modal-message" style="display: none;" class="tnd-message-modal fancybox-content font-regular tnd-modal-content">',
+            '<span class="tnd-close-modal-icon tnd-close-modal active fa-times-circle"></span>',
+            '<div class="tnd-modal-header">',
+            '<div class="tnd-modal-title">',
+            '<img src="'+ rootImg +'images/body/icons/ico-title-medium.png">',
+            '<span class="tnd-ml-15-xs" id="titleModal"></span>',
+            '</div>',
+            '</div>',
+            '<div class="tnd-modal-body"></div>',
+            '<div class="tnd-modal-footer">',
+            '<button class="tnd-close-modal tnd-btn red tnd-ml-auto-xs min">OK</button>',
+            '</div>',
+            '</div>'
+        ]));
+
+        var closeModalClickOut = function () {
+            $('.fancybox-stage').on("click",function(e) {
+                var container = $(".tnd-modal-content");
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                    return $.fancybox.close();
+                }
+            });
+        }
+
+        var closeModal = function () {
+            $('.fancybox-stage').off('click');
+        }
+
+        $('.tnd-modal').fancybox({
+            type: 'inline',
+            modal: true,
+            afterShow: closeModalClickOut,
+            afterClose: closeModal
+        });
+        var body = document.querySelector('#tnd-modal-message .tnd-modal-body');
+        var title = document.querySelector('#tnd-modal-message .tnd-modal-header #titleModal');
+
+        modalAlert = function(html,titleModal) {
+            body.innerHTML = html;
+            title.innerHTML= titleModal || '';
+            $.fancybox.open(
+                {
+                    src : document.getElementById('tnd-modal-message'),
+                    type: 'inline',
+                    modal: true,
+                    afterShow: closeModalClickOut,
+                    afterClose: closeModal
+                }
+            );
+        };
+
+        $('.tnd-close-modal').on('click', function() {
+            return $.fancybox.close();
+        });
+
+        function validateRadio (radios)
+        {
+            for (i = 0; i < radios.length; ++ i) {
+                if (radios [i].checked) return true;
+            }
+            return false;
+        }
+
+        $('[data-backtohome]').click( function (){
+            previewTienda('#previewHome','{{ url('TiendaClaro_home') }}');
+        });
+
+    })
+
+    var validateIdentificationNumber = function(number) {
+        var digit3 = number[2];
+        var modulus11 = [7, 6, 5, 4, 3, 2];
+
+        /* Natural */
+        if (digit3 >= 0 && digit3 <= 5) {
+            var digits = number.substring(0, 9).split("");
+            var sum = digits.reduce(function(xs, x, i) {
+                var n = x * (i % 2 == 0 ? 2 : 1);
+                return xs + (n < 10 ? n : n - 9);
+            }, 0);
+            var mod = sum % 10;
+            var verifier = mod == 0 ? 0 : 10 - mod;
+            return verifier == number[9];
+        }
+
+        /* Public */
+        if (digit3 == 6) {
+            var digits = number.substring(0, 8).split("");
+            var sum = digits.reduce(function(xs, x, i) {
+                var n = x * modulus11[(i + 4) % 6];
+                return xs + n;
+            }, 0);
+            var mod = sum % 11;
+            var verifier = mod == 0 ? 0 : 11 - mod;
+            return mod != 1 && verifier == number[8];
+        }
+
+        /* Private */
+        if (digit3 == 9) {
+            var digits = number.substring(0, 9).split("");
+            var sum = digits.reduce(function(xs, x, i) {
+                var n = x * modulus11[(i + 5) % 6];
+                return xs + n;
+            }, 0);
+            var mod = sum % 11;
+            var verifier = mod == 0 ? 0 : 11 - mod;
+            return mod != 1 && verifier == number[9];
+        }
+
+        return false;
+    };
+
+    var previewTienda = function (elementToShow, url){
+        $('#content-general').hide();
+        window.scrollTo(0, 0);
+        $('#previewsContainer,'+elementToShow).show();
+        if (url!=null)
+            location.href = url;
+    };
+
+
+
+</script>
